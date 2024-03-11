@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
      else {
           $sql = "SELECT id From userAcccount WHERE email = ?";
      
-          if($stmt = mysqli_prepare($link, $sql)){
+          if($stmt = mysqli_prepare($conn, $sql)){
                mysqli_stmt_bind_param($stmt, "s", $param_email);
                
                $param_email = trim($_POST["email"]);
@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     if(mysqli_stmt_num_rows($stmt) == 1){
                     
-                         $email_err = "This email is aleready taken";
+                         $email_err = "This email is already taken";
                          
                     }
                     else {
@@ -70,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
      
           $sql = "INSERT INTO userAccount(username,password) values(?,?)";
      
-          if($stmt = mysqli_prepare($link,$sql)) {
+          if($stmt = mysqli_prepare($conn,$sql)) {
 	          mysqli_stmt_bind_param($stmt, "ss",$param_email,$param_password);
 	          
 	          $param_email = $email;
@@ -85,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	          mysqli_stmt_close($stmt);
           }
 	}
-	mysqli_close($link);
+	mysqli_close($conn);
 }
 
 
@@ -111,19 +111,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
      <h1>Login to your account</h1>
           <div class="form-group">
                <label for="exampleInputEmail1">Email address</label>
-               <input type="email" name="email" value= <?php echo $email ?> class="form-control" placeholder="Enter email" required>
+               <input type="email" name="email" value= <?php echo $email ?> class="form-control" placeholder="Enter email">
                <span class="invalid-feedback"><?php echo $email_err; ?></span>
     
           </div>
           <div class="form-group">
                <label for="exampleInputPassword1">Password</label>
-               <input type="password" name="password" value= <?php echo $password ?> class="form-control" placeholder="Password" required>
+               <input type="password" name="password" value= <?php echo $password ?> class="form-control" placeholder="Password">
                <span class="invalid-feedback"><?php echo $password_err; ?></span>
           </div>
           
           <div class="form-group">
                <label for="exampleInputPassword1">Confirm password</label>
-               <input type="password" name="confirmPassword" value= <?php echo $confirm_password ?> class="form-control" placeholder="Confirm password" required>
+               <input type="password" name="confirmPassword" value= <?php echo $confirm_password ?> class="form-control" placeholder="Confirm password">
                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
           </div>
           
