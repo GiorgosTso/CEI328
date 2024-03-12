@@ -11,6 +11,7 @@ $area = $_POST['area'];
 $phone = $_POST['phone'];
 $username = $_POST['username'];
 $typeOfUser = $_POST['typeOfUser'];
+$password = $_POST['password'];
 
 $hash = password_hash ($password, PASSWORD_DEFAULT);
 
@@ -25,8 +26,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
        
         //save to database
-        $query = "insert into clients (name,surname,city,email,area,phone,username) 
-        values ('$name','$surname','$city','$email','area','$phone')";
+        $query = "insert into clients (name,surname,city,email,area,phone) 
+        values ('$name','$surname','$city','$email','$area','$phone')";
 
         $query1 = "insert into useraccount(username, password, typeOfUser)values ('$username', '$hash', '3')";
 
