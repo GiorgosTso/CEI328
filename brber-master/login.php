@@ -1,9 +1,18 @@
 <?php
+
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: index.php");
+    exit;
+}
 include "config.php";//connect with the database
           
 //define the variables
-$email = $password = $confirm_password = "";
-$email_err = $password_err = $confirm_password_err = "";
+$email = $password = "";
+$email_err = $password_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -11,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           $email_err = "Please enter your email";
      }
      else {
-          $sql = "SELECT id From userAcccount WHERE email = ?";
+          $sql = "SELECT id From useraccount WHERE username = ?";
      
           if($stmt = mysqli_prepare($conn, $sql)){
                mysqli_stmt_bind_param($stmt, "s", $param_email);
@@ -39,36 +48,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           }
           
      }  
-     //validation for password
+     //validaiton for the password 
      $regex = '/^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]+$/';
      
      if(empty(trim($_POST["password"]))) {
           $password_err = "Please enter your passaword";
      }
-     elseif(strlen(trim($_POST["password"])) <= 6) {
+     elseif(strlen(trim($_POST["password"])) < 6) {
           $password_err = "Password must be at least 6 characters";
      }
-     elseif(!preg_match($regex,$password)) {
+     elseif(preg_match($regex,$password)) {
           $password_err = "Password must contain at least one number or one character!";
      }
      else {
           $password = trim($_POST["password"]);
      }
      //validation for confirm password
-     if(empty(trim($_POST["confirmPassword"]))) {
-         $confirm_password_err = "Please enter your password";
-     }
-     else {
-          $confirm_password = trim($_POST["confirmPassword"]);
      
-          if(empty($confirm_password_err) && $password != $confirm_password) {
-               $confirm_password_err = "The password did not match";
-		}
-     }
      //insert values in the database 
      if(empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
      
-          $sql = "INSERT INTO userAccount(username,password) values(?,?)";
+          $sql = "INSERT INTO useraccount(username,password) values(?,?)";
      
           if($stmt = mysqli_prepare($conn,$sql)) {
 	          mysqli_stmt_bind_param($stmt, "ss",$param_email,$param_password);
@@ -77,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	          $param_password = $password;
 	          
 	          if(mysqli_stmt_execute($stmt)) {
-	               header("location:login.php");
+	               header("location:index.html");
 	          }
 	          else {
 	               echo "Oops something went wrong. Please try again later.";
@@ -87,14 +87,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 	mysqli_close($conn);
 }
-
-
-
-                              
-
-
   
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
      <head>
@@ -111,25 +106,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
      <h1>Login to your account</h1>
           <div class="form-group">
                <label for="exampleInputEmail1">Email address</label>
-               <input type="email" name="email" value= <?php echo $email ?> class="form-control" placeholder="Enter email">
+               <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" placeholder="Enter email">
                <span class="invalid-feedback"><?php echo $email_err; ?></span>
     
           </div>
           <div class="form-group">
                <label for="exampleInputPassword1">Password</label>
-               <input type="password" name="password" value= <?php echo $password ?> class="form-control" placeholder="Password">
+               <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" placeholder="Password">
                <span class="invalid-feedback"><?php echo $password_err; ?></span>
-          </div>
-          
-          <div class="form-group">
-               <label for="exampleInputPassword1">Confirm password</label>
-               <input type="password" name="confirmPassword" value= <?php echo $confirm_password ?> class="form-control" placeholder="Confirm password">
-               <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
           </div>
           
           <div class="pass-submit">
                <a href="forgotPassword.php">Forgot Password?</a>
-               <button type="submit" class="btn btn-primary">Submit</button>
+               <input type="submit" value="Login" class="btn btn-primary"></input>
           </div>
           
           <div class="signup_link">
