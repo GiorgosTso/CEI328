@@ -6,7 +6,7 @@
 //     exit;
 // }
 include "config.php";//connect with the database
-          
+
 //define the variables
 $email = $password = "";
 $email_err = $password_err = $login_err = "";
@@ -87,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                               $_SESSION["email"] = $email;                            
                               
                               // Redirect user to welcome page
-                              header("location:html/index.html");
+                              header("location:../html/index.html");
                           } else{
                               
                               // Password is not valid, display a generic error message

@@ -1,14 +1,14 @@
 <?php
-
+ 
     session_start();
     
     // if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     //     header("location:html/index.php");
     //     exit;
     //}
+   
     
-    
-    
+   
     
     include "config.php";
     $name = "Southside barbershop";
@@ -40,8 +40,27 @@
                          
                     }
                     else {
-                         $email = trim($_POST["email"]);
-                         header("location: codeVerification.php");
+                     
+
+                     
+
+                      $to = "andreasggchristou@gmail.com";
+                      $subject = "Subject of your email";
+                      $message = "This is the content of your email.";
+
+// Additional headers
+$headers = "From: your-email@example.com\r\n";
+$headers .= "Reply-To: your-email@example.com\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion();
+
+// Send email
+if (mail($to, $subject, $message, $headers)) {
+    echo "Email sent successfully .";
+} else {
+    echo "Failed to send email.";
+}
+                         
+                         //header("location: codeVerification.php");
                     }
                     
                 }

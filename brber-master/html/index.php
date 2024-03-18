@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
     <meta charset="utf-8">
@@ -7,22 +7,22 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 
 	<!-- CSS here -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="assets/css/slicknav.css">
-    <link rel="stylesheet" href="assets/css/flaticon.css">
-    <link rel="stylesheet" href="assets/css/gijgo.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/animated-headline.css">
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-	<link rel="stylesheet" href="assets/css/themify-icons.css">
-	<link rel="stylesheet" href="assets/css/slick.css">
-	<link rel="stylesheet" href="assets/css/nice-select.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../assets/css/slicknav.css">
+    <link rel="stylesheet" href="../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../assets/css/gijgo.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/animated-headline.css">
+	<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="../assets/css/themify-icons.css">
+	<link rel="stylesheet" href="../assets/css/slick.css">
+	<link rel="stylesheet" href="../assets/css/nice-select.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
     <!-- ? Preloader Start -->
@@ -31,60 +31,14 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="assets/img/logo/loder.png" alt="">
+                    <img src="../assets/img/logo/loder.png" alt="">
                 </div>
             </div>
         </div>
     </div>
     <!-- Preloader Start -->
-    <header>
-        <!--? Header Start -->
-        <div class="header-area header-transparent pt-20">
-            <div class="main-header header-sticky">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <!-- Logo -->
-                        <div class="col-xl-2 col-lg-2 col-md-1">
-                            <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-xl-10 col-lg-10 col-md-10">
-                            <div class="menu-main d-flex align-items-center justify-content-end">
-                                <!-- Main-menu -->
-                                <div class="main-menu f-right d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">
-                                            <li class="active"><a href="index.html">Home</a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="services.html">Services</a></li>
-                                            <li><a href="portfolio.html">Portfolio</a></li>
-                                            <li><a href="blog.html">Blog</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="blog_details.html">Blog Details</a></li>
-                                                    <li><a href="elements.html">Element</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                                    <a href="from.html" class="btn header-btn">became a member</a>
-                                </div>
-                            </div>
-                        </div>   
-                        <!-- Mobile Menu -->
-                        <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Header End -->
-    </header>
+    <?php include "header.php"; ?>
+    
     <main>
         <!--? slider Area Start-->
         <div class="slider-area position-relative fix">
@@ -95,26 +49,14 @@
                         <div class="row">
                             <div class="col-xl-8 col-lg-9 col-md-11 col-sm-10">
                                 <div class="hero__caption">
-                                    <span data-animation="fadeInUp" data-delay="0.2s">with patrick potter</span>
+                                    <span data-animation="fadeInUp" data-delay="0.2s">with Mike</span>
                                     <h1 data-animation="fadeInUp" data-delay="0.5s">Our Hair Style make your look elegance</h1>
                                 </div>
                             </div>
                         </div>
                     </div>          
                 </div>
-                <!-- Single Slider -->
-                <div class="single-slider slider-height d-flex align-items-center">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-8 col-lg-9 col-md-11 col-sm-10">
-                                <div class="hero__caption">
-                                    <span data-animation="fadeInUp" data-delay="0.2s">with patrick potter</span>
-                                    <h1 data-animation="fadeInUp" data-delay="0.5s">Our Hair Style make your look elegance</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>          
-                </div>
+              
             </div>
             <!-- stroke Text -->
             <div class="stock-text">
@@ -137,7 +79,7 @@
                     <div class="col-lg-6 col-md-11">
                         <!-- about-img -->
                         <div class="about-img ">
-                            <img src="assets/img/gallery/about.png" alt="">
+                            <img src="../assets/img/gallery/about.png" alt="">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
@@ -149,14 +91,14 @@
                             </div>
                             <p class="mb-30 pera-bottom">Brook presents your services with flexible, convenient and cdpoe layouts. You can select your favorite layouts & elements for cular ts with unlimited ustomization possibilities. Pixel-perfreplication of the designers is intended.</p>
                             <p class="pera-top mb-50">Brook presents your services with flexible, convefnient and ent anipurpose layouts. You can select your favorite.</p>
-                            <img src="assets/img/gallery/signature.png" alt="">
+                            <img src="../assets/img/gallery/signature.png" alt="">
                         </div>
                     </div>
                 </div>
             </div>
             <!-- About Shape -->
             <div class="about-shape">
-                <img src="assets/img/gallery/about-shape.png" alt="">
+                <img src="../assets/img/gallery/about-shape.png" alt="">
             </div>
         </section>
         <!-- About-2 Area End -->
@@ -219,38 +161,28 @@
                     <div class="col-xl-8 col-lg-8 col-md-11 col-sm-11">
                         <div class="section-tittle text-center mb-100">
                             <span>Professional Teams</span>
-                            <h2>Our award winner hair cut exparts for you</h2>
+                            <h2>Hair cut expert for you</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row team-active dot-style">
                     <!-- single Tem -->
+                 
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                         <div class="single-team mb-80 text-center">
                             <div class="team-img">
-                                <img src="assets/img/gallery/team1.png" alt="">
+                                <img src="../assets/img/team1.jpg" alt="">
                             </div>
                             <div class="team-caption">
-                                <span>Master Barber</span>
-                                <h3><a href="#">Guy C. Pulido bks</a></h3>
+                                <span>Haircut Expert</span>
+                                <h3><a href="#">Mike</a></h3>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                         <div class="single-team mb-80 text-center">
                             <div class="team-img">
-                                <img src="assets/img/gallery/team2.png" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <span>Color Expart</span>
-                                <h3><a href="#">Steve L. Nolan</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                        <div class="single-team mb-80 text-center">
-                            <div class="team-img">
-                                <img src="assets/img/gallery/team3.png" alt="">
+                                <img src="../assets/img/gallery/team3.png" alt="">
                             </div>
                             <div class="team-caption">
                                 <span>Master Barber</span>
@@ -261,7 +193,7 @@
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                         <div class="single-team mb-80 text-center">
                             <div class="team-img">
-                                <img src="assets/img/gallery/team2.png" alt="">
+                                <img src="../assets/img/gallery/team2.png" alt="">
                             </div>
                             <div class="team-caption">
                                 <span>Master Barber</span>
@@ -287,25 +219,22 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="pricing-list">
                                     <ul>
-                                        <li>Styling. . . . . . . . . . . . . . . . . . . . . . . . . . . . <span>$25</span></li>
-                                        <li>Styling + Color. . . . . . . . . . . . . . . . . . . <span>$65</span></li>
-                                        <li>Styling + Tint. . . . . . . . . . . . . . . . . . . . . .<span>$65</span></li>
-                                        <li>  Semi-permanent wave. . . . . . . . . . . . .<span>$65</span></li>
-                                        <li> Cut + Styling. . . . . . . . . . . . . . . . . . . . . .<span>$63</span></li>
-                                        <li> Cut + Styling + Color. . . . . . . . . . . . . <span>$100</span></li>
-                                        <li> Cut + Styling + Tint. . . . . . . . . . . . . . . .<span>$100</span></li>
+                                        <li>Standard Haircut. . . . . . . . . . . . . . . . . . . . . . . . .<span>$12</span></li>
+                                        <li>Skin Fade. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .<span>$16</span></li>
+                                        <li>Skin fade + Lineup/beard . . . . . . . . . . . . . . . . . .<span>$20</span></li>
+                                        <li>Haircut + Beard . . . . . . . . . . . . . . . . . . . . . . . . . .<span>$16</span></li>
+                                        <li>Beard. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .<span>$10</span></li>
+                                        <li>Boys (Booster Chair). . . . . . . . . . . . . . . . . . . . .<span>$10</span></li>
+                                        
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="pricing-list">
                                     <ul>
-                                        <li>Cut. . . . . . . . . . . . . . . . . . . . . . . . . . . . .<span>$25</span></li>
-                                        <li>Shave. . . . . . . . . . . . . . . . . . . . . . . . . . <span>$65</span></li>
-                                        <li>Beard trim. . . . . . . . . . . . . . . . . . . . . .  <span>$65</span></li>
-                                        <li>Cut + beard trim. . . . . . . . . . . . . . . . .  <span>$65</span></li>
-                                        <li>Cut + shave. . . . . . . . . . . . . . . . . . . . . . .<span>$63</span></li>
-                                        <li>Clean up. . . . . . . . . . . . . . . . . . . . . . . . .<span>$100</span></li>
+                                        <li>Standard haircut + nose/ear wax. . . . . . . . . . .<span>$15</span></li>
+                                        <li>Skin fade + nose/ear wax. . . . . . . . . . . . . . . . . . .<span>$18</span></li>
+                                        <li>Stream shave. . . . . . . . . . . . . . . . . . . . . . . . . . . . . <span>$10</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -315,8 +244,8 @@
             </div>
             <!-- pricing img -->
             <div class="pricing-img">
-                <img class="pricing-img1" src="assets/img/gallery/pricing1.png" alt="">
-                <img class="pricing-img2" src="assets/img/gallery/pricing2.png" alt="">
+                <img class="pricing-img1" src="../assets/img/cut3.jpg" alt="">
+                <img class="pricing-img2" src="../assets/img/gallery/pricing2.png" alt="">
             </div>
         </div>
         <!-- Best Pricing Area End -->
@@ -335,25 +264,25 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(assets/img/gallery/gallery1.png);"></div>
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut1.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(assets/img/gallery/gallery2.png);"></div>
+                            <div class="gallery-img " style="background-image: url(../assets/img/barber.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(assets/img/gallery/gallery3.png);"></div>
+                            <div class="gallery-img " style="background-image: url(../assets/img/barber1.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(assets/img/gallery/gallery4.png);"></div>
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut2.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
@@ -362,7 +291,7 @@
         </div>
         <!-- Gallery Area End -->
         <!-- Cut Details Start -->
-        <div class="cut-details section-bg section-padding2" data-background="assets/img/gallery/section_bg02.png">
+        <div class="cut-details section-bg section-padding2" data-background="../assets/img/gallery/section_bg02.png">
            <div class="container">
             <div class="cut-active dot-style">
                 <div class="single-cut">
@@ -419,7 +348,7 @@
                         <div class="home-blog-single mb-30">
                             <div class="blog-img-cap">
                                 <div class="blog-img">
-                                    <img src="assets/img/gallery/home-blog1.png" alt="">
+                                    <img src="../assets/img/gallery/home-blog1.png" alt="">
                                     <!-- Blog date -->
                                     <div class="blog-date text-center">
                                         <span>24</span>
@@ -428,8 +357,8 @@
                                 </div>
                                 <div class="blog-cap">
                                     <p>|   Physics</p>
-                                    <h3><a href="blog_details.html">Footprints in Time is perfect House in Kurashiki</a></h3>
-                                    <a href="blog_details.html" class="more-btn">became a member »</a>
+                                    <h3><a href="../blog_details.html">Footprints in Time is perfect House in Kurashiki</a></h3>
+                                    <a href="../blog_details.html" class="more-btn">became a member »</a>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +367,7 @@
                         <div class="home-blog-single mb-30">
                             <div class="blog-img-cap">
                                 <div class="blog-img">
-                                    <img src="assets/img/gallery/home-blog2.png" alt="">
+                                    <img src="../assets/img/gallery/home-blog2.png" alt="">
                                     <!-- Blog date -->
                                     <div class="blog-date text-center">
                                         <span>24</span>
@@ -447,8 +376,8 @@
                                 </div>
                                 <div class="blog-cap">
                                     <p>|   Physics</p>
-                                    <h3><a href="blog_details.html">Footprints in Time is perfect House in Kurashiki</a></h3>
-                                    <a href="blog_details.html" class="more-btn">became a member »</a>
+                                    <h3><a href="../blog_details.html">Footprints in Time is perfect House in Kurashiki</a></h3>
+                                    <a href="../blog_details.html" class="more-btn">became a member »</a>
                                 </div>
                             </div>
                         </div>
@@ -460,7 +389,7 @@
     </main>
     <footer>
         <!--? Footer Start-->
-        <div class="footer-area section-bg" data-background="assets/img/gallery/footer_bg.png">
+        <div class="footer-area section-bg" data-background="../assets/img/gallery/footer_bg.png">
             <div class="container">
                 <div class="footer-top footer-padding">
                     <div class="row d-flex justify-content-between">
@@ -468,7 +397,7 @@
                             <div class="single-footer-caption mb-50">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                    <a href="../index.html"><img src="../assets/img/logo/logo2_footer.png" alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
@@ -476,8 +405,8 @@
                                     </div>
                                 </div>
                                 <div class="footer-number">
-                                    <h4><span>+564 </span>7885 3222</h4>
-                                    <p>youremail@gmail.com</p>
+                                    <h4><span>+357 </span>24 044146</h4>
+                                    <p>michalis@hotmail.com</p>
                                 </div>
                             </div>
                         </div>
@@ -514,6 +443,21 @@
                                 <div class="footer-tittle">
                                     <h4>Location</h4>
                                     <div class="footer-pera">
+                                        <div class="col-xl-10 col-lg-15 col-md-19 col-sm-10">
+                                            <div class="single-footer-caption mb-50">
+                                                <div class="footer-tittle">
+                                                    <ul>
+                                                        <li><a href="#">Monday 9:00 am- 7:00 pm</a></li>
+                                                        <li><a href="#">Tuesday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#">Wednesday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#">Thursday Closed</a></li>
+                                                        <li><a href="#">Friday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#">Suturday 8:00am - 7:00pm</a></li>
+                                                        <li><a href="#">Sunday Closed</a></li>
+                                                    </ul>
+                                                    </div>
+                                                    </div>
+
                                         <p class="info1">Subscribe now to get daily updates</p>
                                     </div>
                                 </div>
@@ -564,44 +508,44 @@
 
     <!-- JS here -->
 
-    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
-    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
     <!-- Jquery Mobile Menu -->
-    <script src="./assets/js/jquery.slicknav.min.js"></script>
+    <script src="../assets/js/jquery.slicknav.min.js"></script>
 
     <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="./assets/js/owl.carousel.min.js"></script>
-    <script src="./assets/js/slick.min.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/slick.min.js"></script>
     <!-- One Page, Animated-HeadLin -->
-    <script src="./assets/js/wow.min.js"></script>
-    <script src="./assets/js/animated.headline.js"></script>
-    <script src="./assets/js/jquery.magnific-popup.js"></script>
+    <script src="../assets/js/wow.min.js"></script>
+    <script src="../assets/js/animated.headline.js"></script>
+    <script src="../assets/js/jquery.magnific-popup.js"></script>
 
     <!-- Date Picker -->
-    <script src="./assets/js/gijgo.min.js"></script>
+    <script src="../assets/js/gijgo.min.js"></script>
     <!-- Nice-select, sticky -->
-    <script src="./assets/js/jquery.nice-select.min.js"></script>
-    <script src="./assets/js/jquery.sticky.js"></script>
+    <script src="../assets/js/jquery.nice-select.min.js"></script>
+    <script src="../assets/js/jquery.sticky.js"></script>
     
     <!-- counter , waypoint,Hover Direction -->
-    <script src="./assets/js/jquery.counterup.min.js"></script>
-    <script src="./assets/js/waypoints.min.js"></script>
-    <script src="./assets/js/jquery.countdown.min.js"></script>
-    <script src="./assets/js/hover-direction-snake.min.js"></script>
+    <script src="../assets/js/jquery.counterup.min.js"></script>
+    <script src="../assets/js/waypoints.min.js"></script>
+    <script src="../assets/js/jquery.countdown.min.js"></script>
+    <script src="../assets/js/hover-direction-snake.min.js"></script>
 
     <!-- contact js -->
-    <script src="./assets/js/contact.js"></script>
-    <script src="./assets/js/jquery.form.js"></script>
-    <script src="./assets/js/jquery.validate.min.js"></script>
-    <script src="./assets/js/mail-script.js"></script>
-    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="../assets/js/contact.js"></script>
+    <script src="../assets/js/jquery.form.js"></script>
+    <script src="../assets/js/jquery.validate.min.js"></script>
+    <script src="../assets/js/mail-script.js"></script>
+    <script src="../assets/js/jquery.ajaxchimp.min.js"></script>
     
     <!-- Jquery Plugins, main Jquery -->	
-    <script src="./assets/js/plugins.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/main.js"></script>
     
     </body>
 </html>
