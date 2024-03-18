@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     if (isset($emailSent) && $emailSent === true) {
                         // Success, redirect to your OTP verification page or show a success message
-                        header("Location: OTPverification.php");
+                        header("Location: OTPVerification.php");
                         exit;
                     } else {
                         // Failed to send OTP, show an error message
