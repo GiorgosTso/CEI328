@@ -145,6 +145,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                <label for="exampleInputPassword1">Password</label>
 
                <input type="password" name="password" id="password"  class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?><?php echo (!empty($login_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>" placeholder="Password"/>          
+               <i class="bi bi-eye-slash" id="togglePassword" ></i>
                
                <span class="invalid-feedback"><?php echo $login_err; ?>
                <span class="invalid-feedback"><?php echo $password_err; ?> 
