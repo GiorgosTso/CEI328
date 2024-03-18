@@ -81,18 +81,16 @@
                 <p class="mb-2">Enter your registered email ID to reset the password
                 </p>
               </div>
-              <form action= <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" id="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" name="email" placeholder="Enter Your Email">
-                  <span class="invalid-feedback"><?php echo $email_err ?></span>
-                </div>
-                <div class="mb-3 d-grid">
-                  <input type="submit" class="btn btn-primary">
-                    <a href="codeVerification.php">Reset Password</a>
-                  </input>
-                </div>
-              </form>
+              <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" name="email" placeholder="Enter Your Email">
+        <span class="invalid-feedback"><?php echo $email_err ?></span>
+    </div>
+    <div class="mb-3 d-grid">
+        <input type="submit" class="btn btn-primary" value="Reset Password">
+    </div>
+</form>
             </div>
           </div>
 </html>
