@@ -67,7 +67,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     Reset Password
                   </button>
                 </div>
-                <span>Don't have an account? <a href="sign-in.html">sign in</a></span>
               </form>
             </div>
           </div>
