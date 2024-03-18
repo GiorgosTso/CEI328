@@ -2,12 +2,15 @@
 session_start();
 include "config.php";
 
+// Initialize variables
 $email = "";
+$email_err = "";
 
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senderEmail = trim($_POST['email']);
-    
+    $email = $senderEmail; // Assign submitted email to $email
+
     if (empty($senderEmail)) {
         // Email input is empty, set error message and redirect
         $_SESSION['email_err'] = "Please enter an email";
@@ -28,10 +31,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_store_result($stmt);
                 
                 if (mysqli_stmt_num_rows($stmt) == 1) {
-                    // Email exists, redirect to password reset page
+                    // Email exists, redirect to OTP sending and handling
                     $_SESSION['email'] = $senderEmail; // Store email in session for later use
-                    header("Location: codeVerification.php");
-                    exit;
+                    include "sendOTP.php"; // Make sure this script is prepared for sending the OTP
+                    
+                    if (isset($emailSent) && $emailSent === true) {
+                        // Success, redirect to your OTP verification page or show a success message
+                        header("Location: codeVerification.php");
+                        exit;
+                    } else {
+                        // Failed to send OTP, show an error message
+                        // This error handling is within sendOTP.php, echoing an error if sending fails
+                    }
                 } else {
                     // Email doesn't exist, set error message and redirect
                     $_SESSION['email_err'] = "Sorry, we couldn't find your account";
@@ -48,8 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Not a POST request, clear previous error messages if any
-    $email_err = isset($_SESSION['email_err']) ? $_SESSION['email_err'] : "";
-    unset($_SESSION['email_err']); // Clear the error message in session
+    if(isset($_SESSION['email_err'])) {
+        $email_err = $_SESSION['email_err'];
+        unset($_SESSION['email_err']);
+    }
 }
 ?>
 
@@ -74,8 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" name="email" placeholder="Enter Your Email">
-                <span class="invalid-feedback"><?php echo $email_err ?></span>
+                <input type="email" id="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>" placeholder="Enter Your Email">
+                <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
             <div class="mb-3 d-grid">
                 <input type="submit" class="btn btn-primary" value="Reset Password">
