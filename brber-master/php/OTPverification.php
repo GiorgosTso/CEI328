@@ -21,9 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Unset OTP and expiry from the session after successful verification
             unset($_SESSION['otp'], $_SESSION['otp_expiry']);
-            
-            // Optionally, redirect to a new password setup page
-            // header("Location: newPassword.php");
+            header("Location: resetPassword.php");
             // exit;
         } else {
             // Either the code is incorrect, expired, or not set
