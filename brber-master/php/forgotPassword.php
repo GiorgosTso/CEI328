@@ -92,7 +92,6 @@
                     <a href="codeVerification.php">Reset Password</a>
                   </input>
                 </div>
-                <span>Don't have an account? <a href="createAccount.php">sign in</a></span>
               </form>
             </div>
           </div>
