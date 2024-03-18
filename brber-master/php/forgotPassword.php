@@ -2,11 +2,6 @@
 session_start();
 include "config.php";
 
-$name = "Southside barbershop";
-$error_message = "";
-$success_message = "";
-$email = "";
-
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senderEmail = trim($_POST['email']);
