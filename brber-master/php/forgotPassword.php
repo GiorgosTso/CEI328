@@ -2,6 +2,8 @@
 session_start();
 include "config.php";
 
+$email = "";
+
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senderEmail = trim($_POST['email']);
