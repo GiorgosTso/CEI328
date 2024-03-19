@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap hero-cap2 pt-70 text-center">
-                                <h2>Contact Us</h2>
+                                <h2>Order Products</h2>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
             <img src="<?= $row['product_image'] ?>" class="card-img-top" height="250">
             <div class="card-body p-1">
               <h4 class="card-title text-center text-info"><?= $row['product_name'] ?></h4>
-              <h5 class="card-text text-center text-danger"><i class="fas fa-rupee-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h5>
+              <h5 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h5>
 
             </div>
             <div class="card-footer p-1">
