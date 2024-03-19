@@ -1,0 +1,40 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  background: #f3f3f3;
+  
+  margin: 0;
+}
+form  {
+  border: solid grey;
+  border-radius: 15px;
+  padding:50px  40px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  text-align: center;
+
+}
+
+.form-group {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: start;
+}
+h1{
+  text-align: center;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid silver;
+}
+.signup_link {
+  padding-top: 10px;
+}
+.pass-submit {
+  display: flex;
+  justify-content: space-between;
+}
