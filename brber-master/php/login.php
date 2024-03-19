@@ -166,9 +166,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="row align-items-center">
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
-                                <div class="logo">
-                                    <img src="../assets/img/logo.png" alt=""></a>
-                                </div>
+                            <div class="logo">
+                                <a href="index.html"><img src="../assets/img/logo.png" alt=""></a>
+                            </div>
                             </div>
                         </div>
                     </div>
