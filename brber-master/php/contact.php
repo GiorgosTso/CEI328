@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="../assets/css/slick.css">
     <link rel="stylesheet" href="../assets/css/nice-select.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+    .error {color: #FF0000;}
+    </style>
 </head>
     <!--? Preloader Start -->
     <div id="preloader-active">
@@ -141,33 +145,43 @@
                 <div class="row">
                     <div class="col-12">
                         <h2 class="contact-title">Get in Touch</h2>
+                        
                     </div>
+                    
                     <div class="col-lg-8">
-                        <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <p><span class="error">* required field</span></p>
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea class="form-control w-100" name="message" id="message" cols="20" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message"></textarea>
+                                        <textarea class="form-control w-100" name="message" id="message" cols="20" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message" value ="<?= $message ?>" required></textarea>
+                                        <span class="error"><?= $message_error ?>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name" value= "<?= $name ?>" required>
+                                        <span class="error"><?= $name_error ?>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="surname" id="surname" type="surname" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your surname'" placeholder="Enter your surname">
+                                        <input class="form-control valid" name="surname" id="surname" type="surname" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your surname'" placeholder="Enter your surname" value ="<?= $surname ?>"required>
+                                        <span class="error"><?= $surname_error ?>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+                                        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email" value ="<?= $email ?>" required>
+                                        <span class="error"><?= $email_error ?>
                                     </div>
                                 </div>
+                               
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject">
+                                        <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject" value ="<?= $subject ?>"required>
+                                        <span class="error"><?= $subject_error ?>
                                     </div>
                                 </div>
                             </div>
@@ -178,39 +192,29 @@
                     </div>
                     <div class="col-lg-3 offset-lg-1">
                         <div class="media contact-info">
-                            <span class="contact-info__icon"><i class="ti-home"></i>
+                            <span class="contact-info__icon"><i class="ti-home"></i></span>
                             <div class="media-body">
                                 <h3>Pyla, Larnaca.</h3>
                                 <p>Shop 4, Ανθούσης 3, Larnaca 7081</p>
                             </div>
                         </div>
                         <div class="media contact-info">
-                            <span class="contact-info__icon"><i class="ti-tablet"></i>
+                            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
                             <div class="media-body">
                                 <h3>+357 24 044146</h3>
-                                
+                                <p>   
+                                            Monday 9:00 am-7:00 pm
+                                            Tuesday 9:00 am-7:00 pm
+                                            Wednesday 9:00am-7:00pm <br>
+                                            Thursday Closed <br>
+                                            Friday 9:00 am-7:00 pm
+                                            Suturday 8:00 am-7:00 pm
+                                            Sunday Closed
+                                          </p>
                                         
                                         
                                     </div>
                                 </div>
-
-                                <div class="media contact-info">
-                                    <span class="contact-info__icon"><i class="ti-tablet"></i>
-                                    <div class="media-body">
-                                        <h3>Business Hours</h3>
-                                        <p>   
-                                                    Monday 9:00 am-7:00 pm
-                                                    Tuesday 9:00 am-7:00 pm
-                                                    Wednesday 9:00am-7:00pm<br>
-                                                    Thursday Closed <br>
-                                                    Friday 9:00 am-7:00 pm
-                                                    Suturday 8:00 am-7:00 pm
-                                                    Sunday Closed
-                                                   </p>
-                                                
-                                                
-                                            </div>
-                                        </div>
                                 
                             </div>
                         </div>
@@ -244,7 +248,71 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Location </h4>
+                                    <ul>
+                                        <li><a href="#">Advanced</a></li>
+                                        <li><a href="#"> Management</a></li>
+                                        <li><a href="#">Corporate</a></li>
+                                        <li><a href="#">Customer</a></li>
+                                        <li><a href="#">Information</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Explore</h4>
+                                    <ul>
+                                        <li><a href="#">Cookies</a></li>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Proparties</a></li>
+                                        <li><a href="#">Licenses</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Business Hours</h4>
+                                    <div class="footer-pera">
+                                        <div class="col-xl-10 col-lg-15 col-md-19 col-sm-10">
+                                            <div class="single-footer-caption mb-50">
+                                                <div class="footer-tittle">
+                                                    <ul>
+                                                        <li><a href="#">Monday 9:00 am- 7:00 pm</a></li>
+                                                        <li><a href="#">Tuesday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#">Wednesday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#">Thursday Closed</a></li>
+                                                        <li><a href="#">Friday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#">Suturday 8:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#">Sunday closed</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                    </div>
+                                        <p class="info1">Subscribe now to get daily updates</p>
+                                    </div>
+                                </div>
+                                <!-- Form -->
+                                <div class="footer-form">
+                                    <div id="mc_embed_signup">
+                                        <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part" novalidate="true">
+                                            <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address " class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'">
+                                            <div class="form-icon">
+                                                <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">Send</button>
+                                            </div>
+                                            <div class="mt-10 info"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="footer-bottom">
@@ -311,3 +379,4 @@
 
     </body>
 </html>
+
