@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require 'config.php';
+	require '../php/config.php';
 
 	// Add products into the cart table
 	if (isset($_POST['pid'])) {// edo pianei ola ta dedomena tou pou ton pinaka 

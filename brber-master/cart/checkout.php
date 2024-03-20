@@ -1,5 +1,5 @@
 <?php
-	require 'config.php';
+	require '../php/config.php';
 
 	$grand_total = 0;
 	$allItems = '';

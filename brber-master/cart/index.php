@@ -1,4 +1,11 @@
-<?php include "../php/config.php"?>
+<?php 
+	 session_start();
+	 
+	 include "../php/config.php";
+	 
+	//$_SESSION['typeOfUser'] = '1';
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +70,13 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+			<?php 
+	             if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] === '1') {
+					echo "<button>Admin-only Action</button>";
+				}
+	        ?>
+        </li>
+        <li class="nav-item">
           <a class="nav-link active" href="index.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
         </li>
         <li class="nav-item">
@@ -84,7 +98,6 @@
     <div id="message"></div>
     <div class="row mt-2 pb-3">
       <?php
-  			include 'config.php';
   			$stmt = $conn->prepare('SELECT * FROM product');
   			$stmt->execute();
   			$result = $stmt->get_result();
