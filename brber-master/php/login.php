@@ -89,6 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                               
                               // Redirect user to welcome page
                               header("location:../html/index.php");
+
                           } else{
                               
                               // Password is not valid, display a generic error message
