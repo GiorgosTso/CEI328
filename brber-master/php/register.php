@@ -4,6 +4,8 @@ session_start();
 include("config.php");
 
 
+
+
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
     $name = $_POST['name'];
@@ -35,7 +37,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         $result1 = mysqli_query($conn, $query1);
         
         header("Location: ../php/login.php?Success=Account created successfully");
-
         die();
     }else
     {

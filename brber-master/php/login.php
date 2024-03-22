@@ -85,13 +85,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                               $_SESSION["loggedin"] = true;
                               $_SESSION["id"] = $id;
                               $_SESSION["email"] = $email;
-                              //$_SESSION[""] = $
                               
                               // Redirect user to welcome page
                               header("location:../html/index.php");
-
                           } else{
-                              
+                               
                               // Password is not valid, display a generic error message
                               $login_err = "Invalid email or password.";
                           }

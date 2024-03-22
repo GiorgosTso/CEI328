@@ -79,7 +79,7 @@
             </thead>
             <tbody>
               <?php
-                require 'config.php';
+                require '../php/config.php';
                 $stmt = $conn->prepare('SELECT * FROM cart');
                 $stmt->execute();
                 $result = $stmt->get_result();

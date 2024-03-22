@@ -1,18 +1,21 @@
-<?php include "../php/config.php"?>
+<?php
+  include_once("../php/config.php");
+  $result = mysqli_query($conn,"SELECT * FROM product ");
+  
 
-<!doctype html>
-<html class="no-js" lang="zxx">
+?>
+
+
+
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Barber HTML-5 Template </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
-
-	<!-- CSS here -->
-	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My first php coding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+   rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+   crossorigin="anonymous">
+   <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
 	<link rel="stylesheet" href="../assets/css/slicknav.css">
     <link rel="stylesheet" href="../assets/css/flaticon.css">
@@ -25,41 +28,46 @@
 	<link rel="stylesheet" href="../assets/css/slick.css">
 	<link rel="stylesheet" href="../assets/css/nice-select.css">
 	<link rel="stylesheet" href="../assets/css/style.css">
-	<link rel="stylesheet" href="css/demo.css">
+	
+	<link rel="stylesheet" href="css/viewProducts.css">
+	
+	
 </head>
 <body>
-    <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="../assets/img/logo.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <header>
-        <?php include "header.php"?>
-    </header>
-    
-    <div class="slider-area2">
-            <div class="slider-height2 d-flex align-items-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap hero-cap2 pt-70 text-center">
-                                <h2>Appointment</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+<button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal">
+    Add Products
+  </button>
+  <?php include "add.php"?>
+<table class="table table-dark table-striped" >
+  <thead >
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">product name</th>
+      <th scope="col">product price</th>
+      <th scope="col">product qty</th>
+      <th scope="col">update</th>
+    </tr>
+  </thead>
+
+
+  <?php
+  while($user_data= mysqli_fetch_assoc($result))
+  {
+        echo "<tr>";
+        echo "<td>".$user_data['id']."</td>";
+        echo "<td>".$user_data['product_name']."</td>";
+        echo "<td>".$user_data['product_price']."</td>";
+        echo "<td>".$user_data['product_qty']."</td>"; 
+        echo "<td><a href='edit.php?id=$user_data[id]'><button type='button' class='btn btn-primary editBtn' data-bs-toggle='modal' data-bs-target='#editProductModal'>Edit</button></a> |
+        <a href='delete.php?id=$user_data[id]'><button type='button' class='btn btn-danger editBtn' data-bs-toggle='modal' data-bs-target='#editProductModal'>Delete</button></a></td></tr>";  
         
-        <?php include "footer.php"?>
-        
-    <script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+  }
+  ?>
+
+ 
+      </table>
+	  <script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="../assets/js/popper.min.js"></script>
@@ -98,3 +106,6 @@
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/main.js"></script>
     
+  
+</body>
+</html>

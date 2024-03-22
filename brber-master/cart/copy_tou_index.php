@@ -76,11 +76,10 @@
   <!-- Navbar start -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
-  <a href="viewProducts.php"><button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal">
+  <button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal">
     Edit Products
   </button>
-  </a>
-  
+  <?php include "viewProducts.php"?>
   </div>
   
     
@@ -137,6 +136,7 @@
                 <input type="hidden" class="pname" value="<?= $row['product_name'] ?>">
                 <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
                 <input type="hidden" class="pimage" value="<?= $row['product_image'] ?>">
+                <input type="hidden" class="pcode" value="<?= $row['product_code'] ?>">
                 <button class="btn btn-info btn-block addItemBtn"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Add to
                   cart</button>
               </form>
