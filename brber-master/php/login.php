@@ -1,116 +1,85 @@
 <?php
- 
-// // Check if the user is already logged in, if yes then redirect him to welcome page
-// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-//     header("location: html/index.php");
-//     exit;
-// }
-include "config.php";//connect with the database
+    session_start(); // Start the session at the very beginning
+    
 
-//define the variables
+include "config.php"; // Connect with the database
+
+// Define variables and initialize with empty values
 $email = $password = "";
 $email_err = $password_err = $login_err = "";
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    // Check if email is empty
+    if (empty(trim($_POST["email"]))) {
+        $email_err = "Please enter your email.";
+    } else {
+        $email = trim($_POST["email"]);
+    }
+    
+    // Check if password is empty
+    if (empty(trim($_POST["password"]))) {
+        $password_err = "Please enter your password.";
+    } else {
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate credentials
+    if (empty($email_err) && empty($password_err)) {
+        // Prepare a select statement
+        $sql = "SELECT id, username, password, typeOfUser FROM useraccount WHERE username = ?";
+        
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
+            
+            // Set parameters
+            $param_email = $email;
+            
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if email exists, if yes then verify password
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $email, $hashed_password, $typeOfUser);
+                    if (mysqli_stmt_fetch($stmt)) {
+                        if (password_verify($password, $hashed_password)) {
+                            // Password is correct, so start a new session
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["email"] = $email;
+                            $_SESSION["typeOfUser"] = $typeOfUser; // Store the user type
+                            $_SESSION['logout_token'] = bin2hex(random_bytes(32));
+                            
+                            // Redirect user to welcome page
+                            header("location: ../html/index.php");
+                            exit;
+                        } else {
+                            // Password is not valid, display a generic error message
+                            $login_err = "Invalid email or password.";
+                        }
+                    }
+                } else {
+                    // Email doesn't exist, display a generic error message
+                    $login_err = "Invalid email or password.";
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
 
-     if(empty(trim($_POST["email"]))){//check if the email is in the database
-          $email_err = "Please enter your email";
-     }
-     else {
-          $sql = "SELECT id From useraccount WHERE username = ?";
-          
-          if($stmt = mysqli_prepare($conn, $sql)){
-               mysqli_stmt_bind_param($stmt, "s", $param_email);
-               $param_email = trim($_POST["email"]);
-             
-             if(mysqli_stmt_execute($stmt)){
-             
-                  mysqli_stmt_store_result($stmt);
-                  
-                  if(!(mysqli_stmt_num_rows($stmt) == 1)){
-                  
-                       $email_err = "Sorry, we couldn't find your account";    
-                  }
-                  else {
-                       $email = trim($_POST["email"]);
-                  }
-                  
-              }
-              else {
-                  echo "Oops something went wrong, please try again later.";
-             }     
-             mysqli_stmt_close($stmt);
-          }
-     }
-     //validation for the password
-     
-     if(empty(trim($_POST["password"]))) {
-          $password_err = "Please enter your password";
-     }
-     else {
-          $password = trim($_POST["password"]);
-     }
-	//validation if the password and the username is for the same user
-	
-	if(empty($username_err) && empty($password_err)){
-          // Prepare a select statement
-          $sql = "SELECT id, username, password FROM useraccount WHERE username = ?";
-          
-          if($stmt = mysqli_prepare($conn, $sql)){
-              // Bind variables to the prepared statement as parameters
-              mysqli_stmt_bind_param($stmt, "s", $param_email);
-              
-              // Set parameters
-              $param_email = $email;
-              
-              // Attempt to execute the prepared statement
-              if(mysqli_stmt_execute($stmt)){
-                  // Store result
-                  
-                  mysqli_stmt_store_result($stmt);
-                  
-                  // Check if username exists, if yes then verify password
-                  if(mysqli_stmt_num_rows($stmt) == 1){                    
-                      // Bind result variables
-                      mysqli_stmt_bind_result($stmt, $id, $email, $hashed_password);
-                      if(mysqli_stmt_fetch($stmt)){
-                      
-                          if(password_verify($password, $hashed_password)){
-                              // Password is correct, so start a new session
-                              
-                              
-                              session_start();
-                              
-                              // Store data in session variables
-                              $_SESSION["loggedin"] = true;
-                              $_SESSION["id"] = $id;
-                              $_SESSION["email"] = $email;
-                              
-                              // Redirect user to welcome page
-                              header("location:../html/index.php");
-                          } else{
-                               
-                              // Password is not valid, display a generic error message
-                              $login_err = "Invalid email or password.";
-                          }
-                      }
-                  } else{
-                      // Username doesn't exist, display a generic error message
-                      $login_err = "Invalid email or password.";
-                  }
-              } else{
-                  echo "Oops! Something went wrong. Please try again later.";
-              }
-  
-              // Close statement
-              mysqli_stmt_close($stmt);
-          }
-     }
-      
-      // Close connection
-      mysqli_close($conn);
-  }
-  
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($conn);
+}
 ?>
 
 <!DOCTYPE html>

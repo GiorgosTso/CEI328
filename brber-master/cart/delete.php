@@ -3,5 +3,5 @@
   $id = $_GET['id'];
   $result = mysqli_query($conn,"DELETE FROM product where id = $id");
 
-  header("Location: index.php");
+  header("Location: viewProducts.php");
 ?>

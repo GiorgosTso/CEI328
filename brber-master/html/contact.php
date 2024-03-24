@@ -80,12 +80,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-    <!-- Preloader Start -->
-    <header>
+    
+    
         <!--? Header Start -->
         <?php include "header.php"?>
         <!-- Header End -->
-    </header>
+    
     <main>
         <!--? Hero Start -->
         <div class="slider-area2">

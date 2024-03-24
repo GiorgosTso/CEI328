@@ -1,8 +1,11 @@
 <?php
-  include_once("../php/config.php");
+session_start();
+
+
+  include("../php/config.php");
   $result = mysqli_query($conn,"SELECT * FROM product ");
   
-
+  
 ?>
 
 
@@ -38,7 +41,7 @@
 <button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal">
     Add Products
   </button>
-  <?php include "add.php"?>
+  <?php include "insertcode.php"?>
 <table class="table table-dark table-striped" >
   <thead >
     <tr>
@@ -52,8 +55,14 @@
 
 
   <?php
+  
   while($user_data= mysqli_fetch_assoc($result))
   {
+    $_SESSION['id'] = $user_data['id'];
+	$_SESSION['product_name'] = $user_data['product_name'];
+	$_SESSION['product_price'] = $user_data['product_price'];
+	$_SESSION['product_qty'] = $user_data['product_qty'];
+	
         echo "<tr>";
         echo "<td>".$user_data['id']."</td>";
         echo "<td>".$user_data['product_name']."</td>";
@@ -63,6 +72,7 @@
         <a href='delete.php?id=$user_data[id]'><button type='button' class='btn btn-danger editBtn' data-bs-toggle='modal' data-bs-target='#editProductModal'>Delete</button></a></td></tr>";  
         
   }
+  
   ?>
 
  

@@ -1,10 +1,8 @@
 <?php 
-	 session_start();
+	
 	 
 	 include "../php/config.php";
 	 
-	//$_SESSION['typeOfUser'] = '1';
-
 ?>
 
 <!DOCTYPE html>
@@ -76,22 +74,26 @@
   <!-- Navbar start -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
-  <a href="viewProducts.php"><button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal">
-    Edit Products
-  </button>
-  </a>
-  
+  <?php 
+  // Check if the user is an admin
+  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true  && $_SESSION['typeOfUser'] == '1'){
+    // Display the button for admins
+    echo '<a href="indexcode.php"> <button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal">
+        Edit Products
+      </button>
+      </a>';
+        
+       
+    }
+    ?>
+ 
   </div>
   
-    
+  
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav ml-auto">
-        
+    <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link active" href="index.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-th-list mr-2"></i>Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -109,25 +111,34 @@
     <div id="message"></div>
     <div class="row mt-2 pb-3">
       <?php
-  			$stmt = $conn->prepare('SELECT * FROM product');
+  			$stmt = $conn->prepare('SELECT * FROM product');//edo einai ta dedomena pou exei to product
   			$stmt->execute();
   			$result = $stmt->get_result();
   			while ($row = $result->fetch_assoc()):
   		?>
-      <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-2"><!-- dislpay -->
         <div class="card-deck">
           <div class="card p-2 border-secondary mb-2">
             <img src="<?= $row['product_image'] ?>" class="card-img-top" height="250">
             <div class="card-body p-1">
-              <h4 class="card-title text-center text-info"><?= $row['product_name'] ?></h4>
-              <h5 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h5>
+              <h3 class="card-title text-center text-info"><?= $row['product_name'] ?></h3>
+              <h4 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h4>
 
+              <div class="row p-2">
+                  <div class="col-md-6 py-1 pl-4">
+                    <b>Quantity : </b>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="number" class="form-control pqty" value="<?= $row['product_qty'] ?>">
+                  </div>
+                </div>
             </div>
             <div class="card-footer p-1">
               <form action="" class="form-submit">
-                <div class="row p-2">
+                <div class="row p-2 ">
+                <span class="invalid-feedback">
                   <div class="col-md-6 py-1 pl-4">
-                    <b>Quantity : </b>
+                    
                   </div>
                   <div class="col-md-6">
                     <input type="number" class="form-control pqty" value="<?= $row['product_qty'] ?>">
@@ -149,7 +160,8 @@
   </div>
   <!-- Displaying Products End -->
 
-  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js'></script>
 
   <script type="text/javascript">
   $(document).ready(function() {
@@ -162,7 +174,6 @@
       var pname = $form.find(".pname").val();
       var pprice = $form.find(".pprice").val();
       var pimage = $form.find(".pimage").val();
-      var pcode = $form.find(".pcode").val();
 
       var pqty = $form.find(".pqty").val();
 
@@ -175,11 +186,10 @@
           pprice: pprice,
           pqty: pqty,
           pimage: pimage,
-          pcode: pcode
         },
         success: function(response) {
           $("#message").html(response);
-          window.scrollTo(0, 0);
+          //window.scrollTo(0, 0);
           load_cart_item_number();
         }
       });

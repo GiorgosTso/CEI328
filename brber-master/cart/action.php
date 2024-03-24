@@ -8,20 +8,19 @@
 	  $pname = $_POST['pname'];
 	  $pprice = $_POST['pprice'];
 	  $pimage = $_POST['pimage'];
-	  $pcode = $_POST['pcode'];
 	  $pqty = $_POST['pqty'];
-	  $total_price = $pprice * $pqty;//apla polla plasiazei to me to quantity
+	  $total_price = $pprice * $pqty;//apla pollaplasiazei to me to quantity
 
-	  $stmt = $conn->prepare('SELECT product_code FROM cart WHERE product_code=?');//proetoimazei ta dedomena pou enna piasei apo tin vasi
-	  $stmt->bind_param('s',$pcode);//kamnei ta bind $pcode
+	  $stmt = $conn->prepare('SELECT id FROM cart WHERE id=?');//proetoimazei ta dedomena pou enna piasei apo tin vasi
+	  $stmt->bind_param('s',$pid);//kamnei ta bind $pcode
 	  $stmt->execute();//ektela
 	  $res = $stmt->get_result();//pairnei ta dedomena
 	  $r = $res->fetch_assoc();//pairnei tin grammi apo to SQL kai ta vazei mesa sto associative array
-	  $code = $r['product_code'] ?? '';//apla vazei ta pano sto $code
+	  $code = $r['pid'] ?? '';//apla vazei ta pano sto $code
 
 	  if (!$code) {
-	    $query = $conn->prepare('INSERT INTO cart (product_name,product_price,product_image,qty,total_price,product_code) VALUES (?,?,?,?,?,?)');
-	    $query->bind_param('ssssss',$pname,$pprice,$pimage,$pqty,$total_price,$pcode);//kamnei ta bind genika xrisimopoieitai gia na mporoume na sindeoume tin SQL me tin php
+	    $query = $conn->prepare('INSERT INTO cart (product_name,product_price,product_image,qty,total_price) VALUES (?,?,?,?,?)');
+	    $query->bind_param('sissi',$pname,$pprice,$pimage,$pqty,$total_price);//kamnei ta bind genika xrisimopoieitai gia na mporoume na sindeoume tin SQL me tin php
 	    $query->execute();
 
 	    echo '<div class="alert alert-success alert-dismissible mt-2">
