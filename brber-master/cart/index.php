@@ -1,10 +1,8 @@
 <?php 
-	 session_start();
+	
 	 
 	 include "../php/config.php";
 	 
-	//$_SESSION['typeOfUser'] = '1';
-
 ?>
 
 <!DOCTYPE html>
@@ -16,20 +14,32 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Shopping Cart System</title>
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+  
 
    <!-- CSS here -->
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../assets/css/slicknav.css">
+   <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../assets/css/slicknav.css">
+    <link rel="stylesheet" href="../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../assets/css/gijgo.css">
     <link rel="stylesheet" href="../assets/css/animate.min.css">
-    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../assets/css/themify-icons.css">
-    <link rel="stylesheet" href="../assets/css/themify-icons.css">
-    <link rel="stylesheet" href="../assets/css/slick.css">
-    <link rel="stylesheet" href="../assets/css/nice-select.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/animated-headline.css">
+	<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="../assets/css/themify-icons.css">
+	<link rel="stylesheet" href="../assets/css/slick.css">
+	<link rel="stylesheet" href="../assets/css/nice-select.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
+    
+    
+    
+    <!-- Style CSS -->
+    
+  
 </head>
 
 <body>
@@ -53,7 +63,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap hero-cap2 pt-70 text-center">
-                                <h2>Order Products</h2>
+                                <h2>Orders</h2>
                             </div>
                         </div>
                     </div>
@@ -63,24 +73,27 @@
         
   <!-- Navbar start -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="index.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Mobile Store</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <?php 
+  // Check if the user is an admin
+  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true  && $_SESSION['typeOfUser'] == '1'){
+    // Display the button for admins
+    echo '<a href="indexcode.php"> <button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal">
+        Edit Products
+      </button>
+      </a>';
+        
+       
+    }
+    ?>
+ 
+  </div>
+  
+  
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-			<?php 
-	             if (isset($_SESSION['typeOfUser']) && $_SESSION['typeOfUser'] === '1') {
-					echo "<button>Admin-only Action</button>";
-				}
-	        ?>
-        </li>
+    <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link active" href="index.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-th-list mr-2"></i>Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -98,35 +111,46 @@
     <div id="message"></div>
     <div class="row mt-2 pb-3">
       <?php
-  			$stmt = $conn->prepare('SELECT * FROM product');
+  			$stmt = $conn->prepare('SELECT * FROM product');//edo einai ta dedomena pou exei to product ta pairnei gia na ta valei meta
   			$stmt->execute();
   			$result = $stmt->get_result();
   			while ($row = $result->fetch_assoc()):
   		?>
-      <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
-        <div class="card-deck">
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-2"><!-- dislpay -->
+        <div class="card-deck"><!-- kamnei diplay tis times mesa sto index gia ta products -->
           <div class="card p-2 border-secondary mb-2">
             <img src="<?= $row['product_image'] ?>" class="card-img-top" height="250">
             <div class="card-body p-1">
-              <h4 class="card-title text-center text-info"><?= $row['product_name'] ?></h4>
-              <h5 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h5>
+              <h3 class="card-title text-center text-info"><?= $row['product_name'] ?></h3>
+              <h4 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h4>
 
+              <div class="row p-2">
+                  <div class="col-md-6 py-1 pl-4">
+                    <b>Quantity : </b>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="number" class="form-control pqty" value="1">
+                  </div>
+                </div>
             </div>
             <div class="card-footer p-1">
               <form action="" class="form-submit">
-                <div class="row p-2">
+                <div class="row p-2 ">
+                <span class="invalid-feedback">
                   <div class="col-md-6 py-1 pl-4">
-                    <b>Quantity : </b>
+                    
                   </div>
                   <div class="col-md-6">
                     <input type="number" class="form-control pqty" value="<?= $row['product_qty'] ?>">
                   </div>
                 </div>
+                <!-- pairnei ta dedomena kai ta vazei mesa  -->
                 <input type="hidden" class="pid" value="<?= $row['id'] ?>">
                 <input type="hidden" class="pname" value="<?= $row['product_name'] ?>">
                 <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
+                <input type="hidden" class="pqty" value="<?= $row['product_qty'] ?>">
                 <input type="hidden" class="pimage" value="<?= $row['product_image'] ?>">
-                <input type="hidden" class="pcode" value="<?= $row['product_code'] ?>">
+                <input type="hidden" class="ClientID" value="<?php $_SESSION['id']?>">
                 <button class="btn btn-info btn-block addItemBtn"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Add to
                   cart</button>
               </form>
@@ -153,9 +177,9 @@
       var pname = $form.find(".pname").val();
       var pprice = $form.find(".pprice").val();
       var pimage = $form.find(".pimage").val();
-      var pcode = $form.find(".pcode").val();
 
       var pqty = $form.find(".pqty").val();
+      
 
       $.ajax({
         url: 'action.php',
@@ -165,12 +189,13 @@
           pname: pname,
           pprice: pprice,
           pqty: pqty,
-          pimage: pimage,
-          pcode: pcode
+          pimage: pimage,          
+          
+          
         },
         success: function(response) {
           $("#message").html(response);
-          window.scrollTo(0, 0);
+          //window.scrollTo(0, 0);
           load_cart_item_number();
         }
       });
@@ -234,6 +259,8 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/main.js"></script>
+    
+    
 </body>
 
 </html>

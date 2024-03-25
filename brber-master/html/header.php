@@ -1,3 +1,46 @@
+<?php 
+     session_start();
+    
+    header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Check if the user is logged in, else redirect to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../php/login.php");
+    exit;
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../assets/css/slicknav.css">
+    <link rel="stylesheet" href="../assets/css/flaticon.css">
+    <link rel="stylesheet" href="../assets/css/gijgo.css">
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+    <link rel="stylesheet" href="../assets/css/animated-headline.css">
+	<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="../assets/css/themify-icons.css">
+	<link rel="stylesheet" href="../assets/css/slick.css">
+	<link rel="stylesheet" href="../assets/css/nice-select.css">
+	<link rel="stylesheet" href="../assets/css/style.css">
+	
+</head>
+<body>
+    
+</body>
+</html>
+
+
 <header>
         <!--? Header Start -->
         <div class="header-area header-transparent pt-20">
@@ -25,13 +68,25 @@
                                         </ul>
                                     </nav>
                                 </div>
-                                <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                                    <a href="../php/login.php" class="btn header-btn">Login</a>
+                                
+                                    <?php
+                                    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === false  ){
+                                        echo '<div class="header-right-btn f-right d-none d-lg-block ml-30">';//den emfanizei to login kai to sign up
+                                        echo '<a href="../php/login.php" class="btn header-btn">Login</a>';
+                                        echo '</div>';
+                                        echo '<div class="header-right-btn f-right d-none d-lg-block ml-30">';
+                                        echo '<a href="register.php" class="btn header-btn">Sign Up</a>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                     }
+                                    ?>
+                                    <form action="../php/logout.php" method="post">
+                                        <input type="hidden" name="logout_token" value="<?php echo $_SESSION['logout_token']; ?>">
+                                        <button type="submit" name="logout_btn" class="btn btn-danger">Logout</button>
+                                    </form>
+                                    
                                 </div>
-                                <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                                    <a href="register.php" class="btn header-btn">Sign Up</a>
-                                </div>
-                            </div>
+                                
                         </div>   
                         <!-- Mobile Menu -->
                         <div class="col-12">
