@@ -125,7 +125,7 @@
                             </div>
                             <div class="service-cap">
                                 <h4><a href="#">Stylish Hair Cut</a></h4>
-                                <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                                <p>Experience the art of transformation with each stylish haircut, designed to elevate your look and confidence.</p>
                             </div>
                         </div>
                     </div>
