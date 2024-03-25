@@ -20,7 +20,7 @@
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="index.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Mobile Store</a>
+    <a class="navbar-brand" href="index.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Barber Store</a>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -30,9 +30,6 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link active" href="index.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-th-list mr-2"></i>Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -79,8 +76,12 @@
             </thead>
             <tbody>
               <?php
-                require 'config.php';
-                $stmt = $conn->prepare('SELECT * FROM cart');
+                require '../php/config.php';
+                
+                $id = $_SESSION["id"]; 
+                echo " tooooo id" . $id;
+                
+                $stmt = $conn->prepare("SELECT * FROM cart where ClientID = '$id'");
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $grand_total = 0;
@@ -88,9 +89,11 @@
               ?>
               <tr>
                 <td><?= $row['id'] ?></td>
-                <input type="hidden" class="pid" value="<?= $row['id'] ?>">
-                <td><img src="<?= $row['product_image'] ?>" width="50"></td>
-                <td><?= $row['product_name'] ?></td>
+                    <input type="hidden" class="pid" value="<?= $row['id'] ?>">
+                <td>
+                    <img src="<?= $row['product_image'] ?>" width="50"></td>
+                <td>
+                    <?= $row['product_name'] ?></td>
                 <td>
                   <i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2); ?>
                 </td>

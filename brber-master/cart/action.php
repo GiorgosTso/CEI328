@@ -1,27 +1,28 @@
 <?php
 	session_start();
 	require '../php/config.php';
-
+	$cid = $_SESSION['id'];
+	
 	// Add products into the cart table
 	if (isset($_POST['pid'])) {// edo pianei ola ta dedomena tou pou ton pinaka 
 	  $pid = $_POST['pid'];
 	  $pname = $_POST['pname'];
 	  $pprice = $_POST['pprice'];
 	  $pimage = $_POST['pimage'];
-	  $pcode = $_POST['pcode'];
 	  $pqty = $_POST['pqty'];
-	  $total_price = $pprice * $pqty;//apla polla plasiazei to me to quantity
+	  
+	  $total_price = $pprice * $pqty;//apla pollaplasiazei to me to quantity
 
-	  $stmt = $conn->prepare('SELECT product_code FROM cart WHERE product_code=?');//proetoimazei ta dedomena pou enna piasei apo tin vasi
-	  $stmt->bind_param('s',$pcode);//kamnei ta bind $pcode
+	  $stmt = $conn->prepare('SELECT id FROM cart WHERE id=?');//proetoimazei ta dedomena pou enna piasei apo tin vasi
+	  $stmt->bind_param('s',$pid);//kamnei ta bind $pcode
 	  $stmt->execute();//ektela
 	  $res = $stmt->get_result();//pairnei ta dedomena
 	  $r = $res->fetch_assoc();//pairnei tin grammi apo to SQL kai ta vazei mesa sto associative array
-	  $code = $r['product_code'] ?? '';//apla vazei ta pano sto $code
+	  $code = $r['pid'] ?? '';//apla vazei ta pano sto $code
 
 	  if (!$code) {
-	    $query = $conn->prepare('INSERT INTO cart (product_name,product_price,product_image,qty,total_price,product_code) VALUES (?,?,?,?,?,?)');
-	    $query->bind_param('ssssss',$pname,$pprice,$pimage,$pqty,$total_price,$pcode);//kamnei ta bind genika xrisimopoieitai gia na mporoume na sindeoume tin SQL me tin php
+	    $query = $conn->prepare('INSERT INTO cart (product_name,product_price,product_image,qty,total_price,ClientID) VALUES (?,?,?,?,?,?)');
+	    $query->bind_param('sissii',$pname,$pprice,$pimage,$pqty,$total_price,$cid);//kamnei ta bind genika xrisimopoieitai gia na mporoume na sindeoume tin SQL me tin php
 	    $query->execute();
 
 	    echo '<div class="alert alert-success alert-dismissible mt-2">
@@ -38,10 +39,11 @@
 
 	// Get no.of items available in the cart table
 	if (isset($_GET['cartItem']) && isset($_GET['cartItem']) == 'cart_item') {
-	  $stmt = $conn->prepare('SELECT * FROM cart ');
-	  $stmt->execute();
-	  $stmt->store_result();
-	  $rows = $stmt->num_rows;
+		
+	    $stmt = $conn->prepare("SELECT * FROM cart where ClientID = '$cid'");
+	    $stmt->execute();
+	    $stmt->store_result();
+	    $rows = $stmt->num_rows;
 
 	  echo $rows;
 	}
@@ -61,7 +63,7 @@
 
 	// Remove all items at once from cart
 	if (isset($_GET['clear'])) {
-	  $stmt = $conn->prepare('DELETE FROM cart');
+	  $stmt = $conn->prepare("DELETE FROM cart WHERE ClientID = '$cid'");
 	  $stmt->execute();
 	  $_SESSION['showAlert'] = 'block';
 	  $_SESSION['message'] = 'All Item removed from the cart!';
@@ -96,7 +98,7 @@
 	  $stmt = $conn->prepare('INSERT INTO orders (name,email,phone,address,pmode,products,amount_paid)VALUES(?,?,?,?,?,?,?)');
 	  $stmt->bind_param('sssssss',$name,$email,$phone,$address,$pmode,$products,$grand_total);
 	  $stmt->execute();
-	  $stmt2 = $conn->prepare('DELETE FROM cart');
+	  $stmt2 = $conn->prepare("DELETE FROM cart WHERE ClientID = '$cid'");
 	  $stmt2->execute();
 	  $data .= '<div class="text-center">
 								<h1 class="display-4 mt-2 text-danger">Thank You!</h1>
@@ -106,7 +108,7 @@
 								<h4>Your E-mail : ' . $email . '</h4>
 								<h4>Your Phone : ' . $phone . '</h4>
 								<h4>Total Amount Paid : ' . number_format($grand_total,2) . '</h4>
-								<h4>Payment Mode : ' . $pmode . '</h4>
+								<h4>Payment Day : ' . $pmode . '</h4>
 						  </div>';
 	  echo $data;
 	}
