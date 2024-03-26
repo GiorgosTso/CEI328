@@ -126,64 +126,61 @@
           <form action="../php/appointment.php" method="post">
           <div id="wrapper">
           <div class="shell"><a class="link link-primary link-return" href="index.php">Back</a></div>
-            <section class="section-xl bg-periglacial-blue one-screen-page-content text-center">
-              <div class="shell">
+          <section class="section-xl bg-periglacial-blue one-screen-page-content text-center">
+            <div class="shell">
                 <h2>CHOOSE a SERVICE</h2>
                 <div class="p text-width-medium">
-                  <p class="big">On this page you can select a service that you need. Here are presented only the most popular barbering services we provide. If you require a personalized barbering service, please contact us.</p>
+                    <p class="big">On this page you can select a service that you need. Here are presented only the most popular barbering services we provide. If you require a personalized barbering service, please contact us.</p>
                 </div>
                 <div class="range range-50">
-                <div class="cell-xs-6 cell-md-3">
-                  <article class="card-service-option">
-                      <img class="card-service-option-image" src="../assets/img/appointment/icon-service-1-70x62.png" alt="" width="70" height="62"/>
-                      <p class="card-service-option-title">STANDARD HAIRCUTS</p>
-                      <div class="card-service-option-panel">
-                          <p class="card-service-option-text">One of the most popular services our barbers provide</p>
-                          <!-- Replace the "Choose" button with a radio button -->
-                          <label for="haircut-1" class="btn btn-xs card-service-option-control">Choose</label>
-                          <input type="radio" name="serviceId" value="Standard Haircut" id="haircut-1" style="display: none;">
-                      </div>
-                  </article>
-              </div>
-              <div class="cell-xs-6 cell-md-3">
-                <article class="card-service-option">
-                    <img class="card-service-option-image" src="../assets/img/appointment/icon-service-1-70x62.png" alt="" width="70" height="62"/>
-                    <p class="card-service-option-title">STANDARD HAIRCUTS</p>
-                    <div class="card-service-option-panel">
-                        <p class="card-service-option-text">One of the most popular services our barbers provide</p>
-                        <!-- Replace the "Choose" button with a radio button -->
-                        <label for="haircut-1" class="btn btn-xs card-service-option-control">Choose</label>
-                        <input type="radio" name="serviceId" value="Standard Haircut" id="haircut-1" style="display: none;">
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-1-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">STANDARD HAIRCUTS</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">One of the most popular services our barbers provide</p>
+                                <input type="radio" name="serviceId" value="Standard Haircut" id="haircut-1">
+                                <label for="haircut-1" class="btn btn-xs card-service-option-control">Choose</label>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-1-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">STANDARD HAIRCUTS</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">One of the most popular services our barbers provide</p>
+                                <input type="radio" name="serviceId" value="Standard Haircut" id="haircut-2">
+                                <label for="haircut-2" class="btn btn-xs card-service-option-control">Choose</label>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-3-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">SKIN FADE</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">Well-trimmed beard is a must-have element of every men’s image</p>
+                                <input type="radio" name="serviceId" value="Skin Fade" id="skin-fade">
+                                <label for="skin-fade" class="btn btn-xs card-service-option-control">Choose</label>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-4-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">Mustache trim</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">Mustaches also need to be trimmed regularly</p>
+                                <input type="radio" name="serviceId" value="Mustache Trim" id="mustache-trim">
+                                <label for="mustache-trim" class="btn btn-xs card-service-option-control">Choose</label>
+                            </div>
+                        </article>
+                    </div>
+                </div>
             </div>
-            <div class="cell-xs-6 cell-md-3">
-              <article class="card-service-option">
-                  <img class="card-service-option-image" src="../assets/img/appointment/icon-service-3-70x62.png" alt="" width="70" height="62"/>
-                  <p class="card-service-option-title">SKIN FADE</p>
-                  <div class="card-service-option-panel">
-                      <p class="card-service-option-text">Well-trimmed beard is a must-have element of every men’s image</p>
-                      <!-- Replace the "Choose" button with a radio button -->
-                      <label for="skin-fade" class="btn btn-xs card-service-option-control">Choose</label>
-                      <input type="radio" name="serviceId" value="Skin Fade" id="skin-fade" style="display: none;">
-                  </div>
-              </article>
-          </div>                      
-          <div class="cell-xs-6 cell-md-3">
-            <article class="card-service-option">
-              <img class="card-service-option-image" src="../assets/img/appointment/icon-service-4-70x62.png" alt="" width="70" height="62"/>
-              <p class="card-service-option-title">Mustache trim</p>
-              <div class="card-service-option-panel">
-                  <p class="card-service-option-text">Mustaches also need to be trimmed regularly</p>
-                  <!-- Replace the "Choose" button with a radio button -->
-                  <label for="mustache-trim" class="btn btn-xs card-service-option-control">Choose</label>
-                  <input type="radio" name="serviceId" value="Mustache Trim" id="mustache-trim" style="display: none;">
-              </div>
-            </article>
-          </div>                
-              </div></div>
-          </div>
-            </section>
+        </section>
+        
 
             <div id="wrapper">
               <section class="section-xs bg-periglacial-blue one-screen-page-content text-center">
@@ -200,7 +197,7 @@
                                           <div class=""><img src="../assets/img/team1.jpg" alt="" width="170" height="180"/></div>
                                           <div class="thumbnail-option-body">
                                               <div class="thumbnail-option-title">Michalis</div>
-                                              <input type="radio" name="barber" value="Michalis" id="barber-michalis">
+                                              <input type="radio" name="nameOfBarber" value="Michalis" id="barber-michalis">
                                           </div>
                                       </div>
                                   </div>
@@ -319,7 +316,7 @@
                                       <!-- Form -->
                                       <div class="footer-form">
                                           <div id="mc_embed_signup">
-                                                  <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address " class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'">
+
                                                   <div class="form-icon">
                                                       <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">Send</button>
                                                   </div>
