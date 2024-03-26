@@ -74,76 +74,37 @@
                 </div>
                 <!-- Section caption -->
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption text-center mb-30">
-                            <div class="service-icon">
-                                <i class="flaticon-healthcare-and-medical"></i>
-                            </div>
-                            <div class="service-cap">
-                                <h4><a href="#">Stylish Hair Cut</a></h4>
-                                <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption active text-center mb-30">
-                            <div class="service-icon">
-                                <i class="flaticon-healthcare-and-medical"></i>
-                            </div>
-                            <div class="service-cap">
-                                <h4><a href="#">Body Massege</a></h4>
-                                <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption text-center mb-30">
-                            <div class="service-icon">
-                                <i class="flaticon-healthcare-and-medical"></i>
-                            </div>
-                            <div class="service-cap">
-                                <h4><a href="#">Breard Style</a></h4>
-                                <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption active text-center mb-30">
-                            <div class="service-icon">
-                                <i class="flaticon-healthcare-and-medical"></i>
-                            </div>
-                            <div class="service-cap">
-                                <h4><a href="#">Body Massege</a></h4>
-                                <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption text-center mb-30">
-                            <div class="service-icon">
-                                <i class="flaticon-healthcare-and-medical"></i>
-                            </div>
-                            <div class="service-cap">
-                                <h4><a href="#">Breard Style</a></h4>
-                                <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption text-center mb-30">
-                            <div class="service-icon">
-                                <i class="flaticon-healthcare-and-medical"></i>
-                            </div>
-                            <div class="service-cap">
-                                <h4><a href="#">Stylish Hair Cut</a></h4>
-                                <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    include "../php/config.php";
+
+                    $sql = "SELECT name, price, time FROM service";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        // output data of each row
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="col-xl-4 col-lg-4 col-md-6">';
+                            echo '    <div class="services-caption text-center mb-30">';
+                            echo '        <div class="service-icon">';
+                            echo '            <i class="flaticon-healthcare-and-medical"></i>';
+                            echo '        </div>';
+                            echo '        <div class="service-cap">';
+                            echo '            <h4><a href="#">' . $row["name"] . '</a></h4>';
+                            echo '            <p>' . $row["time"] . ' minutes . €' . $row["price"] . '</p>';
+                            echo '        </div>';
+                            echo '    </div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "0 services";
+                    }
+                    $conn->close();
+                    ?>
                 </div>
             </div>
         </section>
         <!-- Services Area End -->
+
     </main>
     <footer>
         <!--? Footer Start-->
