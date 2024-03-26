@@ -76,24 +76,34 @@
                 <h2 style="color: black;" class="text-uppercase text-center mb-5"><b>Registration Form</b></h2>
 
       <form action="../php/register.php" method="post" enctype="multipart/form-data">
-        <p style="color: black;">Τα πεδία με<span class="red-asterisk">*</span>
-                είναι υποχρεωτικά παρακαλώ όπως τα συμπληρώσετε/ Fields marked with <span class="red-asterisk">*</span> are mandatory, please fill them in.</p>
-          <div class="col-md-6">
+        <p style="color: black;">Τα πεδία με <span class="red-asterisk">*</span> είναι υποχρεωτικά παρακαλώ όπως τα συμπληρώσετε.<br> 
+                Fields marked with <span class="red-asterisk">*</span> are mandatory, please fill them in.</p>
+          <div class="col-md-12">
             <div class="form-floating">
               <p style="color: black;"><label for="firstName"> <span class="red-asterisk">*</span>Όνομα:</label>
                 <input class="form-control" id="name" name="name" type="text" placeholder="Όνομα/FirstName" onkeypress="return /[a-zA-Zα-ωΑ-Ω]/i.test(event.key)" required/>
             </div>
           </div>
-
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <div class="form-floating mb-3 mb-md-0">
+          <br>
+          <!-- <div class="row mb-3"> -->
+            <div class="col-md-12">
+              <div class="form-floating mb-3 mb-md-3">
                 <p style="color: black;"><label for="lastName"> <span class="red-asterisk">*</span>Επίθετο:</label>
                 <input class="form-control" id="surname" name="surname" type="text" placeholder="Επίθετο/LastName" onkeypress="return /[a-zA-Zα-ωΑ-Ω]/i.test(event.key)" required/>
               </div>
             </div>
+            <br>
+          <!-- </div> -->
+          <!-- <div class="row mb-3"></div> -->
+          <div class="col-md-12">
+            <div class="form-floating mb-3 mb-md-3">
+                <p style="color: black;" for="workemail"><span class="red-asterisk">*</span>Email:</label>
+                <input class="form-control" id="email" name="email" type="email" placeholder="Εmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+            </div>
           </div>
-          <div class="row mb-3"></div>
+          <br>
+          <!-- <div class="row mb-3"></div> -->
+          <!-- <div class="row mb-3"></div> -->
             <div class="col-md-12">
               <div class="form-floating mb-3 mb-md-3">
                 <p style="color: black;"> <label for="student_department"><span class="red-asterisk">*</span>Πόλη καταγωγής:</label>
@@ -108,47 +118,49 @@
                   </label>
                 </div>
           <br>
-          <div class="row mb-3"></div>
-            <div class="form-floating">
-              <label style="color: black;" for="workemail"><span class="red-asterisk">*</span>Email:</label>
-                <input class="form-control" id="email" name="email" type="email" placeholder="Εmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <div class="form-floating mb-3 mb-md-3">
+                  <p style="color: black;" for="City"><span class="red-asterisk">*</span>Περιοχή Διαμονής:</label>
+                  <input class="form-control" id="City" name="City" type="text" placeholder="Περιοχή" required/>
+                </div>
+              </div>
             </div>
-          <div class="row mb-3"></div>
-
+          <br>
         <div class="row mb-3">
-          <div class="col-md-6">
-            <div class="form-floating mb-3 mb-md-0">
-              <label style="color: black;" for="City"><span class="red-asterisk">*</span>Περιοχή Διαμονής:</label>
-            <input class="form-control" id="City" name="City" type="text" placeholder="Γράψε απο πού έρχεσε" required/>
+          <div class="col-md-12">
+            <div class="form-floating">
+              <p style="color: black;" for="Phone_number"><span class="red-asterisk">*</span>Κινητό Τηλέφωνο:</label>
+              <input class="form-control" id="phone" name="phone" type="tel" placeholder="Κινητό τηλέφωνο/Phone number" pattern="[0-9]{8}" required/>
+            </div>
+          </div> 
+        </div>            
+        <br>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <div class="form-floating">
+              <p style="color: black;" for="username"><span class="red-asterisk">*</span>Όνομα Χρήστη:</label>
+              <input class="form-control" id="username" name="username" type="tel" placeholder="Username"required/>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-floating">
-            <label style="color: black;" for="Phone_number"><span class="red-asterisk">*</span>Κινητό Τηλέφωνο:</label>
-            <input class="form-control" id="phone" name="phone" type="tel" placeholder="Κινητό τηλέφωνο/Phone number" pattern="[0-9]{8}" required/>
-          </div>
-        </div>             
         <br>
-        <div class="col-md-6">
-          <div class="form-floating">
-            <label style="color: black;" for="username"><span class="red-asterisk">*</span>Όνομα Χρήστη:</label>
-            <input class="form-control" id="username" name="username" type="tel" placeholder="Username"required/>
-          </div>
-        </div>
-        <br>
-          <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="row mb-3">
+          <div class="col-sm-12">
             <label style="color: black;" for="password"><span class="red-asterisk">*</span>Κωδικός Πρόσβασης:</label>
               <input type="password" class="form-control form-control-user"
                   id="password" name="password" placeholder="Password" required minlength="8">
           </div>
-          <div class="col-sm-6">
+        </div>
+        <br>
+          <div class="row mb-3">
+          <div class="col-sm-12">
             <label style="color: black;" for="confirm_password"><span class="red-asterisk">*</span>Επαλήθευση Κωδικόυ:</label>
               <input type="password" class="form-control form-control-user"
 
                   id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
 
-                  <br><br>
+                  <br><br>  
           <div class="d-flex justify-content-center">
             <button name="submit"type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
               <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
@@ -200,7 +212,7 @@
                   <div class="single-footer-caption mb-50">
                       <!-- logo -->
                       <div class="footer-logo">
-                          <a href="../index.html"><img src="../assets/img/logo/logo2_footer.png" alt=""></a>
+                          <a href="../index.html"><img src="../assets/img/logo.png" alt=""></a>
                       </div>
                       <div class="footer-tittle">
                           <div class="footer-pera">
@@ -219,7 +231,7 @@
                           <h4>Location </h4>
                           <ul>
                               <li><a href="#">Advanced</a></li>
-                              <li><a href="#"> Management</a></li>
+                              <li><a href="#">Management</a></li>
                               <li><a href="#">Corporate</a></li>
                               <li><a href="#">Customer</a></li>
                               <li><a href="#">Information</a></li>
