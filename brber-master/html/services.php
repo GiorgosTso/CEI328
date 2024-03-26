@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -9,21 +10,22 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 
-	<!-- CSS here -->
-	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="../assets/css/slicknav.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/slicknav.css">
     <link rel="stylesheet" href="../assets/css/flaticon.css">
     <link rel="stylesheet" href="../assets/css/gijgo.css">
     <link rel="stylesheet" href="../assets/css/animate.min.css">
     <link rel="stylesheet" href="../assets/css/animated-headline.css">
-	<link rel="stylesheet" href="../assets/css/magnific-popup.css">
-	<link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
-	<link rel="stylesheet" href="../assets/css/themify-icons.css">
-	<link rel="stylesheet" href="../assets/css/slick.css">
-	<link rel="stylesheet" href="../assets/css/nice-select.css">
-	<link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/slick.css">
+    <link rel="stylesheet" href="../assets/css/nice-select.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <!-- ? Preloader Start -->
     <div id="preloader-active">
@@ -31,7 +33,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                <img src="../assets/img/logo.png" >
+                    <img src="../assets/img/logo.png">
                 </div>
             </div>
         </div>
@@ -39,7 +41,7 @@
     <!-- Preloader Start -->
     <header>
         <!--? Header Start -->
-        <?php include "header.php"?>
+        <?php include "header.php" ?>
         <!-- Header End -->
     </header>
     <main>
@@ -66,7 +68,7 @@
                     <div class="col-xl-7 col-lg-8 col-md-11 col-sm-11">
                         <div class="section-tittle text-center mb-90">
                             <span>Professional Services</span>
-                            <h2>Our Best services that  we offering to you</h2>
+                            <h2>Our Best services that we offering to you</h2>
                         </div>
                     </div>
                 </div>
@@ -76,7 +78,7 @@
                         <div class="services-caption text-center mb-30">
                             <div class="service-icon">
                                 <i class="flaticon-healthcare-and-medical"></i>
-                            </div> 
+                            </div>
                             <div class="service-cap">
                                 <h4><a href="#">Stylish Hair Cut</a></h4>
                                 <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
@@ -86,19 +88,19 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="services-caption active text-center mb-30">
                             <div class="service-icon">
-                                <i class="flaticon-fitness"></i>
-                            </div> 
+                                <i class="flaticon-healthcare-and-medical"></i>
+                            </div>
                             <div class="service-cap">
                                 <h4><a href="#">Body Massege</a></h4>
                                 <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="services-caption text-center mb-30">
                             <div class="service-icon">
-                                <i class="flaticon-clock"></i>
-                            </div> 
+                                <i class="flaticon-healthcare-and-medical"></i>
+                            </div>
                             <div class="service-cap">
                                 <h4><a href="#">Breard Style</a></h4>
                                 <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
@@ -108,19 +110,19 @@
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="services-caption active text-center mb-30">
                             <div class="service-icon">
-                                <i class="flaticon-fitness"></i>
-                            </div> 
+                                <i class="flaticon-healthcare-and-medical"></i>
+                            </div>
                             <div class="service-cap">
                                 <h4><a href="#">Body Massege</a></h4>
                                 <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="services-caption text-center mb-30">
                             <div class="service-icon">
-                                <i class="flaticon-clock"></i>
-                            </div> 
+                                <i class="flaticon-healthcare-and-medical"></i>
+                            </div>
                             <div class="service-cap">
                                 <h4><a href="#">Breard Style</a></h4>
                                 <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
@@ -131,7 +133,7 @@
                         <div class="services-caption text-center mb-30">
                             <div class="service-icon">
                                 <i class="flaticon-healthcare-and-medical"></i>
-                            </div> 
+                            </div>
                             <div class="service-cap">
                                 <h4><a href="#">Stylish Hair Cut</a></h4>
                                 <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
@@ -145,11 +147,11 @@
     </main>
     <footer>
         <!--? Footer Start-->
-        <?php include "footer.php"?>
+        <?php include "footer.php" ?>
         <!-- Footer End-->
     </footer>
     <!-- Scroll Up -->
-    <div id="back-top" >
+    <div id="back-top">
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
 
@@ -176,7 +178,7 @@
     <!-- Nice-select, sticky -->
     <script src="../assets/js/jquery.nice-select.min.js"></script>
     <script src="../assets/js/jquery.sticky.js"></script>
-    
+
     <!-- counter , waypoint,Hover Direction -->
     <script src="../assets/js/jquery.counterup.min.js"></script>
     <script src="../assets/js/waypoints.min.js"></script>
@@ -189,10 +191,11 @@
     <script src="../assets/js/jquery.validate.min.js"></script>
     <script src="../assets/js/mail-script.js"></script>
     <script src="../assets/js/jquery.ajaxchimp.min.js"></script>
-    
-    <!-- Jquery Plugins, main Jquery -->	
+
+    <!-- Jquery Plugins, main Jquery -->
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/main.js"></script>
-    
-    </body>
+
+</body>
+
 </html>

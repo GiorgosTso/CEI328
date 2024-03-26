@@ -1,7 +1,7 @@
-	/*
+/*
   	Flaticon icon font: Flaticon
   	Creation date: 16/05/2020 07:37
-  	*/
+*/
 
 @font-face {
   font-family: "Flaticon";
@@ -25,9 +25,18 @@
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
   font-family: Flaticon;
-font-style: normal;
+  font-style: normal;
 }
 
-.flaticon-healthcare-and-medical:before { content: "\f100"; }
+.flaticon-healthcare-and-medical:before { 
+  content: ""; /* Remove the icon content */
+  display: inline-block; /* Allows width and height to be set */
+  width: 1em; /* Match the size of other icons */
+  height: 1em; /* Match the size of other icons */
+  background-image: url('../img/logo.png'); /* Replace with your image path */
+  background-size: cover; /* Cover the area without losing aspect ratio */
+  vertical-align: middle; /* Aligns with text/icon */
+}
+
 .flaticon-fitness:before { content: "\f101"; }
 .flaticon-clock:before { content: "\f102"; }
