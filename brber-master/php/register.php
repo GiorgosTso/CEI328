@@ -41,4 +41,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
         echo "Please enter some valid information!";
     }
+
+    $_SESSION["name"] = $_POST['name'];
 }

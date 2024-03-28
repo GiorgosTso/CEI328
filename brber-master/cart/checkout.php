@@ -66,25 +66,16 @@ session_start();
           <input type="hidden" name="products" value="<?= $allItems; ?>">
           <input type="hidden" name="grand_total" value="<?= $grand_total; ?>">
           <div class="form-group">
-            <input type="text" name="name" class="form-control" value=<?php echo $_SESSION['name'];?> placeholder="Enter Name" required>
+           <input type="text" name="name" class="form-control"  placeholder="Enter Name" required>
           </div>
           <div class="form-group">
             <input type="email" name="email" class="form-control" value=<?php echo $_SESSION['email'];?> placeholder="Enter E-Mail" required>
           </div>
           <div class="form-group">
-            <input type="tel" name="phone" class="form-control" value=<?php echo $_SESSION['phone'];?> placeholder="Enter Phone" required>
+            <input type="tel" name="phone" class="form-control"  placeholder="Enter Phone" required>
           </div>
           <div class="form-group">
             <textarea name="address" class="form-control" rows="3" cols="10" placeholder="Enter Delivery Address Here..."></textarea>
-          </div>
-          <h6 class="text-center lead">Select Payment Mode</h6>
-          <div class="form-group">
-            <select name="pmode" class="form-control">
-              <option value="" selected disabled>-Select Payment Mode-</option>
-              <option value="cod">Cash On Delivery</option>
-              <option value="netbanking">Net Banking</option>
-              <option value="cards">Debit/Credit Card</option>
-            </select>
           </div>
           <div class="form-group">
             <input type="submit" name="submit" value="Place Order" class="btn btn-danger btn-block">

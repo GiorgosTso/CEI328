@@ -64,6 +64,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                             <li><a href="../html/services.php">Services</a></li>
                                             <li><a href="../cart/index.php">Orders</a></li>
                                             <li><a href="../html/appointment.html">Appointments</a></li>
+                                            <li><a href="../html/review.php">Review</a></li>
                                             <li class = ""><a href="../html/contact.php">Contact</a></li>
                                         </ul>
                                     </nav>
