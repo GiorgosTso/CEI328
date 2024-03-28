@@ -1,3 +1,51 @@
+<?php
+
+session_start();
+include("../php/config.php");
+
+
+if($_SERVER['REQUEST_METHOD'] == "POST")
+{
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $city = $_POST['city'];
+    $email = $_POST['email'];
+    $area = $_POST['area'];
+    $phone = $_POST['phone'];
+    $username = $_POST['username'];
+    $typeOfUser = 3;
+    $password = $_POST['password'];
+    
+    $hash = password_hash ($password, PASSWORD_DEFAULT);
+    
+    
+    if(!empty($email) && !empty($password))
+    {
+
+        $query1 = "insert into useraccount(username, password, typeOfUser)values ('$email', '$hash', '3')";
+
+        $result1 = mysqli_query($conn, $query1);
+
+        $last_user_id = mysqli_insert_id($conn);
+
+        $query = "insert into clients (id,name,surname,city,email,area,phone) 
+        values ('$last_user_id','$name','$surname','$city','$email','$area','$phone')";
+        $result = mysqli_query($conn, $query);
+
+
+        header("Location: ../php/login.php?Success=Account created successfully");
+        die();
+    }else
+    {
+        echo "Please enter some valid information!";
+    }
+
+    $_SESSION["name"] = $_POST['name'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
      <head>
@@ -75,7 +123,7 @@
               <div class="card-body p-5">
                 <h2 style="color: black;" class="text-uppercase text-center mb-5"><b>Registration Form</b></h2>
 
-      <form action="../php/register.php" method="post" enctype="multipart/form-data">
+      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
         <p style="color: black;">Τα πεδία με <span class="red-asterisk">*</span> είναι υποχρεωτικά παρακαλώ όπως τα συμπληρώσετε.<br> 
                 Fields marked with <span class="red-asterisk">*</span> are mandatory, please fill them in.</p>
           <div class="col-md-12">
@@ -122,7 +170,7 @@
               <div class="col-md-12">
                 <div class="form-floating mb-3 mb-md-3">
                   <p style="color: black;" for="City"><span class="red-asterisk">*</span>Περιοχή Διαμονής:</label>
-                  <input class="form-control" id="City" name="City" type="text" placeholder="Περιοχή" required/>
+                  <input class="form-control" id="area" name="area" type="text" placeholder="Περιοχή" required/>
                 </div>
               </div>
             </div>
