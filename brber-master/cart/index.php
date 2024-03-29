@@ -3,6 +3,7 @@
 	 
 	 include "../php/config.php";
 	 
+	$name_err = $quantity_err = $price_err = "";
 ?>
 
 <!DOCTYPE html>
@@ -111,45 +112,78 @@
     <div id="message"></div>
     <div class="row mt-2 pb-3">
       <?php
-  			$stmt = $conn->prepare('SELECT * FROM product');//edo einai ta dedomena pou exei to product
+  			$stmt = $conn->prepare('SELECT * FROM product');//edo einai ta dedomena pou exei to product ta pairnei gia na ta valei meta
   			$stmt->execute();
   			$result = $stmt->get_result();
   			while ($row = $result->fetch_assoc()):
   		?>
+  		<?php 
+  		  if(empty(trim($row['product_name']))){
+          $name_err = "Enter a name "; 
+
+        }
+        
+  		
+  		?>
+  		
       <div class="col-sm-6 col-md-4 col-lg-3 mb-2"><!-- dislpay -->
-        <div class="card-deck">
+        <div class="card-deck"><!-- kamnei diplay tis times mesa sto index gia ta products -->
           <div class="card p-2 border-secondary mb-2">
             <img src="<?= $row['product_image'] ?>" class="card-img-top" height="250">
+            <form action= <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> class="form-submit" method="post">
             <div class="card-body p-1">
               <h3 class="card-title text-center text-info"><?= $row['product_name'] ?></h3>
-              <h4 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h4>
-
+              <h4 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?></h4>
               <div class="row p-2">
                   <div class="col-md-6 py-1 pl-4">
                     <b>Quantity : </b>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control pqty" value="<?= $row['product_qty'] ?>">
-                  </div>
+                        <input type="number" name="qty" class="form-control pqty" value="1" min="1" max="<?= $row['product_qty'] ?>" onchange="updateHiddenInput(this.value)">
+                    </div>
                 </div>
             </div>
+            
+
             <div class="card-footer p-1">
-              <form action="" class="form-submit">
                 <div class="row p-2 ">
                 <span class="invalid-feedback">
                   <div class="col-md-6 py-1 pl-4">
                     
+                    </div>
+                    <div class="col-md-6">
+                      <input type="number" name="qty" class="form-control pqty" value = "1"  min="1" max="<?= $row['product_qty'] ?>" onchange="updateHiddenInput(this.value)">
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <input type="number" class="form-control pqty" value="<?= $row['product_qty'] ?>">
-                  </div>
-                </div>
-                <input type="hidden" class="pid" value="<?= $row['id'] ?>">
-                <input type="hidden" class="pname" value="<?= $row['product_name'] ?>">
-                <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
-                <input type="hidden" class="pimage" value="<?= $row['product_image'] ?>">
-                <button class="btn btn-info btn-block addItemBtn"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Add to
-                  cart</button>
+                  <!-- pairnei ta dedomena kai ta vazei mesa  -->
+                  <input type="hidden" class="pid" value="<?= $row['id'] ?>">
+                  <input type="hidden" class="pname" value="<?= $row['product_name'] ?>">
+                  <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
+                  <input type="hidden" id="hiddenQuantity" class="pqty" name="hiddenQuantity">
+                  <input type="hidden" class="sqty" value="<?= $row['product_qty'] ?>">
+                  <input type="hidden" class="pimage" value="<?= $row['product_image'] ?>">
+                  <input type="hidden" class="ClientID" value="<?php $_SESSION['id']?>">
+                  <button class="btn btn-info btn-block addItemBtn"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Add to
+                    cart</button>
+                    
+                    <script>
+                      function updateHiddenInput(value) {
+                      document.getElementById('hiddenQuantity').value = value;
+                      console.log(value);
+                      }
+                    </script> 
+                    <?php
+                   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    // Assuming your form has an input field for quantity with the name 'product_qty'
+                    $quantity = isset($_POST['qty']) ? intval($_POST['qty']) : 0; // Default to 0 if not set
+                    $_SESSION['quantity'] = $quantity; // Store the quantity in a session variable
+                    
+                
+                    
+                    exit;
+                }
+                  
+                  ?>
               </form>
             </div>
           </div>
@@ -174,8 +208,9 @@
       var pname = $form.find(".pname").val();
       var pprice = $form.find(".pprice").val();
       var pimage = $form.find(".pimage").val();
-
+      var sqty = $form.find(".sqty").val();
       var pqty = $form.find(".pqty").val();
+      
 
       $.ajax({
         url: 'action.php',
@@ -186,6 +221,9 @@
           pprice: pprice,
           pqty: pqty,
           pimage: pimage,
+          sqty: sqty,
+          
+          
         },
         success: function(response) {
           $("#message").html(response);

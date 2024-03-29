@@ -77,7 +77,10 @@
             <tbody>
               <?php
                 require '../php/config.php';
-                $stmt = $conn->prepare('SELECT * FROM cart');
+                
+                $id = $_SESSION["id"]; 
+                
+                $stmt = $conn->prepare("SELECT * FROM cart where ClientID = '$id'");
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $grand_total = 0;
@@ -85,9 +88,11 @@
               ?>
               <tr>
                 <td><?= $row['id'] ?></td>
-                <input type="hidden" class="pid" value="<?= $row['id'] ?>">
-                <td><img src="<?= $row['product_image'] ?>" width="50"></td>
-                <td><?= $row['product_name'] ?></td>
+                    <input type="hidden" class="pid" value="<?= $row['id'] ?>">
+                <td>
+                    <img src="<?= $row['product_image'] ?>" width="50"></td>
+                <td>
+                    <?= $row['product_name'] ?></td>
                 <td>
                   <i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2); ?>
                 </td>

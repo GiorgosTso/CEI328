@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_email);
+            mysqli_stmt_bind_param($stmt, "s", $param_email); 
             
             // Set parameters
             $param_email = $email;
@@ -48,35 +48,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
-                            
+                            $sql2 = "SELECT useraccount.username, useraccount.password, clients.name, clients.surname, clients.city, clients.email, clients.area, clients.phone FROM useraccount JOIN clients ON useraccount.id = clients.ClientID WHERE useraccount.username = ?";
                             // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["email"] = $email;
-                            $_SESSION["typeOfUser"] = $typeOfUser; // Store the user type
-                            $_SESSION['logout_token'] = bin2hex(random_bytes(32));
+                            $stmt = mysqli_prepare($conn, $sql2);
+                        
+                        // Bind the input parameter and execute
+                                mysqli_stmt_bind_param($stmt, "s", $email);
+                                mysqli_stmt_execute($stmt);
+                                
+                                // Bind the result variables
+                                mysqli_stmt_bind_result($stmt, $db_email, $db_password, $name, $surname, $city, $email, $area, $phone);
+                                
+                                // Fetch the results
+                                if(mysqli_stmt_fetch($stmt)) {
+                            // Here, you would typically verify the password before proceeding
+                            if (password_verify($password, $db_password)) {
+                                // Set session variables upon successful login
+                                $_SESSION['username'] = $db_email;
+                                $_SESSION['name'] = $name;
+                                $_SESSION['surname'] = $surname;
+                                $_SESSION['city'] = $city;
+                                $_SESSION['email'] = $email;
+                                $_SESSION['area'] = $area;
+                                $_SESSION['phone'] = $phone;
+                                $_SESSION["loggedin"] = true;
+                                $_SESSION["id"] = $id;
+                            
+                                $_SESSION["typeOfUser"] = $typeOfUser; // Store the user type
+                                $_SESSION['logout_token'] = bin2hex(random_bytes(32));
+                            
+                            
                             
                             // Redirect user to welcome page
-                            header("location: ../html/index.php");
-                            exit;
-                        } else {
+                                header("location: ../html/index.php");
+                                exit;
+                            } else {
                             // Password is not valid, display a generic error message
-                            $login_err = "Invalid email or password.";
+                                $login_err = "Invalid email or password.";
+                            }
                         }
                     }
-                } else {
+                    else {
                     // Email doesn't exist, display a generic error message
-                    $login_err = "Invalid email or password.";
+                        $login_err = "Invalid email or password.";
+                    }
+                } 
+                else {
+                    echo "Oops! Something went wrong. Please try again later.";
                 }
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+                mysqli_stmt_close($stmt);
+            }
+        }
         }
     }
-    
     // Close connection
     mysqli_close($conn);
 }
@@ -202,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
           
           <div class="signup_link">
-               Do you want to create an account ? <a href="createAccount.php">Signup</a>
+               Do you want to create an account ? <a href="../php/register.php">Signup</a>
           </div>
      </form>
         </div>
