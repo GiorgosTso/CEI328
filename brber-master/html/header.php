@@ -1,10 +1,10 @@
 <?php 
      session_start();
     
-    header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
+//     header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+// header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+// header("Cache-Control: post-check=0, pre-check=0", false);
+// header("Pragma: no-cache");
 
 // Check if the user is logged in, else redirect to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
@@ -63,7 +63,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                             <li><a href="../html/about.php">About</a></li>
                                             <li><a href="../html/services.php">Services</a></li>
                                             <li><a href="../cart/index.php">Orders</a></li>
-                                            <li><a href="../html/appointment.php">Appointments</a></li>
+                                            <li><a href="../html/appointment.html">Appointments</a></li>
+                                            <li><a href="../html/review.php">Review</a></li>
                                             <li class = ""><a href="../html/contact.php">Contact</a></li>
                                         </ul>
                                     </nav>

@@ -29,7 +29,7 @@
 				$res = $stmt->get_result();//pairnei ta dedomena
 				$r = $res->fetch_assoc();//pairnei tin grammi apo to SQL kai ta vazei mesa sto associative array
 				$code = $r['pid'] ?? '';//apla vazei ta pano sto $code
-			  
+			    
 					if (!$code) {
 					  $query = $conn->prepare('INSERT INTO cart (product_name,product_price,product_image,qty,total_price,ClientID) VALUES (?,?,?,?,?,?)');
 					  $query->bind_param('sissii',$pname,$pprice,$pimage,$pqty,$total_price,$cid);//kamnei ta bind genika xrisimopoieitai gia na mporoume na sindeoume tin SQL me tin php
@@ -112,6 +112,7 @@
 		
 	
 	// Checkout and save customer info in the orders table
+	
 	if (isset($_POST['action']) && isset($_POST['action']) == 'order') {
 	  $name = $_POST['name'];
 	  $surname = $_POST['surname'];
@@ -127,7 +128,7 @@
 			
 				
 		        
-		
+	  if(!empty($products)){
 				$stmt = $conn->prepare('INSERT INTO orders (name,email,phone,products,amount_paid,ClientID,receiptDate)VALUES(?,?,?,?,?,?,?)');
 				$stmt->bind_param('sssssss',$name,$email,$phone,$products,$grand_total,$clientID,$receiptDate);
 				$stmt->execute();
@@ -144,10 +145,21 @@
 				<h4>Total Amount Paid : ' . number_format($grand_total,2) . '</h4>
 				<h4>Last day reception : '.$receiptDate.'</h4>
 				</div>';
-	  echo $data;
+	  echo $data;}
 		
-	}
 	
+	else {
+		echo '<div class="alert alert-danger alert-dismissible mt-2">
+						  <button type="button" class="close" data-dismiss="alert">&times;</button>
+						  <strong>There are no products in your cart</strong>
+						</div>';
+		echo '<script>
+						setTimeout(function() {
+							window.location.href = "../cart/index.php"; // Change this to the desired redirection target
+						}, 2500); // Redirect after 2500 milliseconds (2.5 seconds)
+					  </script>';			
+	}
+}
 
 
 ?>

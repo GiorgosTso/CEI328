@@ -1,0 +1,147 @@
+
+     body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+
+     .container1 {
+        max-width: 1100px;
+        margin: 160px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-wrap: wrap;
+    } 
+
+    .container1 .review-form {
+        flex: 0 0 50%;
+        margin-bottom: 50px;
+        padding-right: 20px;
+    }
+
+    .container1 .review-form h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .container1 .form-group {
+        margin-bottom: 20px;
+    }
+
+    .container1 .form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .container1 .form-group input[type="text"],
+    .container1 .form-group select,
+    .container1 .form-group textarea,
+    .container1 .form-group input[type="file"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+    
+
+    .container1 .form-group textarea {
+        height: 120px;
+    }
+
+    .container1 .form-group button {
+        padding: 12px 24px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .container1 .form-group button:hover {
+        background-color: #0056b3;
+    }
+
+    .container1 .reviews {
+        flex: 0 0 50%;
+        margin-top: 30px;
+        padding-left: 20px;
+    }
+
+    .container1 .review {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .container1 .review h3 {
+        margin-top: 10px;
+        color: #333;
+    }
+
+    .container1 .review p {
+        color: #666;
+        margin-bottom: 5px;
+    }
+
+    .container1 .stars {
+        color: #ffcc00;
+        font-size: 24px;
+    }
+
+    .container1 .stars span {
+        cursor: pointer;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+        position: relative;
+    }
+
+    .container1 .stars span:before {
+        content: '\2605';
+        position: absolute;
+        font-size: inherit;
+        transition: color 0.3s;
+    }
+
+    .container1 .stars span:hover:before,
+    .container1 .stars input[type="radio"]:checked ~ label:before {
+        color: #ffcc00;
+    }
+
+    .container1 .stars input[type="radio"] {
+        display: none;
+    }
+
+    .container1 .stars label {
+        display: none;
+    }
+
+    .container1 .stars input[type="radio"]:checked ~ label {
+        display: block;
+    }
+
+    .container1 .stars input[type="radio"]:checked ~ label:before {
+        content: '\2605';
+        color: #ffcc00;
+    }
+
+    .container1 .form-group input[type="file"] {
+        cursor: pointer;
+    }
+
+    .container1 .form-group .file-input-label {
+        display: block;
+        margin-top: 5px;
+    }

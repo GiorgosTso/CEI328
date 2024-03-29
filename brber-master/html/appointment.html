@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step 1</title>
+    <title>Appointment</title>
     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"crossorigin="anonymous">          
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -43,7 +43,7 @@
         }
 
         button 
-                  {
+        {
          background-color: #007bff;
           color: white;
          border: none;
@@ -123,82 +123,83 @@
           <div class="custom-progress">
             <div class="custom-progress-body" style="width: 0;"></div>
           </div>
+          <form action="../php/appointment.php" method="post">
           <div id="wrapper">
-          <div class="shell"><a class="link link-primary link-return" href="index.html">Back</a></div>
-            <section class="section-xl bg-periglacial-blue one-screen-page-content text-center">
-              <div class="shell">
+          <div class="shell"><a class="link link-primary link-return" href="index.php">Back</a></div>
+          <section class="section-xl bg-periglacial-blue one-screen-page-content text-center">
+            <div class="shell">
                 <h2>CHOOSE a SERVICE</h2>
                 <div class="p text-width-medium">
-                  <p class="big">On this page you can select a service that you need. Here are presented only the most popular barbering services we provide. If you require a personalized barbering service, please contact us.</p>
+                    <p class="big">On this page you can select a service that you need. Here are presented only the most popular barbering services we provide. If you require a personalized barbering service, please contact us.</p>
                 </div>
-                
                 <div class="range range-50">
-                  <div class="cell-xs-6 cell-md-3">
-                    <article class="card-service-option"><img class="card-service-option-image" src="../assets/img/appointment/icon-service-1-70x62.png" alt="" width="70" height="62"/>
-                      <p class="card-service-option-title">STANDARD HAIRCUTS</p>
-                      <div class="card-service-option-panel">
-                        <p class="card-service-option-text">One of the most popular services our barbers provide</p>
-                          <input type="hidden" name="selectedHaircut" value="Standard Haircut">
-                          <button id="choose-service-1" class="btn btn-xs card-service-option-control" type="submit">Choose</button>
-                      </div>
-                    </article>
-                  </div>
-                  <div class="cell-xs-6 cell-md-3">
-                    <article class="card-service-option"><img class="card-service-option-image" src="../assets/img/appointment/icon-service-2-70x62.png" alt="" width="70" height="62"/>
-                      <p class="card-service-option-title">SHAVES</p>
-                      <div class="card-service-option-panel">
-                        <p class="card-service-option-text">Our shaving services will make you look really handsome</p>
-                        <input type="hidden" name="selectedHaircut" value="Shaving">
-                        <a id="choose-service-1" class="btn btn-xs card-service-option-control" href="#">Choose</a>
-                      </div>
-                    </article>
-                  </div>
-                  <div class="cell-xs-6 cell-md-3">
-                    <article class="card-service-option"><img class="card-service-option-image" src="../assets/img/appointment/icon-service-3-70x62.png" alt="" width="70" height="62"/>
-                      <p class="card-service-option-title">SKIN FADE</p>
-                      <div class="card-service-option-panel">
-                        <p class="card-service-option-text">Well-trimmed beard is a must-have element of every men’s image</p>
-                        <input type="hidden" name="selectedHaircut" value="Skin Fade">
-                        <a id="choose-service-1" class="btn btn-xs card-service-option-control" href="#">Choose</a>
-                      </div>
-                    </article>
-                  </div>
-                  <div class="cell-xs-6 cell-md-3">
-                    <article class="card-service-option"><img class="card-service-option-image" src="../assets/img/appointment/icon-service-4-70x62.png" alt="" width="70" height="62"/>
-                      <p class="card-service-option-title">Mustache trim</p>
-                      <div class="card-service-option-panel">
-                        <p class="card-service-option-text">Mustaches also need to be trimmed regularly</p>
-                        <input type="hidden" name="selectedHaircut" value="Mustache Trim">
-                        <a id="choose-service-1" class="btn btn-xs card-service-option-control" href="#">Choose</a>
-                      </div>
-                    </article>
-                  </div>
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-1-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">STANDARD HAIRCUTS</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">One of the most popular services our barbers provide</p>
+                                <input type="radio" class="button"name="serviceId" value="Standard Haircut" id="haircut-1">
+                            </div>
+                        </article>
+                    </div>
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-2-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">Shaving</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">Our shaving services will make you look really handsome</p>
+                                <input type="radio" class="button" name="serviceId" value="Standard Haircut" id="haircut-2">
+                            </div>
+                        </article>
+                    </div>
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-3-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">SKIN FADE</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">Well-trimmed beard is a must-have element of every men’s image</p>
+                                <input type="radio" class="button" name="serviceId" value="Skin Fade" id="skin-fade">
+                            </div>
+                        </article>
+                    </div>
+                    <div class="cell-xs-6 cell-md-3">
+                        <article class="card-service-option">
+                            <img class="card-service-option-image" src="../assets/img/appointment/icon-service-4-70x62.png" alt="" width="70" height="62"/>
+                            <p class="card-service-option-title">Mustache trim</p>
+                            <div class="card-service-option-panel">
+                                <p class="card-service-option-text">Regular trimming is key for keeping mustaches neat and stylish.</p>
+                                <input type="radio" class="button" name="serviceId" value="Mustache Trim" id="mustache-trim">
+                            </div>
+                        </article>
+                    </div>
                 </div>
-              </div>
-            </section>
-
-
+            </div>
+        </section>
+        
 
             <div id="wrapper">
-            <section class="section-xs bg-periglacial-blue one-screen-page-content text-center">
-              <div class="shell">
-                <h2>CHOOSE a BARBER</h2>
-                <div class="p text-width-medium">
-                  <p class="big">Barbershop offers professional services of certified barbers with years of experience. On this page you can choose a preferred barber in a few clicks.</p>
-                </div>
-                <div class="range range-lg-center">
-                  <div class="cell-lg-10">
-                    <div class="range range-sm-center range-md-left range-30">
-                      <div class="cell-sm-8 cell-md-6">
-                          <div class="thumbnail-option">
-                          <div class=""><img src="../assets/img/team1.jpg" alt="" width="170" height="180"/></div>
-                          <div class="thumbnail-option-body">
-                              <div class="thumbnail-option-title">Michalis</div>
-                              <button class="btn btn-xs btn-primary btn-circle choose-barber" onclick="chooseBarber('Michalis')">Choose</button>
+              <section class="section-xs bg-periglacial-blue one-screen-page-content text-center">
+                  <div class="shell">
+                      <h2>CHOOSE a BARBER</h2>
+                      <div class="p text-width-medium">
+                          <p class="big">Barbershop offers professional services of certified barbers with years of experience. On this page, you can choose a preferred barber in a few clicks.</p>
+                      </div>
+                      <div class="range range-lg-center">
+                          <div class="cell-lg-10">
+                              <div class="range range-sm-center range-md-left range-30">
+                                  <div class="cell-sm-8 cell-md-6">
+                                      <div class="thumbnail-option">
+                                          <div class=""><img src="../assets/img/team1.jpg" alt="" width="170" height="180"/></div>
+                                          <div class="thumbnail-option-body">
+                                              <div class="thumbnail-option-title">Michalis</div>
+                                              <input type="radio" name="nameOfBarber" value="Michalis" id="barber-michalis">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                           </div>
                       </div>
-                      </div>
-                      
             </section>
             <div id="wrapper">
             <section class="section-xs bg-periglacial-blue one-screen-page-content text-center">
@@ -207,21 +208,31 @@
                 <div class="p text-width-medium">
                   <p class="big">To complete your booking, please choose the date and time that fit you best. We will be glad to offer you top-notch barber services on the selected day.</p>
                 </div>
-                <div class="calendar">
-                <h2>Select Date and Time for Appointment</h2>
-                <input type="date" id="appointmentDate">
-                <select id="appointmentTime">
-                  <option value="09:00">09:00 AM</option>
-                  <option value="10:00">10:00 AM</option>
-                  <option value="11:00">11:00 AM</option>
-                  <option value="12:00">12:00 PM</option>
-                  <option value="13:00">01:00 PM</option>
-                  <option value="14:00">02:00 PM</option>
-                  <option value="15:00">03:00 PM</option>
-                  <option value="16:00">04:00 PM</option>
-                  <option value="17:00">05:00 PM</option>
-                  <option value="18:00">06:00 PM</option>
-                </select>
+                <div class="flex flex-wrap formbold--mx-3">
+                  <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5 w-full">
+                      <label for="date" id="appointmentDate"class="formbold-form-label"> Date </label>
+                      <input
+                        type="date"
+                        name="date"
+                        id="date"
+                        class="formbold-form-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                      <label for="time" id="appointmentTime"class="formbold-form-label"> Time </label>
+                      <input
+                        type="time"
+                        name="time"
+                        id="time"
+                        class="formbold-form-input"
+                      />
+                    </div>
+                  </div>
+              
+
                 <br>
                 <button class="btn btn-xs" onclick="scheduleAppointment()">Schedule Appointment</button>
                 </div>
@@ -306,8 +317,7 @@
                                       <!-- Form -->
                                       <div class="footer-form">
                                           <div id="mc_embed_signup">
-                                              <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part" novalidate="true">
-                                                  <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address " class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'">
+
                                                   <div class="form-icon">
                                                       <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">Send</button>
                                                   </div>
@@ -399,12 +409,15 @@
     button.addEventListener('click', function(event) {
       event.preventDefault();
 
+      // Remove the 'selected' class from all buttons
       chooseButtons.forEach(function(btn) {
         btn.classList.remove('selected');
       });
 
+      // Add the 'selected' class to the clicked button
       button.classList.add('selected');
 
+      // Set the selectedService to the corresponding haircut option
       selectedService = button.parentNode.parentNode.querySelector('.card-service-option-title').textContent;
 
       var serviceDescription = button.parentNode.querySelector('.card-service-option-text').textContent;
