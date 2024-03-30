@@ -209,25 +209,33 @@
                   <p class="big">To complete your booking, please choose the date and time that fit you best. We will be glad to offer you top-notch barber services on the selected day.</p>
                 </div>
                 <div class="calendar">
-                <h2>Select Date and Time for Appointment</h2>
-                <input type="date" name="date" id="appointmentDate">
-                
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-                <label for="time">Select Time:</label>
-                <input type="text" id="time" name="time">
-
-                <script>
-                  flatpickr("#time", {
-                      enableTime: true,
-                      noCalendar: true,
-                      dateFormat: "H:i",
-                      time_24hr: false // Set to true if you want to use 24-hour format
-                  });
-              </script>
+                  <h2>Select Date and Time for Appointment</h2>
+                  <label for="date" id="appointmentDate" class="formbold-form-label"> Day </label>
+                  <input type="text" name="date" id="appointmentDate" placeholder="Select Date">
               
-
+                  <!-- Include Flatpickr CSS and JavaScript -->
+                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+                  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                  <script>
+                    // Initialize Flatpickr with options
+                    flatpickr("#appointmentDate", {
+                        dateFormat: "Y-m-d",
+                        minDate: "today", // Restrict to current day and forward only
+                        onClose: function(selectedDates, dateStr, instance) {
+                            // When the date is selected, set the minTime of time input to null
+                            // This ensures that time selection starts fresh for each selected date
+                            flatpickr("#time", {
+                                minTime: null
+                            });
+                        }
+                    });
+                    </script>
+                  <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label for="time" id="appointmentTime" class="formbold-form-label"> Time </label>
+                        <input type="time" name="time" id="time" class="formbold-form-input" step="1800"/>
+                    </div>
+                </div>
                 <br>
                 <button class="btn btn-xs" onclick="scheduleAppointment()">Schedule Appointment</button>
                 </div>
@@ -456,11 +464,30 @@
     var selectedDate = document.getElementById("appointmentDate").value;
     var selectedTime = document.getElementById("appointmentTime").value;
 
+    // Check if both date and time are selected
     if (selectedDate && selectedTime) {
-        console.log("Appointment scheduled for " + selectedDate + " at " + selectedTime);
+        // Extract the hour and minute from the selected time
+        var timeParts = selectedTime.split(":");
+        var selectedHour = parseInt(timeParts[0]);
+        var selectedMinute = parseInt(timeParts[1]);
+
+        // Round the minute to the nearest 30-minute interval
+        var roundedMinute = Math.round(selectedMinute / 30) * 30;
+
+        // Adjust the hour if necessary
+        if (roundedMinute === 60) {
+            selectedHour += 1;
+            roundedMinute = 0;
+        }
+
+        // Format the selected time
+        var roundedTime = selectedHour.toString().padStart(2, '0') + ":" + roundedMinute.toString().padStart(2, '0');
+
+        console.log("Appointment scheduled for " + selectedDate + " at " + roundedTime);
         // Here you can add code to send the selected date and time to the database
     } else {
         alert("Please select both date and time for the appointment.");
     }
 }
+
 </script>
