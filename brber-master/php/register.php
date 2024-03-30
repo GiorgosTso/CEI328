@@ -60,7 +60,7 @@ if(!empty($email) && !empty($password) && empty($email_err))
 
         $last_user_id = mysqli_insert_id($conn);
 
-        $query = "insert into clients (ClientID,name,surname,city,email,area,phone) 
+        $query = "insert into clients (id,name,surname,city,email,area,phone) 
         values ('$last_user_id','$name','$surname','$city','$email','$area','$phone')";
         $result = mysqli_query($conn, $query);
 

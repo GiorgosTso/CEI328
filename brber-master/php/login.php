@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
-                            $sql2 = "SELECT useraccount.username, useraccount.password, clients.name, clients.surname, clients.city, clients.email, clients.area, clients.phone FROM useraccount JOIN clients ON useraccount.id = clients.ClientID WHERE useraccount.username = ?";
+                            $sql2 = "SELECT useraccount.username, useraccount.password, clients.name, clients.surname, clients.city, clients.email, clients.area, clients.phone FROM useraccount JOIN clients ON useraccount.id = clients.id WHERE useraccount.username = ?";
                             // Store data in session variables
                             $stmt = mysqli_prepare($conn, $sql2);
                         
