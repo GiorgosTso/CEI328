@@ -155,7 +155,7 @@
 						</div>';
 		echo '<script>
 						setTimeout(function() {
-							window.location.href = "../cart/index.php"; // Change this to the desired redirection target
+							window.location.href = "../cart/order.php"; // Change this to the desired redirection target
 						}, 2500); // Redirect after 2500 milliseconds (2.5 seconds)
 					  </script>';			
 	}

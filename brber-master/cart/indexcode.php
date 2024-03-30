@@ -324,7 +324,7 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentaddmodal">
                         ADD PRODUCTS
                     </button>
-                    <a href="index.php"><button type="button" class="btn btn-info btn-round " data-toggle="modal" data-target="#loginModal">
+                    <a href="order.php"><button type="button" class="btn btn-info btn-round " data-toggle="modal" data-target="#loginModal">
                         GO BACK
                     </button></a>
                 </div>

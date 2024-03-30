@@ -70,6 +70,8 @@
                 </div>
             </div>
             
+            <?php include "header.php"; ?>
+            
             <div class="header-area header-transparent pt-20">
                 <div class="main-header header-sticky">
                     <div class="container-fluid">

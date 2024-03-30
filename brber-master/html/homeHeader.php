@@ -1,23 +1,6 @@
 <?php 
      session_start();
      
-     $protected_pages = [
-        'appointment.php', 
-        'order.php', 
-        'review.php',
-        'contact.php'
-    ];
-    
-    $current_page = basename($_SERVER['PHP_SELF']);
-    
-    if (in_array($current_page, $protected_pages) && (!isset($_SESSION["loggedin"]))) {
-        // Redirect to the login page
-        header("location: ../php/login.php");
-        exit;
-    }
-// Get the current page's path
-    
-    
 //     header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
 // header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 // header("Cache-Control: post-check=0, pre-check=0", false);
@@ -76,8 +59,8 @@
                                             <li class=""><a href="../html/index.php">Home</a></li>
                                             <li><a href="../html/about.php">About</a></li>
                                             <li><a href="../html/services.php">Services</a></li>
-                                            <li><a href="../cart/order.php">Orders</a></li>
-                                            <li><a href="../html/appointment.php">Appointments</a></li>
+                                            <li><a href="../cart/index.php">Orders</a></li>
+                                            <li><a href="../html/appointment.html">Appointments</a></li>
                                             <li><a href="../html/review.php">Review</a></li>
                                             <li class = ""><a href="../html/contact.php">Contact</a></li>
                                         </ul>
@@ -85,7 +68,7 @@
                                 </div>
                                 
                                     <?php
-                                    if (!isset($_SESSION['loggedin'])){
+                                    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === false  ){
                                         echo '<div class="header-right-btn f-right d-none d-lg-block ml-30">';//den emfanizei to login kai to sign up
                                         echo '<a href="../php/login.php" class="btn header-btn">Login</a>';
                                         echo '</div>';
@@ -96,7 +79,7 @@
                                      }
                                      else {
                                         echo '<form action="../php/logout.php" method="post">';
-                                        echo '<input type="hidden" name="logout_token" value="'. $_SESSION["logout_token"] . '">';
+                                        echo '<input type="hidden" name="logout_token" value=<?php echo $_SESSION["logout_token"]; ?>';
                                         echo '<button type="submit" name="logout_btn" class="btn btn-danger">Logout</button>';
                                         echo '</form>';
                                      }
