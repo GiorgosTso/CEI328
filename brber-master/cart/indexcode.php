@@ -57,6 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $price_err = "Enter the price "; 
 
         }
+        else if(trim($_POST["product_price"]) < 0){
+            $pprice_err = "Price can't be negative";
+        }
         else {
             $pprice = $_POST["product_price"];
         }
@@ -64,6 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(empty(trim($_POST["product_qty"]))){
             $quantity_err = "Enter the Quantity "; 
 
+        }
+        else if(trim($_POST["product_qty"]) < 0){
+            $pprice_err = "Quantity can't be negative";
         }
         else {
             $pqty = ($_POST["product_qty"]);
@@ -90,6 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="css/indexcode.css">
+    <link href="css/styles.css" rel="stylesheet" />
     
     <!-- extra -->
     
@@ -331,7 +338,7 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
             </div>
  
             <div class="card">
-                <div class="card-body">
+                
 
                     <?php
                 
@@ -339,7 +346,14 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
                 $query = "SELECT * FROM product";
                 $query_run = mysqli_query($conn, $query);
             ?>
-                    <table id="datatableid" class="table table-bordered table"> 
+            
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                DataTable Example
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple" class="table table-bordered table">
+                     
                     <!-- this is to display the table -->
                         <thead>
                             <tr>
@@ -351,13 +365,25 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
                                 <th scope="col"> DELETE </th>
                             </tr>
                         </thead>
+                        
+                        <tfoot>
+                            <tr>
+                                <th scope="col"> ID</th>
+                                <th scope="col"> Name</th>
+                                <th scope="col"> Product Price </th>
+                                <th scope="col"> product Quantity </th>
+                                <th scope="col"> EDIT </th>
+                                <th scope="col"> DELETE </th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
                         <?php
                 if($query_run)
                 {
                     foreach($query_run as $row)
                     {
             ?>
-                        <tbody>
+                        
                             <tr>
                                 <td> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['product_name']; ?> </td>
@@ -370,7 +396,7 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
                                     <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
                                 </td>
                             </tr>
-                        </tbody>
+                        
                         <?php           
                     }
                 }
@@ -379,6 +405,7 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
                     echo "No Record Found";
                 }
             ?>
+            </tbody>
                     </table>
                 </div>
             </div>
@@ -387,8 +414,12 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
         </div>
     </div>
     
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
     
     <script>
 $(document).ready(function() {

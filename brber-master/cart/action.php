@@ -127,10 +127,10 @@
 		
 			
 				
-		        
+	  $currentDate = date('Y-m-d');
 	  if(!empty($products)){
-				$stmt = $conn->prepare('INSERT INTO orders (name,email,phone,products,amount_paid,ClientID,receiptDate)VALUES(?,?,?,?,?,?,?)');
-				$stmt->bind_param('sssssss',$name,$email,$phone,$products,$grand_total,$clientID,$receiptDate);
+				$stmt = $conn->prepare('INSERT INTO orders (name,email,phone,products,amount_paid,ClientID,receiptDate,order_date)VALUES(?,?,?,?,?,?,?,?)');
+				$stmt->bind_param('ssssssss',$name,$email,$phone,$products,$grand_total,$clientID,$receiptDate,$currentDate);
 				$stmt->execute();
 				$stmt2 = $conn->prepare("DELETE FROM cart WHERE ClientID = '$cid'");
 				$stmt2->execute();
