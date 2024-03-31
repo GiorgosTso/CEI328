@@ -1,10 +1,9 @@
 <?php
 include '../php/config.php';
 
-    if(isset($_POST['updatedata']))
-    {   
+       
         $id = $_POST['update_id'];
-        
+            
         $product_name = $_POST['product_name'];
         $product_price = $_POST['product_price'];
         $product_qty = $_POST['product_qty'];
@@ -22,5 +21,5 @@ include '../php/config.php';
         {
             echo '<script> alert("Data Not Updated"); </script>';
         }
-    }
+    
 ?>
