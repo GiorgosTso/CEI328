@@ -202,7 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
           
           <div class="signup_link">
-               Do you want to create an account ? <a href="../html/register.html">Signup</a>
+               Do you want to create an account ? <a href="../html/register.php">Signup</a>
           </div>
      </form>
         </div>
