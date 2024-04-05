@@ -13,7 +13,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,9 +34,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 	<link rel="stylesheet" href="../assets/css/style.css">
 	
 </head>
-<body>
-    
-</body>
 </html>
 
 
@@ -59,16 +55,27 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li class=""><a href="../html/index.php">Home</a></li>
-                                            <li><a href="../html/about.php">About</a></li>
+                                        <?php  
+                                        if ( $_SESSION['typeOfUser'] === '1'||$_SESSION['typeOfUser'] === '2')
+                                            { 
+                                                echo "<li class='nav-item'>
+                                                <a class='nav-link' href='ASReports.php'>
+                                                <i class='bi bi-book'></i>
+                                                <span style='color:rgb(0, 0, 0);'> <b>Reports</b></span></a>    
+                                                </li>";
+                                            }
+                                            ?>
+                                            <li><a href="../reports/index.php">Reports</a></li>
+                                            <li><a href="../html/index.php">Home</a></li>
+                                            <li><a href="../html/Gallery.php">Gallery</a></li>
                                             <li><a href="../html/services.php">Services</a></li>
                                             <li><a href="../cart/index.php">Orders</a></li>
                                             <li><a href="../html/appointment.html">Appointments</a></li>
                                             <li><a href="../html/review.php">Review</a></li>
-                                            <li class = ""><a href="../html/contact.php">Contact</a></li>
+                                            <li><a href="../html/contact.php">Contact</a></li>
                                         </ul>
                                     </nav>
-                                </div>
+                                 </div>
                                 
                                     <?php
                                     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === false  ){
