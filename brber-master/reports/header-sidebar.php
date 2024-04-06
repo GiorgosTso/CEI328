@@ -31,7 +31,7 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="../php/logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -97,6 +97,10 @@
                             <a class="nav-link" href="tableView.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
+                            </a>
+                            <a class="nav-link" href="management.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                User Management
                             </a>
                         </div>
                     </div>

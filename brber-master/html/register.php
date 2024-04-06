@@ -26,7 +26,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
 
         $query1 = "insert into useraccount(username, password, typeOfUser)values ('$email', '$hash', '3')";
-
         $result1 = mysqli_query($conn, $query1);
 
         $last_user_id = mysqli_insert_id($conn);
