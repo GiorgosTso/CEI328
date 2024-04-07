@@ -69,83 +69,101 @@
         <!-- slider Area End-->
         <!--? Team Start -->
         <div class="team-area pb-180">
-        <div class="container">
-          <!-- Section Tittle -->
-          <div class="row justify-content-center">
-            <div class="col-xl-8 col-lg-8 col-md-11 col-sm-11">
-              <div class="section-tittle text-center mb-100">
-              <br><br><br>
-                <h2>Our hair cut experts for you</h2>
-              </div>
-            </div>
-          </div>
-          <div class="row team-active dot-style">
-            <!-- single Tem -->
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-              <div class="single-team mb-80 text-center"></div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-              <div class="single-team mb-80 text-center">
-                <div class="team-img">
-                  <img src="../assets/img/team1.jpg" alt="" />
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-8 col-md-11 col-sm-11">
+                        <div class="section-tittle text-center mb-100">
+                            <br><br><br>
+                            <h2>Our hair cut experts for you</h2>
+                        </div>
+                    </div>
                 </div>
-                <div class="team-caption">
-                  <span>Barber</span>
-                  <h3><a href="#">Mike</a></h3>
+                <div class="row team-active dot-style">
+                    <!-- single Tem -->
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                        <div class="single-team mb-80 text-center"></div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                        <div class="single-team mb-80 text-center">
+                            <div class="team-img">
+                                <img src="../assets/img/team1.jpg" alt="" />
+                            </div>
+                            <div class="team-caption">
+                                <span>Barber</span>
+                                <h3><a href="#">Mike</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                        <div class="single-team mb-80 text-center"></div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-              <div class="single-team mb-80 text-center"></div>
-            </div>
-          </div>
         </div>
-      </div>
         <!-- Team End -->
-        <!-- Best Pricing Area Start -->
+        <?php
+        include "../php/config.php";
+        $sql = "SELECT name, price FROM service ORDER BY serviceId ASC";
+        $result = $conn->query($sql);
+
+        $services = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $services[] = $row;
+            }
+        }
+
+        // Determine how many services should be in each column
+        $servicesPerColumn = 6;
+        $totalServices = count($services);
+        $totalColumns = ceil($totalServices / $servicesPerColumn);
+        ?>
+
+        <!-- Pricing Section -->
         <div class="best-pricing section-padding2 position-relative">
             <div class="container">
                 <div class="row justify-content-end">
                     <div class="col-xl-7 col-lg-7">
+                        <!-- Section Title -->
                         <div class="section-tittle mb-50">
                             <span>Our Best Pricing</span>
                             <h2>We provide best price<br> in the city!</h2>
                         </div>
-                        <!-- Pricing  -->
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="pricing-list">
-                                    <ul>
-                                        <li>Standard Haircut. . . . . . . . . . . . . . . . . . . . . . . . .<span>€12</span></li>
-                                        <li>Skin Fade. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .<span>€16</span></li>
-                                        <li>Skin fade + Lineup/beard . . . . . . . . . . . . . . . . . .<span>€20</span></li>
-                                        <li>Haircut + Beard . . . . . . . . . . . . . . . . . . . . . . . . . .<span>€16</span></li>
-                                        <li>Beard. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .<span>€10</span></li>
-                                        <li>Boys (Booster Chair). . . . . . . . . . . . . . . . . . . . .<span>€10</span></li>
 
-                                    </ul>
+                        <!-- Pricing -->
+                        <div class="row">
+                            <?php for ($col = 0; $col < $totalColumns; $col++) : ?>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="pricing-list">
+                                        <table style="width: 100%;">
+                                            <?php
+                                            $startIdx = $col * $servicesPerColumn;
+                                            $endIdx = min(($col + 1) * $servicesPerColumn, $totalServices);
+                                            for ($i = $startIdx; $i < $endIdx; $i++) :
+                                                $service = $services[$i];
+                                            ?>
+                                                <tr>
+                                                    <td style="text-align: left;"><?= $service['name']; ?></td>
+                                                    <td style="text-align: right;">€<?= $service['price']; ?></td>
+                                                </tr>
+                                            <?php endfor; ?>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="pricing-list">
-                                    <ul>
-                                        <li>Standard haircut + nose/ear wax. . . . . . . . . . .<span>€15</span></li>
-                                        <li>Skin fade + nose/ear wax. . . . . . . . . . . . . . . . . . .<span>€18</span></li>
-                                        <li>Steam shave. . . . . . . . . . . . . . . . . . . . . . . . . . . . . <span>€10</span></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <?php endfor; ?>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- pricing img -->
+            <!-- Pricing Image -->
             <div class="pricing-img">
                 <img class="pricing-img1" src="../assets/img/cut3.jpg" alt="">
                 <img class="pricing-img2" src="../assets/img/gallery/pricing2.png" alt="">
             </div>
         </div>
-        <!-- Best Pricing Area End -->
+        <!-- End of Pricing Section -->
+
         <!--? Gallery Area Start -->
         <div class="gallery-area section-padding30">
             <div class="container">
