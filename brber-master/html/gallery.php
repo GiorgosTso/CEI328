@@ -60,71 +60,73 @@
       </div>
       <!-- Hero End -->
       <!--? About Area Start -->
-      <section class="about-area section-padding30 position-relative">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-3 col-md-11">
-              <!-- about-img -->
-              <div class="about-img">
-  
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-              <img src="../assets/img/gallery/about-shape.png" alt="" style="position: absolute;"/> 
-              <div class="about-caption" style="text-align: center; margin-top: 50px">
+      <!--? Gallery Area Start -->
+      <div class="gallery-area section-padding30">
+            <div class="container">
                 <!-- Section Tittle -->
-                <div class="section-tittle section-tittle3 mb-35">
-                  <span>About Our Barbershop</span>
-                  <h2>Many years Of Experience In Hair cutting</h2>
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-7 col-md-9 col-sm-10">
+                        <div class="section-tittle text-center mb-100">
+                            <span>our image gallery</span>
+                            <h2>some images from our barber shop</h2>
+                        </div>
+                    </div>
                 </div>
-                <p class="mb-30 pera-bottom">
-                  At our barbershop, we blend modern styles with traditional craftsmanship to deliver exceptional grooming experiences tailored just for you.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- About Shape -->
-        <div class="about-shape">
-          
-        </div>
-      </section>
-      <!-- About-2 Area End -->
-      <!--? Team Start -->
-      <div class="team-area pb-180">
-        <div class="container">
-          <!-- Section Tittle -->
-          <div class="row justify-content-center">
-            <div class="col-xl-8 col-lg-8 col-md-11 col-sm-11">
-              <div class="section-tittle text-center mb-100">
-                <span>Professionals</span>
-                <h2>Our hair cut experts for you</h2>
-              </div>
-            </div>
-          </div>
-          <div class="row team-active dot-style">
-            <!-- single Tem -->
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-              <div class="single-team mb-80 text-center"></div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-              <div class="single-team mb-80 text-center">
-                <div class="team-img">
-                  <img src="../assets/img/team1.jpg" alt="" />
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut1.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/barber.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/barber1.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut2.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="team-caption">
-                  <span>Barber</span>
-                  <h3><a href="#">Mike</a></h3>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut1.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/barber.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/barber1.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut2.jpg);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-              <div class="single-team mb-80 text-center"></div>
-            </div>
-          </div>
         </div>
-      </div>
-      <!-- Team End -->
+        <!-- Gallery Area End -->
     </main>
 
     <footer>
