@@ -56,6 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["typeOfUser"] = $typeOfUser; // Store the user type
                             $_SESSION['logout_token'] = bin2hex(random_bytes(32));
                             
+                            $_SESSION["username"] = $email;
+                            $logDate = date("Y-m-d");
+                            $logAction = "User: " .$email. " has logged in"; 
+
+                            $query3 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDate', '$logAction')";
+                            $result3 =mysqli_query($conn, $query3);
                             // Redirect user to welcome page
                             header("location: ../html/index.php");
                             exit;

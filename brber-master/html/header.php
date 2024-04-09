@@ -1,6 +1,12 @@
 <?php 
+    ob_start(); 
+
      session_start();
-    
+     if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    $typeOfUser = isset($_SESSION['typeOfUser']) ? $_SESSION['typeOfUser'] : null; 
+
     header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -55,17 +61,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                        <?php  
-                                        if ( $_SESSION['typeOfUser'] === '1'||$_SESSION['typeOfUser'] === '2')
-                                            { 
-                                                echo "<li class='nav-item'>
-                                                <a class='nav-link' href='ASReports.php'>
-                                                <i class='bi bi-book'></i>
-                                                <span style='color:rgb(0, 0, 0);'> <b>Reports</b></span></a>    
-                                                </li>";
+                                        <?php
+                                            if ($typeOfUser == 1 || $typeOfUser == 2) 
+                                            {
+                                            echo '
+                                                <li><a href="../reports/index.php">
+                                                    Admin Module
+                                                </a></li>';
                                             }
-                                            ?>
-                                            <li><a href="../reports/index.php">Reports</a></li>
+                                        ?>
                                             <li><a href="../html/index.php">Home</a></li>
                                             <li><a href="../html/Gallery.php">Gallery</a></li>
                                             <li><a href="../html/services.php">Services</a></li>
@@ -106,4 +110,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
         <!-- Header End -->
     </header>
+    <?php
+            
+            ob_end_flush(); 
+            
+            ?>
     

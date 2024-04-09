@@ -1,3 +1,12 @@
+<?php
+ob_start(); 
+
+session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+$typeOfUser = isset($_SESSION['typeOfUser']) ? $_SESSION['typeOfUser'] : null; 
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -98,15 +107,55 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
                             </a>
-                            <a class="nav-link" href="management.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                User Management
-                            </a>
+                            <?php
+                                if ($typeOfUser == 1) 
+                                {
+                                    echo '
+                                    <a class="nav-link" href="management.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                        User management
+                                    </a>';
+                                }
+                            
+                                if ($typeOfUser == 1) 
+                                {
+                                    echo '
+                                    <a class="nav-link" href="logFiles.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                        Log\'s
+                                    </a>';
+                                }
+                            ?>
+
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+                    <?php
+                    $conn = mysqli_connect("localhost", "root", "", "southside_db");
+
+                    if (!$conn) {
+                        die("Connection failed: " . mysqli_connect_error());
+                    }
+                
+                    $currentUser = isset($_SESSION['email']) ? mysqli_real_escape_string($conn, $_SESSION['email']) : '';
+                
+                    $query = "SELECT * FROM useraccount WHERE username ='$currentUser'";
+                    $result = mysqli_query($conn, $query);
+                
+                    if ($result && mysqli_num_rows($result) > 0)
+                    {
+                        $row = mysqli_fetch_array($result);
+                        echo "<div class='sb-sidenav-footer'>
+                            <div class='small'>Logged in as:</div>
+                            <li class='sb-sidenav-footer'>
+                            <a class='nav-link'>" . htmlspecialchars($row['username']) . "</a>
+                        </li>";
+                    }
+                    mysqli_close($conn);
+                    ?>
+                
+                    
                 </nav>
             </div>
+        <?php
+        ob_end_flush(); 
+        ?>

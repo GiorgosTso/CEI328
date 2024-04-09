@@ -1,3 +1,6 @@
+<?php
+include "../reports/header-sidebar.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +14,6 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
-    <?php 
-        session_start(); 
-        include "../reports/header-sidebar.php";
-    ?>
     <div id="layoutSidenav_content">
         <main>
         <?php
@@ -67,8 +66,6 @@
                                     echo "<td>" . $row['typeOfUser'] . "</td>"; 
                                     echo "<td>" . $row['employee_email'] . "</td>";
                                     echo "<td>" . $row['employee_phone'] . "</td>";
-                                } else {
-                                    echo "<td colspan='6'>No data available</td>";
                                 }
                                 echo "</tr>";
                             }

@@ -1,4 +1,6 @@
 <?php
+session_start(); // Start the session
+
 include "../php/config.php";
 
 $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -8,9 +10,25 @@ $phone = mysqli_real_escape_string($conn, $_POST['phone']);
 $typeOfUser = mysqli_real_escape_string($conn, $_POST['typeOfUser']);
 $employeeId = mysqli_real_escape_string($conn, $_POST['employee']);
 
+$username = mysqli_real_escape_string($conn, $_POST['username']);
+
+if (isset($_SESSION["email"])) 
+    {
+        $user = $_SESSION["email"];
+    } 
+else 
+    {
+        $user = "Unknown";
+    }
 $query = "UPDATE clients SET name = '$name', surname = '$surname', email = '$email', phone = '$phone' WHERE id = '$employeeId'";
 
 $result = mysqli_query($conn, $query);
+
+$logDate = date("Y-m-d");
+$logAction = "User: " .$user. " updated user: " .$email; 
+
+$query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDate', '$logAction')";
+$result2 =mysqli_query($conn, $query2);
 
 if ($result) 
 {
