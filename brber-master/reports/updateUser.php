@@ -24,10 +24,10 @@ $query = "UPDATE clients SET name = '$name', surname = '$surname', email = '$ema
 
 $result = mysqli_query($conn, $query);
 
-$logDate = date("Y-m-d");
+$logDateTime = date("Y-m-d H:i:s");
 $logAction = "User: " .$user. " updated user: " .$email; 
 
-$query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDate', '$logAction')";
+$query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
 $result2 =mysqli_query($conn, $query2);
 
 if ($result) 

@@ -1,5 +1,6 @@
 <?php
 require("../php/config.php");
+session_start();
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -24,6 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO reviews (name, picture, content, numStars, date) VALUES (?, ?, ?, ?, NOW())");
     $stmt->bind_param("sssi", $name, $photo, $comment, $rating);
 
+    if (isset($_SESSION['email'])) 
+    {
+        $email = $_SESSION['email'];
+        $id = $_SESSION['id'];
+    }
+    $logDateTime = date("Y-m-d H:i:s");
+    $logAction = "User: " .$email. " has added a review"; 
+
+    $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
+    $result2 =mysqli_query($conn, $query2);
+    
     // Execute the statement
     if ($stmt->execute()) {
         // Redirect back to the review page after submission

@@ -1,7 +1,6 @@
 <?php
-// Include your database connection script
+session_start();
 include "../php/config.php";
-
 // Check if the request is AJAX and a POST request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Retrieve form data
@@ -9,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $price = $_POST['price'] ?? '';
     $time = $_POST['time'] ?? '';
 
-    // Validate data (basic validation)
     if (empty($name) || empty($price) || empty($time)) {
         echo json_encode(['status' => 'error', 'message' => 'All fields are required.']);
         exit;
@@ -30,6 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Proceed with insertion if the name is unique
     $query = "INSERT INTO service (name, price, time) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($query);
+
+    if (isset($_SESSION['email'])) 
+    {
+        $email = $_SESSION['email'];
+        $id = $_SESSION['id'];
+    }   
+    
+    $logDate = date("Y-m-d");
+    $logAction = "User: " .$email. " has added a new service ".$name; 
+
+    $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDate', '$logAction')";
+    $result2 =mysqli_query($conn, $query2);
+
     if ($stmt) {
         $stmt->bind_param("sss", $name, $price, $time); // Adjusted bind_param to "sss" assuming price can be a string format too, like "19.99"
         $result = $stmt->execute();
