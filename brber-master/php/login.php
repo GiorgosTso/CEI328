@@ -50,13 +50,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             // Password is correct, so start a new session
                             
                             // Store data in session variables
+                            $_SESSION['username'] = $email;
+                            $_SESSION['name'] = $name;
+                            $_SESSION['surname'] = $surname;
+                            $_SESSION['city'] = $city;
+                            $_SESSION['email'] = $email;
+                            $_SESSION['area'] = $area;
+                            $_SESSION['phone'] = $phone;
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["email"] = $email;
+                        
                             $_SESSION["typeOfUser"] = $typeOfUser; // Store the user type
                             $_SESSION['logout_token'] = bin2hex(random_bytes(32));
-                            
-                            $_SESSION["username"] = $email;
+
                             $logDateTime = date("Y-m-d H:i:s");
                             $logAction = "User: " .$email. " has logged in"; 
 
@@ -142,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="index.html"><img src="../assets/img/logo.png" alt=""></a>
+                                <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
                             </div>
                             </div>
                         </div>

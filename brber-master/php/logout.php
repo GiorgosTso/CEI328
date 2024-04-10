@@ -19,7 +19,7 @@ if (isset($_POST['logout_token']) && $_POST['logout_token'] === $_SESSION['logou
     session_destroy();
 
     // Redirect to login page or home page
-    header("location: ../php/login.php");
+    header("location: ../html/index.php");
     exit;
 } else {
     // If the logout token is invalid, handle the error or ignore the logout request

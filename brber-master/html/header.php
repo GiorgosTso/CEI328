@@ -1,23 +1,24 @@
 <?php 
     ob_start(); 
-
-     session_start();
-     if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    session_start();
+     
+    $protected_pages = [
+        'appointment.php', 
+        'order.php', 
+        'review.php',
+        'contact.php'
+    ];
+    
+    $current_page = basename($_SERVER['PHP_SELF']);
     $typeOfUser = isset($_SESSION['typeOfUser']) ? $_SESSION['typeOfUser'] : null; 
 
-    header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-
-// Check if the user is logged in, else redirect to login page
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../php/login.php");
-    exit;
-}
+    if (in_array($current_page, $protected_pages) && (!isset($_SESSION["loggedin"]))) {
+        // Redirect to the login page
+        header("location: ../php/login.php");
+        exit;
+    }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +41,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 	<link rel="stylesheet" href="../assets/css/style.css">
 	
 </head>
+<body>
+    
+</body>
 </html>
 
 
@@ -52,7 +56,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
+                                <a href="../php/index.php"><img src="../assets/img/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">
@@ -64,25 +68,25 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         <?php
                                             if ($typeOfUser == 1 || $typeOfUser == 2) 
                                             {
-                                            echo '
-                                                <li><a href="../reports/index.php">
+                                                echo '<li><a href="../reports/chart_day.php">
                                                     Admin Module
                                                 </a></li>';
                                             }
-                                        ?>
+                                            ?>
+
                                             <li><a href="../html/index.php">Home</a></li>
                                             <li><a href="../html/Gallery.php">Gallery</a></li>
                                             <li><a href="../html/services.php">Services</a></li>
-                                            <li><a href="../cart/index.php">Orders</a></li>
-                                            <li><a href="../html/appointment.html">Appointments</a></li>
+                                            <li><a href="../cart/order.php">Orders</a></li>
+                                            <li><a href="../html/appointment.php">Appointments</a></li>
                                             <li><a href="../html/review.php">Review</a></li>
-                                            <li><a href="../html/contact.php">Contact</a></li>
+                                            <li class = ""><a href="../html/contact.php">Contact</a></li>
                                         </ul>
                                     </nav>
-                                 </div>
+                                </div>
                                 
                                     <?php
-                                    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === false  ){
+                                    if (!isset($_SESSION['loggedin'])){
                                         echo '<div class="header-right-btn f-right d-none d-lg-block ml-30">';//den emfanizei to login kai to sign up
                                         echo '<a href="../php/login.php" class="btn header-btn">Login</a>';
                                         echo '</div>';
@@ -91,11 +95,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         echo '</div>';
                                         echo '</div>';
                                      }
+                                     else {
+                                        echo '<form action="../php/logout.php" method="post">';
+                                        echo '<input type="hidden" name="logout_token" value="'. $_SESSION["logout_token"] . '">';
+                                        echo '<button type="submit" name="logout_btn" class="btn btn-danger">Logout</button>';
+                                        echo '</form>';
+                                     }
                                     ?>
-                                    <form action="../php/logout.php" method="post">
-                                        <input type="hidden" name="logout_token" value="<?php echo $_SESSION['logout_token']; ?>">
-                                        <button type="submit" name="logout_btn" class="btn btn-danger">Logout</button>
-                                    </form>
+                                    
+                                        
+                                        
+                                    
                                     
                                 </div>
                                 
@@ -110,9 +120,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
         <!-- Header End -->
     </header>
+
     <?php
-            
-            ob_end_flush(); 
-            
-            ?>
-    
+    ob_end_flush(); 
+    ?>
