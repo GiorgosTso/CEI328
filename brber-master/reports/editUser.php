@@ -42,33 +42,38 @@ else
                 <div class="table-size-1 mt-4">
                 <form id="updateUser" action="updateUser.php" method="post">
                 <div class="mb-3">
-                            <br>
-                            <label for="employee">Παρακαλώ επιλέξτε λογαριασμό </label>
-                            <?php
-                            $query = "SELECT useraccount.typeOfUser, clients.id AS client_id, clients.name AS client_name, clients.surname AS client_surname, clients.email AS client_email, clients.phone AS client_phone,
-                            employee.id AS employee_id, employee.name AS employee_name, employee.surname AS employee_surname, employee.email AS employee_email, employee.phone AS employee_phone
-                            FROM useraccount
-                            LEFT JOIN clients ON useraccount.id = clients.id
-                            LEFT JOIN employee ON useraccount.id = employee.id";
+                    <br>
+                    <label for="employee">Παρακαλώ επιλέξτε λογαριασμό </label>
+                    <?php
+                        $query = "SELECT useraccount.typeOfUser, clients.id AS client_id, clients.name AS client_name, clients.surname AS client_surname, clients.email AS client_email, clients.phone AS client_phone,
+                        employee.id AS employee_id, employee.name AS employee_name, employee.surname AS employee_surname, employee.email AS employee_email, employee.phone AS employee_phone
+                        FROM useraccount
+                        LEFT JOIN clients ON useraccount.id = clients.id
+                        LEFT JOIN employee ON useraccount.id = employee.id";
 
-                            $result = mysqli_query($conn, $query);
+                        $result = mysqli_query($conn, $query);
 
-                            echo "<select class='form-control' name='employee' id='employee' onchange='populateFormFields()'>";
-                            echo "<option value='' selected></option>";
-                            if (mysqli_num_rows($result) > 0) 
-                            {
-                                while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<select class='form-control' name='employee' id='employee' onchange='populateFormFields()'>";
+                        echo "<option value='' selected>Select a User</option>";
+                        if (mysqli_num_rows($result) > 0) 
+                        {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                if ($row['client_id']) {
                                     echo "<option value='" . $row['client_id'] . "' data-lastname='" . $row['client_surname'] . "' data-firstname='" . $row['client_name'] . "' data-email='" . $row['client_email'] . "' data-phone='" . $row['client_phone'] . "'>" . $row['client_surname'] . " " . $row['client_name'] . "</option>";
+                                }
+                                if ($row['employee_id']) {
                                     echo "<option value='" . $row['employee_id'] . "' data-lastname='" . $row['employee_surname'] . "' data-firstname='" . $row['employee_name'] . "' data-email='" . $row['employee_email'] . "' data-phone='" . $row['employee_phone'] . "'>" . $row['employee_surname'] . " " . $row['employee_name'] . "</option>";
                                 }
-                            } 
-                            else 
-                            {
-                                echo "<option value=''>No options found</option>";
                             }
-                            echo "</select>";
-                            echo "<input type='hidden' name='row_id' id='row_id' value=''>";
-                            ?>
+                        } 
+                        else 
+                        {
+                            echo "<option value=''>No options found</option>";
+                        }
+                        echo "</select>";
+                        echo "<input type='hidden' name='row_id' id='row_id' value=''>";
+                    ?>
+
                 </div>       
                 <div class="col-md-12">
                 <div class="form-floating mb-3 mb-md-3">

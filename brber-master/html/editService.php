@@ -33,9 +33,20 @@ if (isset($_SESSION["typeOfUser"]) && $_SESSION["typeOfUser"] == "1") {
         // Prepare an update statement
         $query = "UPDATE service SET name = ?, price = ?, time = ? WHERE serviceId = ?";
         $stmt = $conn->prepare($query);
+    
         if ($stmt) {
             $stmt->bind_param("sssi", $serviceName, $servicePrice, $serviceTime, $serviceId);
             if ($stmt->execute()) {
+                if (isset($_SESSION['email'])) 
+                {
+                    $email = $_SESSION['email'];
+                    $id = $_SESSION['id'];
+                }
+                $logDateTime = date("Y-m-d H:i:s");
+                $logAction = "User: " .$email. " updated the service " .$serviceName; 
+
+                $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
+                $result2 =mysqli_query($conn, $query2);
                 $response = ['status' => 'success', 'message' => 'Service updated successfully'];
             } else {
                 $response = ['status' => 'error', 'message' => 'Error updating record: ' . $conn->error];

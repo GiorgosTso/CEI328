@@ -15,46 +15,69 @@
         include "../reports/header-sidebar.php";
     ?>
     <div id="layoutSidenav_content">
-            <div class="container-fluid">
-                <h1 class="d-inline"><i class="bi bi-people-fill"></i> Log's</h1>
-                <div class="table-size-1 mt-4">
-                    <table id="employees" class="table table-size-1 cell-border hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Action Taken</th>
-                            </tr>
-                        </thead>
-        <tbody>
-            <?php
-                include_once("../php/config.php"); 
+        <div class="container-fluid">
+            <h1 class="d-inline"><i class="bi bi-people-fill"></i> Logs</h1>
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <div class="form-group">
+                    <label for="filter">Filter by Action:</label>
+                    <input type="text" id="filter" name="filter" class="form-control" placeholder="Enter action keyword">
+                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+            <div class="table-size-1 mt-4">
+                <table id="employees" class="table table-size-1 cell-border hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Action Taken</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            include_once("../php/config.php");
 
-                if ($conn) {
-                    $query = "SELECT logId, date, action FROM log";
+                            if ($conn) {
+                                $filter = isset($_POST['filter']) ? $_POST['filter'] : '';
+                                $query = "SELECT logId, date, action FROM log";
 
-                    $result = mysqli_query($conn, $query);
+                                // Add filter condition if provided
+                                if (!empty($filter)) {
+                                    $query .= " WHERE action LIKE ?";
+                                }
 
-                    if ($result) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>";
-                            echo "<td>" . $row['logId'] . "</td>";
-                            echo "<td>" . $row['date'] . "</td>";
-                            echo "<td>" . $row['action'] . "</td>";
-                            echo "</tr>";
-                        }
-                        mysqli_free_result($result);
-                    } else {
-                        echo "Error executing query: " . mysqli_error($conn);
-                    }
+                                $query .= " ORDER BY logId DESC";
 
-                    mysqli_close($conn);
-                } else {
-                    echo "Error connecting to database.";
-                }
-            ?>
-        </tbody>
-    </table>
+                                $stmt = $conn->prepare($query);
+                                if (!empty($filter)) {
+                                    // Bind the filter value dynamically
+                                    $filter = '%' . $filter . '%'; // Add wildcards to match any part of the action message
+                                    $stmt->bind_param("s", $filter);
+                                }
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+
+                                if ($result) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['date'] . "</td>";
+                                        echo "<td>" . $row['action'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                    $result->free();
+                                } else {
+                                    echo "Error executing query: " . $conn->error;
+                                }
+
+                                $stmt->close();
+                                mysqli_close($conn);
+                            } else {
+                                echo "Error connecting to database.";
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-
