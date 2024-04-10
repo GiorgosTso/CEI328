@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Barber HTML-5 Template</title>
+    <title>Gallery</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="manifest" href="site.webmanifest" />
@@ -87,7 +87,7 @@
                     </div>
                     <div class="col-lg-8 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/barber1.jpg);"></div>
+                            <div class="gallery-img" style="background-image: url(../assets/img/cut10.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
@@ -97,11 +97,9 @@
                             <div class="overlay"></div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/cut1.jpg);"></div>
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut4.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
@@ -111,15 +109,15 @@
                             <div class="overlay"></div>
                         </div>
                     </div>
-                    <div class="col-lg-8 col-md-6 col-sm-6">
+                    <div class="col-lg-8 col-md-12 col-sm-12">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/barber1.jpg);"></div>
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut8.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/cut2.jpg);"></div>
+                            <div class="gallery-img " style="background-image: url(../assets/img/cut5.jpg);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
