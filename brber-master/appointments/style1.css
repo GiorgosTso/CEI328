@@ -109,6 +109,10 @@
  /* cursor: not-allowed; */
 }
 
+.btn-primary:hover {
+    background-color: #0d9800 !important; /* Change to the desired hover color */
+}
+
 .submit-btn {
  display: block; /* Make the button wider */
  width: 100%; /* Full width of the container */

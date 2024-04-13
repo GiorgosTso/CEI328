@@ -31,18 +31,16 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="style1.css">
     
-    	
 </head>
 <body>
 <style>
     .row{
         display: flex; /* This defines a flex container */
-        justify-content: space-between;
+        /* justify-content: space-between; */
     }
 </style>
 <!-- ? Preloader Start -->
-
-<!-- <div id="preloader-active">
+    <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
@@ -51,7 +49,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Preloader Start -->
     <header>
         <!--? Header Start -->
@@ -101,20 +99,17 @@
         }, 3000);
     </script>
 <?php endif; ?>
-        <section class="service-area section-padding30">
+        <section class="service-area section-padding30" style="padding-top: 50px;">
             <div class="container">
                 <!-- Section Tittle -->
                 <div class="row d-flex justify-content-center">
                     <div class="col-xl-7 col-lg-8 col-md-11 col-sm-11">
-                        <div class="section-tittle text-center mb-90">
+                        <div class="section-tittle text-center mb-90"style="margin-bottom: 40px;">
                             <span>Professional Services</span>
                             <h2>Our Best services that we offering to you</h2>
                         </div>
                     </div>
                 </div>
-
-
-
                 <!-- Section caption -->
                 <form action="processSelection.php" method="post">
                     <!-- Services Section -->
@@ -125,7 +120,7 @@
                     <!-- Barbers Section -->
                     <div class="row d-flex justify-content-center">
                         <div class="col-xl-7 col-lg-8 col-md-11 col-sm-11">
-                            <div class="section-tittle text-center mb-90">
+                            <div class="section-tittle text-center mb-90"style="margin-bottom: 40px;">
                                 <span>Professional Barbers</span>
                                 <h2>Choose your barber</h2>
                             </div>
@@ -135,11 +130,11 @@
                         <?php include "showBarbers.php"?>
                     </div>
                     <input type="hidden" id="selectedServiceId" name="selectedServiceId" value="">
-                <input type="hidden" id="selectedBarberId" name="selectedBarberId" value="">
+                    <input type="hidden" id="selectedBarberId" name="selectedBarberId" value="">
             
                     <!-- Submission Button -->
                     <div class="row justify-content-center">
-                        <input type="submit" class="btn btn-primary" value="Book Appointment">
+                        <input type="submit" class="btn btn-primary" value="Book your Appointment" style="margin-top: 40px; width: 280px;">
                     </div>
                 </form>
     <script>
@@ -154,9 +149,6 @@
             </div>
         </section>
         
-        
-        
-
 <!-- ______________________________________________________________________ -->
 
 
@@ -169,7 +161,6 @@
     <script src="../assets/js/bootstrap.min.js"></script>
     <!-- Jquery Mobile Menu -->
     <script src="../assets/js/jquery.slicknav.min.js"></script>
-
     <!-- Jquery Slick , Owl-Carousel Plugins -->
     <script src="../assets/js/owl.carousel.min.js"></script>
     <script src="../assets/js/slick.min.js"></script>
