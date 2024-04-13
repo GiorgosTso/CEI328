@@ -1,41 +1,45 @@
 <?php
-require("../php/config.php");
-session_start();
+// Database configuration for XAMPP (default settings)
+$servername = "localhost"; // If MySQL is running on the same machine
+$username = "root"; // Default username for XAMPP MySQL
+$password = ""; // Default password for XAMPP MySQL (empty by default)
+$database = "southside_db"; // Name of the database you created in phpMyAdmin
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$successMessage="";
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process form data
     $name = $_POST['name'];
-    $rating = $_POST['rating'];
-    $comment = $_POST['comment'];
+    $numStars = $_POST['rating'];
+    $content = $_POST['comment'];
+    $successMessage = 'Your message has been sent successfully! Thank you for contacting us. ';
     
     // Upload photo
-    $photo = '';
+    $picture = '';
     if ($_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-        $photoName = uniqid() . '_' . $_FILES['photo']['name'];
-        move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . $photoName);
-        $photo = $photoName;
+        $pictureName = uniqid() . '_' . $_FILES['photo']['name'];
+        move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . $pictureName);
+        $picture = $pictureName;
     }
 
-    // Prepare and bind SQL statement
-    $stmt = $conn->prepare("INSERT INTO reviews (name, picture, content, numStars, date) VALUES (?, ?, ?, ?, NOW())");
-    $stmt->bind_param("sssi", $name, $photo, $comment, $rating);
-
-    if (isset($_SESSION['email'])) 
-    {
-        $email = $_SESSION['email'];
-        $id = $_SESSION['id'];
-    }
     $logDateTime = date("Y-m-d H:i:s");
-    $logAction = "User: " .$email. " has added a review"; 
+    $logAction = "User: " .$name. " made a " .$numStars. " star/'s review"; 
 
     $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
     $result2 =mysqli_query($conn, $query2);
-    
+
+    // Prepare and bind SQL statement
+    $stmt = $conn->prepare("INSERT INTO reviews (name, picture, content, numStars, date) VALUES (?, ?, ?, ?, NOW())");
+    $stmt->bind_param("sssi", $name, $picture, $content, $numStars);
+
     // Execute the statement
     if ($stmt->execute()) {
         // Redirect back to the review page after submission
@@ -52,4 +56,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close connection
 $conn->close();
 ?>
-

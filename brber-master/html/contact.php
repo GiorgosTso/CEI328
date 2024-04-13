@@ -1,3 +1,72 @@
+<?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Include PHPMailer classes
+require __DIR__ . '/../php/PHPMailer/src/Exception.php';
+require __DIR__ . '/../php/PHPMailer/src/PHPMailer.php';
+require __DIR__ . '/../php/PHPMailer/src/SMTP.php';
+
+
+// Initialize PHPMailer
+$mail = new PHPMailer(true);
+
+
+include "../php/config.php";
+
+$successMessage = "";
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+    $successMessage = 'Your message has been sent successfully! Thank you for contacting us. ';
+    // Save message to database
+    $sql = "INSERT INTO contacts (name, surname, email, message) VALUES ('$name', '$surname', '$email', '$message')";
+    if ($conn->query($sql) === TRUE) {
+        
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com'; // SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = 'rafaant26@gmail.com'; // SMTP username
+            $mail->Password = 'paab twrv dlum zwng'; // SMTP password
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587; // TCP port to connect to
+
+            //Recipients
+            $mail->setFrom($email,$name);
+            $mail->addAddress("rafaant26@gmail.com"); 
+            $mail->addReplyTo($email,$name);
+
+            // Content
+            $mail->isHTML(false); 
+            $mail->Subject = 'New Contact Message';
+            $mail->Body    = "Name: $name\nSurname: $surname\nEmail: $email\nMessage: $message";
+
+            $mail->send();
+             
+        } catch (Exception $e) {
+            $errorMessage = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    } else {
+        $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
+    }
+    
+    
+            }
+    //Close database connection
+    $conn->close();
+    ?>
+
+
 
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -25,43 +94,58 @@
     <style>
         .error {color: #FF0000}
         .error {font-size: 12px}
+        
+    .modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
 
-       
-        /* Centered message container */
-        .message-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 30px;
+    border: none;
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    text-align: center;
+    color: green; 
+    font-size: 18px;
+}
 
-        /* Styling for success message */
-        .success-message {
-            color: green;
-            font-size: 20px;
-        }
+.modal-content p {
+    color: green; 
+    font-size: 18px;
+}
 
-        /* Styling for error message */
-        .error-message {
-            color: red;
-            font-size: 20px;
-        }
-    >
+
+.close  {
+    color: #aaa;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+
+
     </style>
 </head>
 <body>
-<?php if (!empty($successMessage) || !empty($errorMessage)) { ?>
-        <div class="message-container">
-            <?php if (!empty($successMessage)) { ?>
-                <div class="success-message"><?php echo $successMessage; ?></div>
-            <?php } ?>
-            <?php if (!empty($errorMessage)) { ?>
-                <div class="error-message"><?php echo $errorMessage; ?></div>
-            <?php } ?>
-            <a href="index.php">Back to Homepage</a>
-        </div>
-    <?php } ?>
+
+
     <!--? Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -144,37 +228,38 @@
                 <div class="row">
                     <div class="col-12">
                         <h2 class="contact-title">Get in Touch</h2>
+                        <span class="error">* required fields
                     </div>
                     <div class="col-lg-8">
-                        <form action="c_process.php" method="POST" >
+                        <form action="" method="POST" >
                         
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <span class="error">* required field
+                                        <span class="error">* 
                                         <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message" required></textarea>
                                          
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                    <span class="error">* required field
+                                    <span class="error">* 
                                         <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name" required>
                                         
                                     </div>
                                 </div>
                                 <div class=" col-sm-6">
                                     <div class="form-group">
-                                    <span class="error">* required field
+                                    <span class="error">* 
                                         <input class="form-control  valid" name="surname" id="surname" type="surname" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your surname'" placeholder="Enter your surname" required>
                                         
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <span class="error">* required field
+                                        <span class="error">* 
                                         <input class="form-control  valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email" required>
-                                        <span style= error><?php echo isset($_SESSION['email_err']) ? $_SESSION['email_err'] : ''; ?></span><br><br>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -232,6 +317,15 @@
 
     <!-- JS here -->
 
+    <?php if (!empty($successMessage)): ?>
+        <div id="successModal" class="modal" style="display: block;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p><?php echo $successMessage; ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
@@ -262,6 +356,21 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/main.js"></script>
+
+    <script>
+        // JavaScript code for modal close button
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById("successModal");
+            var closeButton = document.getElementsByClassName("close")[0];
+
+            closeButton.addEventListener("click", function() {
+                modal.style.display = "none";
+            });
+        });
+    </script>
+
+
+
 
     </body>
 </html>

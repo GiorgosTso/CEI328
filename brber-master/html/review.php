@@ -1,8 +1,11 @@
+<?php
+    ob_start();
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php include "header.php"; ?>
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title> Barber HTML-5 Template </title>
     <meta name="description" content="">
@@ -23,159 +26,193 @@
 	<link rel="stylesheet" href="../assets/css/themify-icons.css">
 	<link rel="stylesheet" href="../assets/css/slick.css">
 	<link rel="stylesheet" href="../assets/css/nice-select.css">
+    
 	<link rel="stylesheet" href="../assets/css/style.css">
 
-<title>Review Page</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f2f2f2;
-    }
-
-    .container {
-        max-width: 1100px;
-        margin: 160px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
+    /* Style for the success message container */
+    .success-message 
+    {
+        display: none; /* Initially hidden */
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Green background color */
+        color: white;
+        border-radius: 6px;
+        text-align: center;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-wrap: wrap;
     }
+    
+        .review-form 
+        {
+            max-width: 1000px;
+            margin: 40px auto 20px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .review-form h2 
+        {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .review-form form 
+        {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .review-form .form-group 
+        {
+            margin-bottom: 15px;
+        }
+        
+        .review-form label 
+        {
+            font-weight: bold;
+        }
+        
+        .review-form input[type="text"],
+        .review-form select,
+        .review-form textarea 
+        {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .review-form textarea 
+        {
+            height: 100px;
+        }
+    
+        .rating-options  
+        {
+            margin-top: 10px;
+        }
+    
+        .rating-options label 
+        {
+            display: block;
+        }
+    
+        
+        .review-form button[type="submit"] 
+        {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .review-form button[type="submit"]:hover 
+        {
+            background-color: #45a049;
+        }
+        
+        /*  for the container displaying reviews */
+        .reviews {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Add scrollbar for overflow */
+            max-height: 300px; /* Set max height for scrollbar */
+        }
+        
+        .reviews h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .review {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .review p {
+            margin: 0;
+        }
 
-    .review-form {
-        flex: 0 0 50%;
-        margin-bottom: 50px;
-        padding-right: 20px;
-    }
+        .modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
 
-    .review-form h2 {
-        margin-bottom: 20px;
-        color: #333;
-    }
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 30px;
+    border: none;
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    text-align: center;
+    color: green; 
+    font-size: 18px;
+}
 
-    .form-group {
-        margin-bottom: 20px;
-    }
+.modal-content p {
+    color: green; 
+    font-size: 18px;
+}
 
-    .form-group label {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 10px;
-    }
 
-    .form-group input[type="text"],
-    .form-group select,
-    .form-group textarea,
-    .form-group input[type="file"] {
-        width: calc(100% - 20px);
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
+.close  {
+    color: #aaa;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    .form-group textarea {
-        height: 120px;
-    }
-
-    .form-group button {
-        padding: 12px 24px;
-        background-color: #007bff;
-        border: none;
-        border-radius: 5px;
-        color: #fff;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
-    }
-
-    .form-group button:hover {
-        background-color: #0056b3;
-    }
-
-    .reviews {
-        flex: 0 0 50%;
-        margin-top: 30px;
-        padding-left: 20px;
-    }
-
-    .review {
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
-
-    .review h3 {
-        margin-top: 10px;
-        color: #333;
-    }
-
-    .review p {
-        color: #666;
-        margin-bottom: 5px;
-    }
-
-    .stars {
-        color: #ffcc00;
-        font-size: 24px;
-    }
-
-    .stars span {
-        cursor: pointer;
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-        position: relative;
-    }
-
-    .stars span:before {
-        content: '\2605';
-        position: absolute;
-        font-size: inherit;
-        transition: color 0.3s;
-    }
-
-    .stars span:hover:before,
-    .stars input[type="radio"]:checked ~ label:before {
-        color: #ffcc00;
-    }
-
-    .stars input[type="radio"] {
-        display: none;
-    }
-
-    .stars label {
-        display: none;
-    }
-
-    .stars input[type="radio"]:checked ~ label {
-        display: block;
-    }
-
-    .stars input[type="radio"]:checked ~ label:before {
-        content: '\2605';
-        color: #ffcc00;
-    }
-
-    .form-group input[type="file"] {
-        cursor: pointer;
-    }
-
-    .form-group .file-input-label {
-        display: block;
-        margin-top: 5px;
-    }
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
 </style>
+<title>Review Page</title>
 </head>
-<body>
-<div class="container">
+    <body>
+        <main>
+    <header>
+        <?php include "header.php"?>
+    </header>
+<div class="slider-area2">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 pt-70 text-center">
+                                <h2>Review</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="containerr">
     <div class="review-form">
         <h2>Leave a Review</h2>
         <form action="review_process.php" method="post" enctype="multipart/form-data">
@@ -183,8 +220,10 @@
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
             </div>
+            <br>
             <div class="form-group">
                 <label for="rating">Rating:</label>
+                <div class="rating-options">
                 <select id="rating" name="rating" required>
                     <option value="5">&#9733; &#9733; &#9733; &#9733; &#9733; (5 Stars)</option>
                     <option value="4">&#9733; &#9733; &#9733; &#9733; &#9734; (4 Stars)</option>
@@ -192,7 +231,9 @@
                     <option value="2">&#9733; &#9733; &#9734; &#9734; &#9734; (2 Stars)</option>
                     <option value="1">&#9733; &#9734; &#9734; &#9734; &#9734; (1 Star)</option>
                 </select>
+                </div>
             </div>
+            <br>
             <div class="form-group">
                 <label for="comment">Comment:</label>
                 <textarea id="comment" name="comment" rows="4" required></textarea>
@@ -202,128 +243,179 @@
                 <input type="file" id="photo" name="photo" accept="image/*">
                 <span class="file-input-label">(Max size: 5MB)</span>
             </div>
-            <div class="form-group">
+            <!-- Success message container -->
+           <div class="success-message" style="display: none;">
+              Your review has been submitted successfully!
+          </div>
+
+          <div class="form-group mt-3">
                 <button type="submit">Submit Review</button>
+                
+                    <script>
+                    $(document).ready(function() {
+                    $('.review-form form').on('submit', function(e) {
+                    e.preventDefault(); // Prevent default form submission
+                    var formData = new FormData(this); // Create formData object
+
+                   // AJAX request to submit the form data
+                   $.ajax({
+                   url: $(this).attr('action'), // Form action URL
+                   type: $(this).attr('method'), // Form method (POST)
+                   data: formData,
+                   processData: false, 
+                   contentType: false, 
+                   success: function(response) {
+                   // Append the newly submitted review to the reviews section
+                   $('.reviews').append(response);
+                   // Clear the form fields after submission
+                   $('.review-form form')[0].reset();
+                   // Show success message
+                   $('.success-message').fadeIn().delay(2000).fadeOut();
+                   // Refresh the page after 2 seconds
+                   setTimeout(function() {
+                    location.reload();
+                   }, 2000);
+                                },
+                                error: function(xhr, status, error) {
+                                    // Handle errors if any
+                                    console.error("Error: " + xhr.responseText);
+                                }
+                            });
+                        });
+                    });
+                    </script>
+
+
             </div>
         </form>
     </div>
-
+   
+    
     <div class="reviews">
         <h2>Reviews</h2>
-        <?php include 'display.php'; ?>
-    </div>
-</div>
+        <?php
+    include "../php/config.php";
 
-<div class="footer-area section-bg" data-background="../assets/img/gallery/footer_bg.png">
-            <div class="container">
-                <div class="footer-top footer-padding">
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-8">
-                            <div class="single-footer-caption mb-50">
-                                <!-- logo -->
-                                <div class="footer-logo">
-                                    <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
-                                </div>
-                                <div class="footer-tittle">
-                                    <div class="footer-pera">
-                                        <p class="info1">Receive updates and latest news direct from Simply enter.</p>
-                                    </div>
-                                </div>
-                                <div class="footer-number">
-                                    <h4><span>+357 </span>24 044146</h4>
-                                    <p>michalis@hotmail.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-5">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Location </h4>
-                                    <ul>
-                                        <li><a href="#">Advanced</a></li>
-                                        <li><a href="#"> Management</a></li>
-                                        <li><a href="#">Corporate</a></li>
-                                        <li><a href="#">Customer</a></li>
-                                        <li><a href="#">Information</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-5">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Explore</h4>
-                                    <ul>
-                                        <li><a href="#">Cookies</a></li>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-                                        <li><a href="#">Proparties</a></li>
-                                        <li><a href="#">Licenses</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Business Hours</h4>
-                                    <div class="footer-pera">
-                                        <div class="col-xl-10 col-lg-15 col-md-19 col-sm-10">
-                                            <div class="single-footer-caption mb-50">
-                                                <div class="footer-tittle">
-                                                    <ul>
-                                                        <li><a href="#">Monday 9:00 am- 7:00 pm</a></li>
-                                                        <li><a href="#">Tuesday 9:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Wednesday 9:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Thursday Closed</a></li>
-                                                        <li><a href="#">Friday 9:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Suturday 8:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Sunday closed</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                    </div>
-                                        <p class="info1">Subscribe now to get daily updates</p>
-                                    </div>
-                                </div>
-                                <!-- Form -->
-                                <div class="footer-form">
-                                    <div id="mc_embed_signup">
-                                        <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part" novalidate="true">
-                                            <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address " class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'">
-                                            <div class="form-icon">
-                                                <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm">Send</button>
-                                            </div>
-                                            <div class="mt-10 info"></div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="col-xl-9 col-lg-8">
-                            <div class="footer-copy-right">
-                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4">
-                            <!-- Footer Social -->
-                            <div class="footer-social f-right">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fas fa-globe"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    // Check connection
+     if ($conn->connect_error) {
+         die("Connection failed: " . $conn->connect_error);
+        }
+    
+
+    // Fetch reviews from database
+    $sql = "SELECT reviewID, name, picture, content, numStars, date FROM reviews ORDER BY date DESC";
+    $result = $conn->query($sql);
+
+   // Display reviews
+    if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="review">';
+        echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
+        echo '<p>Content: ' . htmlspecialchars($row['content']) . '</p>';
+        echo '<div>Stars: ' . htmlspecialchars($row['numStars']) . '</div>';
+        echo '<p>Date: ' . htmlspecialchars($row['date']) . '</p>';
+        if (!empty($row['picture'])) {
+            echo '<img src="uploads/' . htmlspecialchars($row['picture']) . '" alt="Review Photo" style="max-width: 100%; height: auto;">';
+        }
+        echo '</div>';
+    }
+} else {
+    echo "No reviews yet.";
+}
+
+// Close connection
+$conn->close();
+?>
+
+
+    </div>
+    <!-- Success modal -->
+    <?php if (!empty($successMessage)): ?>
+        <div id="successModal" class="modal" style="display: block;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p><?php echo $successMessage; ?></p>
             </div>
         </div>
+    <?php endif; ?>
+
+</main>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById("successModal");
+        var closeButton = document.getElementsByClassName("close")[0];
+
+        closeButton.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- JavaScript code for modal close button -->
+<script>
+    $(document).ready(function() {
+        // Show the success modal when the document is ready
+        $('#successModal').show();
+
+        // Close the modal when the close button is clicked
+        $('.close').click(function() {
+            $('#successModal').hide();
+        });
+    });
+</script>
+
+
+
+<?php include "footer.php"?>
+        
+    <script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="../assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="../assets/js/wow.min.js"></script>
+    <script src="../assets/js/animated.headline.js"></script>
+    <script src="../assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Date Picker -->
+    <script src="../assets/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="../assets/js/jquery.nice-select.min.js"></script>
+    <script src="../assets/js/jquery.sticky.js"></script>
+    
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="../assets/js/jquery.counterup.min.js"></script>
+    <script src="../assets/js/waypoints.min.js"></script>
+    <script src="../assets/js/jquery.countdown.min.js"></script>
+    <script src="../assets/js/hover-direction-snake.min.js"></script>
+
+    <!-- contact js -->
+    <script src="../assets/js/contact.js"></script>
+    <script src="../assets/js/jquery.form.js"></script>
+    <script src="../assets/js/jquery.validate.min.js"></script>
+    <script src="../assets/js/mail-script.js"></script>
+    <script src="../assets/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/main.js"></script>
+    
+
+    
+
 
 </body>
 </html>
+<?php
+ob_end_flush(); // Flush the output buffer
+?>

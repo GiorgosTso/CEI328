@@ -1,7 +1,9 @@
 <?php 
     ob_start(); 
-    session_start();
-     
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+         
     $protected_pages = [
         'appointment.php', 
         'order.php', 

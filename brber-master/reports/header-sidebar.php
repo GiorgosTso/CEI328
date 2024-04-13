@@ -40,6 +40,14 @@ $typeOfUser = isset($_SESSION['typeOfUser']) ? $_SESSION['typeOfUser'] : null;
                             </a>
                             
                             <?php
+                                if ($typeOfUser == 1 || $typeOfUser == 2 ) 
+                                {
+                                    echo '
+                                    <a class="nav-link" href="email.php">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                        Email Eveyone
+                                    </a>';
+                                }
                                 if ($typeOfUser == 1) 
                                 {
                                     echo '

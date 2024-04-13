@@ -9,6 +9,27 @@
     <title>Charts - SB Admin</title>
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script>
+        function reverseOrder() {
+            var table = document.getElementById("employees");
+            var tbody = table.getElementsByTagName("tbody")[0];
+            var rows = tbody.getElementsByTagName("tr");
+            var reversedRows = [];
+            
+            // Copy rows into a new array in reverse order
+            for (var i = rows.length - 1; i >= 0; i--) {
+                reversedRows.push(rows[i]);
+            }
+            
+            // Clear existing rows from the table
+            tbody.innerHTML = "";
+            
+            // Append rows in reversed order
+            for (var i = 0; i < reversedRows.length; i++) {
+                tbody.appendChild(reversedRows[i]);
+            }
+        }
+    </script>
 </head>
 <body class="sb-nav-fixed">
     <?php 
@@ -23,6 +44,8 @@
                     <input type="text" id="filter" name="filter" class="form-control" placeholder="Enter action keyword">
                 </div>
                 <button type="submit" class="btn btn-primary">Filter</button>
+                <!-- Add the button to reverse order -->
+                <button type="button" class="btn btn-secondary" onclick="reverseOrder()">Reverse Order</button>
             </form>
             <div class="table-size-1 mt-4">
                 <table id="employees" class="table table-size-1 cell-border hover">
@@ -33,7 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
+                    <?php
                             include_once("../php/config.php");
 
                             if ($conn) {
