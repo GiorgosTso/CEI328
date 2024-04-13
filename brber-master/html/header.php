@@ -78,7 +78,7 @@
                                             <li><a href="../html/Gallery.php">Gallery</a></li>
                                             <li><a href="../html/services.php">Services</a></li>
                                             <li><a href="../cart/order.php">Orders</a></li>
-                                            <li><a href="../html/appointment.php">Appointments</a></li>
+                                            <li><a href="../appointments/app.php">Appointments</a></li>
                                             <li><a href="../html/review.php">Review</a></li>
                                             <li class = ""><a href="../html/contact.php">Contact</a></li>
                                         </ul>
