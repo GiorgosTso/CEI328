@@ -96,9 +96,9 @@
                 <td>
                   <i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2); ?>
                 </td>
-                <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
+                <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>" >
                 <td>
-                  <input type="number" class="form-control itemQty" value="<?= $row['qty'] ?>" style="width:75px;">
+                  <?= $row['qty']?>
                 </td>
                 <td><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['total_price'],2); ?></td>
                 <td>

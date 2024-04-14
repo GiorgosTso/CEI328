@@ -10,12 +10,14 @@ if(isset($_POST['deletedata']))
 
     if($query_run)
     {
-        echo '<script> alert("Data Deleted"); </script>';
-        header("Location:indexcode.php");
+        
+        header('Location: indexcode.php?status=success');
+        exit;
     }
     else
     {
-        echo '<script> alert("Data Not Deleted"); </script>';
+        header('Location: indexcode.php?status=error');
+        exit;
     }
 }
 

@@ -2,44 +2,77 @@
 session_start();
 include '../php/config.php';
 
-
 $pname = $pprice = $pqty = "";
-$pimage = $product_image = "photo.png";
+$product_image = 'photo.png';  // Default image
+$previous_name = $previous_price = $previous_qty = $previous_image = "";
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertdata'])) {
+    $product_name = $_POST['product_name'];
+    $product_price = floatval($_POST['product_price']);
+    $product_qty = $_POST['product_qty'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['insertdata'])) {
-        $product_name = $_POST['product_name'];
-        $product_price = $_POST['product_price'];
-        $product_qty = $_POST['product_qty'];
-
-        // Handle file upload
-        if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
-            $product_image = $_FILES['product_image']['name'];
-            $temp_name = $_FILES['product_image']['tmp_name'];
-            $upload_path = 'uploads/'; // Ensure this directory exists and is writable
-            $upload_file = $upload_path . basename($product_image);
-
-            // Attempt to move the uploaded file to your desired directory
-            if (move_uploaded_file($temp_name, $upload_file)) {
-                echo '<script> alert("File uploaded successfully."); </script>';
-            } else {
-                echo '<script> alert("Failed to upload file."); </script>';
-            }
+    // Handle file upload
+    if (isset($_FILES['product_image']['name']) && $_FILES['product_image']['name'] != "") {
+        $targetDir = "uploads/";  // Ensure this directory exists and is writable
+        $targetFile = $targetDir . basename($_FILES["product_image"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    
+        // Check if image file is a actual image or fake image
+        $check = getimagesize($_FILES["product_image"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".<br>";
         } else {
-            $product_image = "photo.png"; // Default image or handle error
+            echo "File is not an image.<br>";
+            $uploadOk = 0;
         }
-
-        $query = "INSERT INTO product (product_name, product_price, product_qty, product_image) VALUES ('$product_name', '$product_price', '$product_qty', '$product_image')";
-        $query_run = mysqli_query($conn, $query);
-
-        if ($query_run) {
-            echo '<script> alert("Data Saved"); </script>';
-            header('Location: indexcode.php');
+    
+        // Check file size - example: 5MB limit
+        if ($_FILES["product_image"]["size"] > 5000000) {
+            echo "Sorry, your file is too large.<br>";
+            $uploadOk = 0;
+        }
+    
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.<br>";
+            $uploadOk = 0;
+        }
+    
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.<br>";
         } else {
-            echo '<script> alert("Data Not Saved"); </script>';
+            if (move_uploaded_file($_FILES["product_image"]["tmp_name"], $targetFile)) {
+                echo "The file ". htmlspecialchars( basename( $_FILES["product_image"]["name"])). " has been uploaded.<br>";
+                $product_image = $targetFile; // Update to the actual path of the uploaded file
+            } else {
+                echo "Sorry, there was an error uploading your file.<br>";
+            }
         }
     }
+    //____________________________________________________telos add photo______________________________________________________
+    
+
+
+
+    // Insert into database
+    $query = "INSERT INTO product (product_name, product_price, product_qty, product_image) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("sdis", $product_name, $product_price, $product_qty, $product_image);
+    $previous_name = $product_name;
+    $previous_price = $product_price;
+    $previous_qty = $product_qty;
+    $previous_image = $product_image;
+    
+    
+    if ($stmt->execute()) {
+        echo '<script> alert("Data Saved"); </script>';
+        header('Location: indexcode.php?status=success');
+    } else {
+        header('Location: indexcode.php?status=error');
+    }
+    $stmt->close();
 }
     
     if(isset($_POST['updatedata'])) {
@@ -75,13 +108,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pqty = ($_POST["product_qty"]);
         }
         if(empty($name_err) && empty($price_err) && empty($quantity_err)){
-        
-            $query = "UPDATE product SET product_name = '$pname', product_price = '$pprice', product_qty = '$pqty', product_image = '$pimage' WHERE id = $id";
-        $query_run = mysqli_query($conn, $query);
-        }
-        
-    }
-  		
+                    $product_name = $_POST['product_name'] ?? '';
+                    $product_price = isset($_POST['product_price']) ? floatval($_POST['product_price']) : 0.00;
+                    $product_qty = $_POST['product_qty'] ?? 0;
+                    $update_id = $_POST['update_id'] ?? 0;
+                    $product_image = 'photo.png';  // Default image if none uploaded or if upload fails
+            
+                    // Handle file upload
+                    if (!empty($_FILES['edit_image']['name'])) {
+                        $targetDir = "uploads/";
+                        $fileName = basename($_FILES["edit_image"]["name"]);
+                        $targetFile = $targetDir . $fileName;
+                        $uploadOk = 1;
+                        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+            
+                        // Check if image file is an actual image
+                        $check = getimagesize($_FILES["edit_image"]["tmp_name"]);
+                        if ($check !== false) {
+                            echo "File is an image - " . $check["mime"] . ".<br>";
+                        } else {
+                            echo "File is not an image.<br>";
+                            $uploadOk = 0;
+                        }
+            
+                        // Check file size - example: 5MB limit
+                        if ($_FILES["edit_image"]["size"] > 5000000) {
+                            echo "Sorry, your file is too large.<br>";
+                            $uploadOk = 0;
+                        }
+            
+                        // Allow certain file formats
+                        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.<br>";
+                            $uploadOk = 0;
+                        }
+            
+                        // Try to upload file if all checks pass
+                        if ($uploadOk == 1) {
+                            if (move_uploaded_file($_FILES["edit_image"]["tmp_name"], $targetFile)) {
+                                echo "The file ". htmlspecialchars($fileName). " has been uploaded.<br>";
+                                $product_image = $targetFile;  // Use uploaded file
+                            } else {
+                                echo "Sorry, there was an error uploading your file.<br>";
+                            }
+                        }
+                    }
+            
+                    // Prepare SQL statement to update product data
+                    $query = "UPDATE product SET product_name = ?, product_price = ?, product_qty = ?, product_image = ? WHERE id = ?";
+                    $stmt = $conn->prepare($query);
+                    if ($stmt) {
+                        $stmt->bind_param("sdisi", $product_name, $product_price, $product_qty, $product_image, $update_id);
+                        if ($stmt->execute()) {
+                            $previous_name = $product_name;
+                            $previous_price = $product_price;
+                            $previous_qty = $product_qty;
+                            $previous_image = $product_image;
+                            header('Location: indexcode.php?status=success');
+                            exit;
+                        } else {
+                            echo "Error updating record: " . $stmt->error;
+                            header('Location: indexcode.php?status=error');
+                            exit;
+                        }
+                        $stmt->close();
+                    } else {
+                        echo "Error preparing statement: " . $conn->error;
+                    }
+                } else {
+                    echo "Validation errors occurred.";
+                }
+            }	
 
 ?>
 
@@ -108,6 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
+
 <div class="slider-area2">
             <div class="slider-height2 d-flex align-items-center">
                 <div class="container">
@@ -132,6 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
     <div class="modal fade" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
+        
         <div class="modal-dialog" role="document" id="kati">
             <div class="modal-content" >
                 <div class="modal-header">
@@ -141,9 +240,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </button>
                 </div>
 <!-- add products -->
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
+                <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
 
-
+                <div id="messageArea" class="alert alert-danger" style="display: none;"></div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label> Name </label>
@@ -153,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="form-group">
                             <label> Price </label>
-                            <input type="number" name="product_price" id="prPrice" class="form-control" placeholder="Enter product price">
+                            <input type="number" name="product_price" step="0.01" id="prPrice" class="form-control" placeholder="Enter product price">
                         </div>
 
                         <div class="form-group">
@@ -164,6 +263,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group">
                             <label> Image </label>
                             <input type="file" name="product_image">
+                            
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -171,6 +271,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <button type="submit" name="insertdata" class="btn btn-secondary">Save Data</button>
                     </div>
                 </form>
+                
+                <script>
+                    function validateForm() {
+                        var price = document.getElementById('prPrice').value;
+                        var quantity = document.getElementById('prQty').value;
+                    
+                        // Check for empty fields
+                        if (price.trim() === "" || quantity.trim() === "") {
+                            messageArea.textContent = "Price and quantity cannot be empty."; // Set error message
+                            messageArea.style.display = 'block';
+                            return false; // Prevent form submission if any field is empty
+                        }
+                    
+                        // Convert to Number and check for negative values
+                       
+                    
+                        if (price <= 0 || quantity <= 0) {
+                            messageArea.textContent = "Price and quantity must be greater than zero."; // Set error message
+                            messageArea.style.display = 'block';
+                            return false; // Prevent form submission if values are non-positive
+                        }
+                       
+                            
+                        return true; // Allow form submission if all validations pass
+                    }
+                    </script>
+                
                 <script>
 
 var button2 = document.querySelector("button[name='insertdata']"); 
@@ -197,22 +324,19 @@ document.getElementById('prQty').addEventListener("input", Handle);
             </div>
         </div>
     </div>
-
+<!-- end of the first modal in for adding products -->
     <!-- EDIT POP UP FORM (Bootstrap MODAL) -->
-    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Edit Student Data </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Student Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
                 <div class="modal-body">
 
-                <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="POST" id="updateForm">
-
+                <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="POST" id="updateForm" onsubmit="return updateValidation()" enctype="multipart/form-data">
+                    <div id="messageError" class="alert alert-danger" style="display: none;"></div>
                         <input type="hidden" name="update_id" id="update_id">
 
                         <div class="form-group">
@@ -224,7 +348,7 @@ document.getElementById('prQty').addEventListener("input", Handle);
 
                         <div class="form-group">
                             <label> Product price </label>
-                            <input type="text" name="product_price" id="product_price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>"
+                            <input type="text" name="product_price" step="0.01" id="product_price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>"
                                 placeholder="Enter product price">
                                 <span class="error-message" id="price_error" style="color: red;"></span>   
                         </div>
@@ -238,21 +362,37 @@ document.getElementById('prQty').addEventListener("input", Handle);
                         
                         <div class="form-group">
                             <label> Product Image </label>
-                            <input type="file" name="product_image" id="product_image" class="<?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
+                            <input type="file" name="edit_image" id="product_image" class="<?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
                             <span class="invalid-feedback"><?php echo $name_err; ?>
                         </div>
 
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-secondary" onclick="validateForm()">Update Data</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="updatedata" class="btn btn-secondary" >Update Data</button>
                     </div>
                 </form>
 
             </div>
         </div>
     </div>
+    <script>
+    function updateValidation() {
+        var price = document.getElementById('product_price').value;
+        var qty = document.getElementById('product_qty').value;
+        var messageError = document.getElementById('messageError');
+
+        if (price <= 0 || qty <= 0) {
+            messageError.textContent = "Price and quantity must be greater than zero.";
+            messageError.style.display = 'block';
+            return false;
+        } else {
+            messageError.style.display = 'none';
+            return true;
+        }
+    }
+</script>
     
     <script>
 
@@ -265,6 +405,7 @@ function stateHandle() {
     var productName = document.getElementById('product_name').value.trim();
     var price = document.getElementById('product_price').value.trim();
     var quantity = document.getElementById('product_qty').value.trim();
+    var image = document.getElementById('product_image').value.trim();
     
     // Enable button only if all fields are filled
     button.disabled = !productName || !price || !quantity;
@@ -274,37 +415,33 @@ function stateHandle() {
 document.getElementById('product_name').addEventListener("input", stateHandle);
 document.getElementById('product_price').addEventListener("input", stateHandle);
 document.getElementById('product_qty').addEventListener("input", stateHandle);
+
 </script>
 
-    <!-- DELETE POP UP FORM (Bootstrap MODAL) -->
-    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="deletecode.php" method="POST">
-
-                    <div class="modal-body">
-
-                        <input type="hidden" name="delete_id" id="delete_id">
-
-                        <h4> Do you want to Delete this Data ??</h4>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
-                    </div>
-                </form>
-
+    <!-- DELETE POP UP FORM  -->
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Student Data</h5>
+                
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <form action="deletecode.php" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="delete_id" id="delete_id">
+                    <h4>Do you want to Delete this Data ??</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                    <button type="submit" name="deletedata" class="btn btn-primary">Yes !! Delete it.</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
 
 
     <div class="container">
@@ -317,8 +454,22 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
     }
 </style>
         <div class="jumbotron">
+        <?php if (isset($_GET['status']) && $_GET['status'] == 'success'): ?>
+            <div id="successMessage" class="alert alert-success" style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); background: #f0f0f0; padding: 10px; border-radius: 5px; border: 1px solid green;">
+                Changes Saved Successfully!
+            </div>
+            <script>
+                setTimeout(function() {
+                    var successMessage = document.getElementById('successMessage');
+                    if (successMessage) {
+                        successMessage.style.display = 'none';
+                    }
+                }, 3000); // Message disappears after 3 seconds
+            </script>
+        <?php endif; ?> 
             <div class="card">
                 <h2> Edit Products </h2>
+                
             </div>
             <style>
                 #body_buttons {
@@ -554,7 +705,9 @@ $(document).ready(function() {
             });
         });
     </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.7/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

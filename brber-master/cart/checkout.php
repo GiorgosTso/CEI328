@@ -1,7 +1,8 @@
 <?php
 session_start();
 	require '../php/config.php';
-
+  $name = $_SESSION['name'];
+  $email = $_SESSION['email'];
 	$grand_total = 0;
 	$allItems = '';
 	$items = [];
@@ -32,7 +33,7 @@ session_start();
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="order.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Barber Store</a>
+    <a class="navbar-brand" href="order.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Mobile Store</a>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -56,34 +57,33 @@ session_start();
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-6 px-4 pb-4" id="order">
-        <h4 class="text-center text-info p-2">Complete your order and check your data!</h4>
+      <h4 class="text-center text-info p-2">Complete your order and check your data!</h4>
         <div class="jumbotron p-3 mb-2 text-center">
           <h6 class="lead"><b>Product(s) : </b><?= $allItems; ?></h6>
+          <h6 class="lead"><b>Delivery Charge : </b>Free</h6>
           <h5><b>Total Amount Payable : </b><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($grand_total,2) ?></h5>
         </div>
         <form action="" method="post" id="placeOrder">
           <input type="hidden" name="products" value="<?= $allItems; ?>">
           <input type="hidden" name="grand_total" value="<?= $grand_total; ?>">
           <div class="form-group">
-            <input type="text" name="name" class="form-control" value=" <?php echo $_SESSION['name'];?>" placeholder="Enter the Name" required>
+          <input type="text" name="name" class="form-control" value="<?php echo $_SESSION['name'];?>" placeholder="Enter the Name" required>
           </div>
           <div class="form-group">
-            <input type="text" name="surname" class="form-control" value=<?php echo $_SESSION['surname'];?> placeholder="Enter the Surname" required>
+          <input type="text" name="surname" class="form-control" value="<?php echo $_SESSION['surname'];?>" placeholder="Enter the Surname" required>
           </div>
           <div class="form-group">
-            <input type="email" name="email" class="form-control" value=<?php echo $_SESSION['email'];?> placeholder="Enter the email" required>
+          <input type="email" name="email" class="form-control" value="<?php echo $_SESSION['email'];?>" placeholder="Enter the email" required>
           </div>
           <div class="form-group">
-            <input type="tel" name="phone" class="form-control" value=<?php echo $_SESSION['phone'];?> placeholder="Enter Phone" required>
+            <input type="tel" name="phone" class="form-control" value="<?php echo $_SESSION['phone'];?>" placeholder="Enter Phone" required>
+          </div>
+            <h6 class="text-center lead">Select Day of Reception</h6>
+          <div class="form-group">
+            <input type="date" id="date" name="date" class="form-control" placeholder="Enter the date" required style="cursor :pointer;">
           </div>
           
-          <h6 class="text-center lead">Select Day of Reception</h6>
-          
-          <div class="form-group">
-    <input type="date" id="date" name="date" class="form-control" placeholder="Enter the date" required style="cursor :pointer;">
-</div>
-
-<script>
+          <script>
     document.addEventListener('DOMContentLoaded', function() {
         const today = new Date();
         const yyyy = today.getFullYear();
@@ -117,8 +117,6 @@ session_start();
       </div>
     </div>
   </div>
-  
- 
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js'></script>
