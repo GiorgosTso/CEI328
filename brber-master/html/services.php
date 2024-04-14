@@ -98,7 +98,7 @@
                             echo '            <i class="flaticon-healthcare-and-medical"></i>';
                             echo '        </div>';
                             echo '        <div class="service-cap">';
-                            echo '            <h4><a href="#">' . $row["name"] . '</a></h4>';
+                            echo '            <h2>' . $row["name"] . '</h2>';
                             echo '            <p>' . $row["time"] . ' minutes . €' . $row["price"] . '</p>';
 
                             // Conditionally display Edit and Delete buttons for admins
