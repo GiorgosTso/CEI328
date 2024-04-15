@@ -31,4 +31,3 @@ if (isset($_GET['date'])) {
 } else {
     echo json_encode(["error" => "Date parameter is missing"]);
 }
-?>
