@@ -1,13 +1,36 @@
 <?php
-$loggedInUserID = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+include("../php/config.php");
+include "../html/header.php";
 
-include("../php/config.php"); 
+if(isset($_SESSION['id'])) {
+    $loggedInUserID = $_SESSION['id'];
+} else {
+    $loggedInUserID = null;
+}
 
-// Select appointments for the logged-in user
-$query = "SELECT * FROM appointments WHERE id = '$loggedInUserID'";
+$query = "SELECT appointments.*, time_slots.start_time, 
+          CASE
+            WHEN employee.id IS NOT NULL THEN employee.name
+            WHEN admin.id IS NOT NULL THEN admin.name
+            ELSE 'Unknown'
+          END AS barber_name
+          FROM appointments 
+          JOIN time_slots ON appointments.time_slot_id = time_slots.id
+          LEFT JOIN employee ON appointments.barberID = employee.id
+          LEFT JOIN admin ON appointments.barberID = admin.id
+          WHERE client_id = '$loggedInUserID'";
+          
 $result = mysqli_query($conn, $query);
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
 
+// Check if there are no appointments for the user
+if (mysqli_num_rows($result) == 0) {
+    echo "No appointments found for this user.";
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,16 +68,11 @@ $result = mysqli_query($conn, $query);
 </head>
     <header>
         <!--? Header Start -->
-        <?php include "../html/header.php" ?>
         <!-- Header End -->
     </header>
     <main>
     <?php
-        $loggedInUserID = isset($_SESSION['id']) ? $_SESSION['id'] : null;
-        $query = "SELECT id FROM useraccount WHERE id = '$loggedInUserID'";
-        $result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_assoc($result);
-        $loggedInUserID = $row['id'];
+
     ?>
         <!--? Hero Start -->
         <div class="slider-area2">
@@ -78,7 +96,8 @@ $result = mysqli_query($conn, $query);
                 <th scope="col">Date</th>
                 <th scope="col">Time</th>
                 <th scope="col">Barber</th>
-                <th scope="col">Ongoing</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -86,14 +105,38 @@ $result = mysqli_query($conn, $query);
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr>";
                 echo "<td>" . $row['date'] . "</td>";
-                echo "<td>" . $row['time_slot_id'] . "</td>";
-                echo "<td>" . $row['barberID'] . "</td>";
-                // You can add more columns if needed
-                echo "</tr>";
+                echo "<td>" . $row['start_time'] . "</td>";
+                echo "<td>" . $row['barber_name'] . "</td>";
+                $appointmentDate = strtotime($row['date']);
+                    $currentDate = strtotime(date('Y-m-d'));
+                    
+                    $status = ($currentDate >= $appointmentDate) ? "Appointment was Completed" : "Appointment has not been Completed yet";
+                    echo "<td>" . $status . "</td>";
+                    
+                    echo"<td>";
+    if ($status == "Appointment has not been Completed yet") {
+        if ($currentDate <= $appointmentDate) {
+            echo "<a href='javascript:void(0);' onclick='cancelAppointment(" . $row['id'] . ")' class='btn btn-primary'>Cancel Appointment</a>";
+        } else {
+            echo "<button disabled>Cancel</button>"; 
+        }
+    } else {
+        echo "N/A";
+    }
+echo "</td>";
+
+                    
+                    echo "</tr>";
             }
             ?>
         </tbody>
     </table>
 </div>
 </body>
-        
+<script>
+    function cancelAppointment(appointmentID) {
+        if (confirm("Are you sure you want to cancel this appointment?")) {
+            window.location.href = "delete_appointment.php?remove=" + appointmentID;
+        }
+    }
+</script>

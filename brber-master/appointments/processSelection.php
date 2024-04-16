@@ -1,5 +1,4 @@
 <?php
-//session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['selectedServiceId'] = $_POST['selectedServiceId'];
     $_SESSION['selectedBarberId'] = $_POST['selectedBarberId'];
@@ -12,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style1.css">
 
 </head>
-
 <body>
     <style>
         .row {
