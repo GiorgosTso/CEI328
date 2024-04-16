@@ -114,6 +114,8 @@
                             </div>
                         </div>
                     </div>
+                    <a href="myAppointments.php" class="btn btn-primary">My Appointments</a>
+
                     <div class="row">
                         <?php include "showServices.php"; ?>
                     </div>

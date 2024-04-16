@@ -1,13 +1,10 @@
 <?php
-session_start(); // Put this at the top of each PHP file
-
-// Store data in session variables after submission
+//session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['selectedServiceId'] = $_POST['selectedServiceId'];
     $_SESSION['selectedBarberId'] = $_POST['selectedBarberId'];
 
     if (empty($_SESSION['selectedServiceId']) || empty($_SESSION['selectedBarberId'])) {
-        // Redirect back to the form with an error message
         header("Location: app.php?error=Please select both a service and a barber");
         exit;
     }
@@ -50,6 +47,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+    <style>
+        .row {
+            display: flex;
+            /* This defines a flex container */
+            /* justify-content: space-between; */
+        }
+    </style>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../assets/img/logo.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!--? Header Start -->
+        <?php include "../html/header.php" ?>
+        <!-- Header End -->
+    </header>
+    <div class="slider-area2">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 pt-70 text-center">
+                                <h2>Choose date</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div id="messageArea" style="display: none; color: green; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: #f0f0f0; padding: 10px; border-radius: 5px; border: 1px solid green;">nothing</div>
 
     <div class="all" style="border:solid black;width:30%;border-radius: 35px;padding-bottom:20px; height: 50%;padding:10px;">
@@ -292,30 +326,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         });
 
         function generateCalendar(month, year) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); // Normalize today to start of day for comparison
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize today to start of day for comparison
 
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const calendarGrid = document.getElementById('appointmentDateInput');
-            const monthYearLabel = document.getElementById('monthYearLabel');
-            monthYearLabel.textContent = `${monthNames[month]} ${year}`;
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const calendarGrid = document.getElementById('appointmentDateInput');
+    const monthYearLabel = document.getElementById('monthYearLabel');
+    monthYearLabel.textContent = `${monthNames[month]} ${year}`;
 
-            calendarGrid.innerHTML = dayNames.map(day => `<div class="calendar-day-name">${day}</div>`).join('');
+    calendarGrid.innerHTML = dayNames.map(day => `<div class="calendar-day-name">${day}</div>`).join('');
 
-            for (let i = 0; i < firstDay; i++) {
-                calendarGrid.innerHTML += '<div class="calendar-day empty"></div>';
-            }
+    for (let i = 0; i < firstDay; i++) {
+        calendarGrid.innerHTML += '<div class="calendar-day empty"></div>';
+    }
 
-            for (let day = 1; day <= daysInMonth; day++) {
-                const date = new Date(year, month, day);
-                const isTodayOrFuture = date >= today;
-                const className = isTodayOrFuture ? 'calendar-day available' : 'calendar-day unavailable';
-                calendarGrid.innerHTML += `<div class="${className}" data-date="${year}-${month + 1}-${day}">${day}</div>`;
-            }
+    for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const isTodayOrFuture = date >= today;
+        const dayOfWeek = date.getDay(); // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
 
-            bindDayClickEvents();
+        // Check if the day is Thursday (4) or Sunday (0), and mark as unavailable
+        if (dayOfWeek === 4 || dayOfWeek === 0) {
+            calendarGrid.innerHTML += `<div class="calendar-day unavailable" data-date="${year}-${month + 1}-${day}">${day}</div>`;
+        } else {
+            const className = isTodayOrFuture ? 'calendar-day available' : 'calendar-day unavailable';
+            calendarGrid.innerHTML += `<div class="${className}" data-date="${year}-${month + 1}-${day}">${day}</div>`;
         }
+    }
+
+    bindDayClickEvents();
+}
+
 
         function bindDayClickEvents() {
             document.querySelectorAll('.calendar-day.available').forEach(day => {
