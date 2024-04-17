@@ -69,19 +69,19 @@
                                         <?php
                                             if ($typeOfUser == 1 || $typeOfUser == 2) 
                                             {
-                                                echo '<li><a href="../reports/chart_day.php">
+                                                echo '<li><a href="../reports/chart_day.php"style="text-decoration: none;">
                                                     Admin Module
                                                 </a></li>';
                                             }
                                             ?>
 
-                                            <li><a href="../html/index.php">Home</a></li>
-                                            <li><a href="../html/Gallery.php">Gallery</a></li>
-                                            <li><a href="../html/services.php">Services</a></li>
-                                            <li><a href="../cart/order.php">Orders</a></li>
-                                            <li><a href="../appointments/app.php">Appointments</a></li>
-                                            <li><a href="../html/review.php">Review</a></li>
-                                            <li class = ""><a href="../html/contact.php">Contact</a></li>
+                                            <li><a href="../html/index.php" style="text-decoration: none;">Home</a></li>
+                                            <li><a href="../html/Gallery.php" style="text-decoration: none;">Gallery</a></li>
+                                            <li><a href="../html/services.php" style="text-decoration: none;">Services</a></li>
+                                            <li><a href="../cart/order.php" style="text-decoration: none;">Orders</a></li>
+                                            <li><a href="../appointments/app.php" style="text-decoration: none;">Appointments</a></li>
+                                            <li><a href="../html/review.php" style="text-decoration: none;">Review</a></li>
+                                            <li class = ""><a href="../html/contact.php" style="text-decoration: none;">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>
