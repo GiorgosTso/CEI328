@@ -130,7 +130,6 @@
                             <span>Our Best Pricing</span>
                             <h2>We provide best price<br> in the city!</h2>
                         </div>
-
                         <!-- Pricing -->
                         <div class="row">
                             <?php for ($col = 0; $col < $totalColumns; $col++) : ?>
@@ -167,41 +166,7 @@
         <!--? Gallery Area Start -->
         <div class="gallery-area section-padding30">
             <div class="container">
-                <!-- Section Tittle -->
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 col-lg-7 col-md-9 col-sm-10">
-                        <div class="section-tittle text-center mb-100">
-                            <span>our image gallery</span>
-                            <h2>some images from our barber shop</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/cut1.jpg);"></div>
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-6 col-sm-6">
-                        <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/barber.jpg);"></div>
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-6 col-sm-6">
-                        <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/barber1.jpg);"></div>
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="box snake mb-30">
-                            <div class="gallery-img " style="background-image: url(../assets/img/cut2.jpg);"></div>
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <!-- Gallery Area End -->
