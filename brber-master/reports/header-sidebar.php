@@ -1,7 +1,7 @@
 <?php
 ob_start(); 
 
-session_start();
+//session_start();
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -22,7 +22,7 @@ $typeOfUser = isset($_SESSION['typeOfUser']) ? $_SESSION['typeOfUser'] : null;
     <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.php">Admin Module</a>
+            <a class="navbar-brand ps-3">Southise Barbershop</a>
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
