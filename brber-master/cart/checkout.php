@@ -1,7 +1,8 @@
 <?php
 session_start();
 	require '../php/config.php';
-
+  $name = $_SESSION['name'];
+  $email = $_SESSION['email'];
 	$grand_total = 0;
 	$allItems = '';
 	$items = [];
@@ -30,9 +31,10 @@ session_start();
 </head>
 
 <body>
+<div id="error-message" class="alert alert-danger" style="display: none; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 3;"></div>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="index.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Mobile Store</a>
+    <a class="navbar-brand" href="order.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Mobile Store</a>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -41,7 +43,7 @@ session_start();
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
+          <a class="nav-link active" href="order.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -56,29 +58,61 @@ session_start();
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-6 px-4 pb-4" id="order">
-        <h4 class="text-center text-info p-2">Complete your order!</h4>
+      <h4 class="text-center text-info p-2">Complete your order and check your data!</h4>
         <div class="jumbotron p-3 mb-2 text-center">
           <h6 class="lead"><b>Product(s) : </b><?= $allItems; ?></h6>
           <h6 class="lead"><b>Delivery Charge : </b>Free</h6>
-          <h5><b>Total Amount Payable : </b><?= number_format($grand_total,2) ?>/-</h5>
+          <h5><b>Total Amount Payable : </b><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($grand_total,2) ?></h5>
         </div>
         <form action="" method="post" id="placeOrder">
           <input type="hidden" name="products" value="<?= $allItems; ?>">
           <input type="hidden" name="grand_total" value="<?= $grand_total; ?>">
           <div class="form-group">
-           <input type="text" name="name" class="form-control"  placeholder="Enter Name" required>
+          <input type="text" name="name" class="form-control" value="<?php echo $_SESSION['name'];?>" placeholder="Enter the Name" required>
           </div>
           <div class="form-group">
-            <input type="email" name="email" class="form-control" value=<?php echo $_SESSION['email'];?> placeholder="Enter E-Mail" required>
+          <input type="text" name="surname" class="form-control" value="<?php echo $_SESSION['surname'];?>" placeholder="Enter the Surname" required>
           </div>
           <div class="form-group">
-            <input type="tel" name="phone" class="form-control"  placeholder="Enter Phone" required>
+          <input type="email" name="email" class="form-control" value="<?php echo $_SESSION['email'];?>" placeholder="Enter the email" required>
           </div>
           <div class="form-group">
-            <textarea name="address" class="form-control" rows="3" cols="10" placeholder="Enter Delivery Address Here..."></textarea>
+            <input type="tel" name="phone" class="form-control" value="<?php echo $_SESSION['phone'];?>" placeholder="Enter Phone" required>
           </div>
+            <h6 class="text-center lead">Select Day of Reception</h6>
           <div class="form-group">
-            <input type="submit" name="submit" value="Place Order" class="btn btn-danger btn-block">
+            <input type="date" id="date" name="date" class="form-control" placeholder="Enter the date" required style="cursor :pointer;">
+          </div>
+          
+          <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // getMonth() is zero-based
+        let dd = today.getDate();
+
+        // Format today's date as yyyy-mm-dd
+        const formattedToday = `${yyyy}-${mm.toString().padStart(2, '0')}-${dd.toString().padStart(2, '0')}`;
+
+        // Calculate one month from today
+        let nextMonth = new Date(today);
+        nextMonth.setMonth(today.getMonth() + 1); // Adding one month
+        nextMonth.setDate(Math.min(dd, new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0).getDate())); // Adjust day number if necessary
+
+        const nextMonthYYYY = nextMonth.getFullYear();
+        let nextMonthMM = nextMonth.getMonth() + 1; // Adjust month number for formatting
+        let nextMonthDD = nextMonth.getDate();
+
+        // Format next month's date as yyyy-mm-dd
+        const formattedNextMonth = `${nextMonthYYYY}-${nextMonthMM.toString().padStart(2, '0')}-${nextMonthDD.toString().padStart(2, '0')}`;
+
+        // Set min and max attributes
+        document.getElementById('date').setAttribute('min', formattedToday);
+        document.getElementById('date').setAttribute('max', formattedNextMonth);
+    });
+</script>
+          <div class="form-group">
+            <input type="submit" name="submit"  value="Place Order" class="btn btn-danger btn-block">
           </div>
         </form>
       </div>
@@ -120,6 +154,24 @@ session_start();
       });
     }
   });
+  
+  document.addEventListener('DOMContentLoaded', function() {
+      const datePicker = document.getElementById('date');
+      const errorMessage = document.getElementById('error-message');
+      
+      datePicker.addEventListener('change', function(e) {
+        const selectedDate = new Date(this.value);
+        const day = selectedDate.getDay();
+        // Sunday = 0, Thursday = 4
+        if (day === 0 || day === 4) {
+          errorMessage.style.display = 'block';
+          errorMessage.textContent = 'Sundays and Thursdays are not available for delivery. Please select another day.';
+          this.value = ''; // Clear the selected date
+        } else {
+          errorMessage.style.display = 'none'; // Hide the error message when the date is valid
+        }
+      });
+    });
   </script>
 </body>
 

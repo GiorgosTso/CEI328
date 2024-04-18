@@ -1,6 +1,5 @@
 <?php
 include "../php/config.php";
-session_start();
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -13,7 +12,7 @@ if(isset($_SESSION['id'])) {
     $loggedInUserID = null;
 }
 
-$query = "SELECT appointments.*, clients.name AS client_name, clients.surname AS client_surname, time_slots.start_time
+$query = "SELECT appointments.*, time_slots.start_time
           FROM appointments
           JOIN time_slots ON appointments.time_slot_id = time_slots.id
           LEFT JOIN clients ON appointments.client_id = clients.ClientID
