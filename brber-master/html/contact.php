@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <style>
         .error {color: #FF0000}
-        .error {font-size: 12px}
+        .error {font-size: 14px}
         
     .modal{
     display: none;
@@ -228,43 +228,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="row">
                     <div class="col-12">
                         <h2 class="contact-title">Get in Touch</h2>
-                        <span class="error">* required fields
+                        <span class="error">* Required fields
                     </div>
                     <div class="col-lg-8">
                         <form action="" method="POST" >
                         
                             <div class="row">
+                            <div class="col-12">
+                                    <div class="form-group">
+                                        <br>
+                                        <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject" style="font-size: 14px;">
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <span class="error">* 
-                                        <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message" required></textarea>
+                                        <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message" required style="font-size: 14px;"></textarea>
                                          
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                     <span class="error">* 
-                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name" required>
+                                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name" required style="font-size: 14px;">
                                         
                                     </div>
                                 </div>
                                 <div class=" col-sm-6">
                                     <div class="form-group">
                                     <span class="error">* 
-                                        <input class="form-control  valid" name="surname" id="surname" type="surname" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your surname'" placeholder="Enter your surname" required>
+                                        <input class="form-control  valid" name="surname" id="surname" type="surname" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your surname'" placeholder="Enter your surname" required style="font-size: 14px;">
                                         
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <span class="error">* 
-                                        <input class="form-control  valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email" required>
+                                        <input class="form-control  valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email" required style="font-size: 14px;">
                                         
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject">
                                     </div>
                                 </div>
                             </div>

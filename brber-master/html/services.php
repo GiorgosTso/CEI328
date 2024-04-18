@@ -92,7 +92,7 @@
                     if ($result->num_rows > 0) {
                         // output data of each row
                         while ($row = $result->fetch_assoc()) {
-                            echo '<div class="col-xl-4 col-lg-4 col-md-6">';
+                            echo '<div class="col-xl-3 col-lg-3 col-md-6">';
                             echo '    <div class="services-caption text-center mb-30">';
                             echo '        <div class="service-icon">';
                             echo '            <i class="flaticon-healthcare-and-medical"></i>';
