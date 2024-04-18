@@ -5,7 +5,7 @@
   define('DB_NAME','southside_db');
 
   $conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_NAME);
-
+  $mysqli = new mysqli(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_NAME);
   if ($conn === false) {
     die("Connection failed: " . mysqli_connect_error());
 }
