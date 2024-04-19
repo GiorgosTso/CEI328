@@ -1,5 +1,4 @@
 <?php
-session_start(); // Put this at the top of each PHP file
 
 // Store data in session variables after submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,19 +11,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 }
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-    <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"crossorigin="anonymous">          
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="manifest" href="site.webmanifest"> 
+    <link rel="manifest" href="site.webmanifest">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Barber HTML-5 Template </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -45,10 +44,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assets/css/nice-select.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="style1.css">
-    
+
 </head>
+
 <body>
+    <style>
+        .row {
+            display: flex;
+            /* This defines a flex container */
+            /* justify-content: space-between; */
+        }
+    </style>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../assets/img/logo.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!--? Header Start -->
+        <?php include "../html/header.php" ?>
+        <!-- Header End -->
+    </header>
+    <main>
+        <!--? Hero Start -->
+        <div class="slider-area2">
+            <div class="slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap hero-cap2 pt-70 text-center">
+                                <h2>Appointment</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 <div id="messageArea" style="display: none; color: green; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: #f0f0f0; padding: 10px; border-radius: 5px; border: 1px solid green;">nothing</div>
+
+<button onclick="window.location.href='app.php'" class="btn btn-primary">GO BACK</button>
 
 <div class="all" style="border:solid black;width:30%;border-radius: 35px;padding-bottom:20px; height: 50%;padding:10px;">
     <div class="calendar-controls">

@@ -30,12 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $picture = $pictureName;
     }
 
-    $logDateTime = date("Y-m-d H:i:s");
-    $logAction = "User: " .$name. " made a " .$numStars. " star/'s review"; 
-
-    $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
-    $result2 =mysqli_query($conn, $query2);
-
     // Prepare and bind SQL statement
     $stmt = $conn->prepare("INSERT INTO reviews (name, picture, content, numStars, date) VALUES (?, ?, ?, ?, NOW())");
     $stmt->bind_param("sssi", $name, $picture, $content, $numStars);

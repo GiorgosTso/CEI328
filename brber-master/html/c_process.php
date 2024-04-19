@@ -20,6 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = $_POST['message'];
 
     $sql = "INSERT INTO contacts (name, surname, email, message) VALUES ('$name', '$surname', '$email', '$message')";
+    
+    $logDateTime = date("Y-m-d H:i:s");
+    $logAction = "User: " .$name. " has send an email"; 
+
+    $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
+    $result2 =mysqli_query($conn, $query2);
+
     if ($conn->query($sql) === TRUE) {
         
         $mail = new PHPMailer(true);
