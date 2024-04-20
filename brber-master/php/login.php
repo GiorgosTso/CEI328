@@ -69,16 +69,23 @@
                                         $_SESSION['phone'] = $phone;
                                         $_SESSION['typeOfUser'] = $typeOfUser;
                                         $_SESSION['logout_token'] = bin2hex(random_bytes(32));
+                                        
                                         $logDateTime = date("Y-m-d H:i:s");
                                         $logAction = "User: " .$email. " has logged in"; 
 
-                                        //$query3 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ($id, $logDateTime, $logAction)";
+                                        mysqli_stmt_free_result($detailStmt);
 
+                                        $query3 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES (?, ?, ?)";
+                                        $stmt3 = mysqli_prepare($conn, $query3);
+                                        mysqli_stmt_bind_param($stmt3, 'sss', $id, $logDateTime, $logAction);
+                                        mysqli_stmt_execute($stmt3);
+                                        mysqli_stmt_close($stmt3);
+
+                                        
                                         if ($typeOfUser == '3') { // Additional data for clients
                                             $_SESSION['city'] = $city;
                                             $_SESSION['area'] = $area;
                                         }
-                                        //$result3 =mysqli_query($conn, $query3);
                                         mysqli_stmt_close($detailStmt);
                                         header("location: ../html/index.php"); // Redirect to the home page
                                         exit;

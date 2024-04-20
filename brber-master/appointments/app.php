@@ -10,7 +10,7 @@
     <link rel="manifest" href="site.webmanifest">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Barber HTML-5 Template </title>
+    <title> Appointments </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -115,7 +115,8 @@
                         </div>
                     </div>
                     <a href="myAppointments.php" class="btn btn-primary">My Appointments</a>
-
+                    <br>
+                    <br>
                     <div class="row">
                         <?php include "showServices.php"; ?>
                     </div>

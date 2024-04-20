@@ -36,7 +36,7 @@ if (mysqli_num_rows($result) == 0) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Book Appointment</title>
+    <title>My Appointments</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -102,7 +102,8 @@ if (mysqli_num_rows($result) == 0) {
         </thead>
         <tbody>
             <?php
-            while ($row = mysqli_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) 
+            {
                 echo "<tr>";
                 echo "<td>" . $row['date'] . "</td>";
                 echo "<td>" . $row['start_time'] . "</td>";
@@ -114,18 +115,22 @@ if (mysqli_num_rows($result) == 0) {
                     echo "<td>" . $status . "</td>";
                     
                     echo"<td>";
-    if ($status == "Appointment has not been Completed yet") {
-        if ($currentDate <= $appointmentDate) {
-            echo "<a href='javascript:void(0);' onclick='cancelAppointment(" . $row['id'] . ")' class='btn btn-primary'>Cancel Appointment</a>";
-        } else {
-            echo "<button disabled>Cancel</button>"; 
-        }
-    } else {
-        echo "N/A";
-    }
-echo "</td>";
-
-                    
+                if ($status == "Appointment has not been Completed yet") 
+                {
+                    if ($currentDate <= $appointmentDate) 
+                    {
+                        echo "<a href='javascript:void(0);' onclick='cancelAppointment(" . $row['id'] . ")' class='btn btn-primary'>Cancel Appointment</a>";
+                    } 
+                    else 
+                    {
+                        echo "<button disabled>Cancel</button>"; 
+                    }
+                } 
+                else 
+                {
+                    echo "N/A";
+                }
+                    echo "</td>";       
                     echo "</tr>";
             }
             ?>

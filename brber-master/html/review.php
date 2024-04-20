@@ -1,13 +1,23 @@
 <?php
     ob_start();
-    session_start();
+    //session_start();
+    include "header.php";
+
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+        $name = $_SESSION['name']; // Assuming 'name' is the user's name stored in the session
+        $id = $_SESSION['id']; // Assuming 'id' is the user's ID stored in the session
+    } else {
+        // User is not logged in, handle this case accordingly
+        $name = "Guest";
+        $id = null; // Set to null or handle it based on your application's logic
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Barber HTML-5 Template </title>
+    <title> Reviews </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -196,7 +206,6 @@
     <body>
         <main>
     <header>
-        <?php include "header.php"?>
     </header>
 <div class="slider-area2">
             <div class="slider-height2 d-flex align-items-center">
@@ -301,13 +310,17 @@
          die("Connection failed: " . $conn->connect_error);
         }
     
-
     // Fetch reviews from database
     $sql = "SELECT reviewID, name, picture, content, numStars, date FROM reviews ORDER BY date DESC";
     $result = $conn->query($sql);
 
+    $logDateTime = date("Y-m-d H:i:s");
+    $logAction = "User: " .$name. " has left a review";
+    $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
+    $result2 =mysqli_query($conn, $query2);
    // Display reviews
-    if ($result->num_rows > 0) {
+    if ($result->num_rows > 0) 
+    {
     while ($row = $result->fetch_assoc()) {
         echo '<div class="review">';
         echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
@@ -319,7 +332,9 @@
         }
         echo '</div>';
     }
-} else {
+ 
+} 
+else {
     echo "No reviews yet.";
 }
 

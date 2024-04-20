@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="manifest" href="site.webmanifest">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Barber HTML-5 Template </title>
+    <title> Appointments </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -368,8 +368,10 @@ function generateCalendar(month, year) {
 
 
 </script>
-    
-<script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
+  
+  <?php include "../html/footer.php"?>
+  
+  <script src="../assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="../assets/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="../assets/js/popper.min.js"></script>
@@ -390,7 +392,7 @@ function generateCalendar(month, year) {
     <!-- Nice-select, sticky -->
     <script src="../assets/js/jquery.nice-select.min.js"></script>
     <script src="../assets/js/jquery.sticky.js"></script>
-
+    
     <!-- counter , waypoint,Hover Direction -->
     <script src="../assets/js/jquery.counterup.min.js"></script>
     <script src="../assets/js/waypoints.min.js"></script>
@@ -403,10 +405,12 @@ function generateCalendar(month, year) {
     <script src="../assets/js/jquery.validate.min.js"></script>
     <script src="../assets/js/mail-script.js"></script>
     <script src="../assets/js/jquery.ajaxchimp.min.js"></script>
-
-    <!-- Jquery Plugins, main Jquery -->
+    
+    <!-- Jquery Plugins, main Jquery -->	
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/main.js"></script>
-
+    
+    
 </body>
+
 </html>

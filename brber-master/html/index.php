@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Barber HTML-5 Template </title>
+    <title> SouthSide Barbershop </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -62,8 +62,8 @@
             </div>
             <!-- stroke Text -->
             <div class="stock-text">
-                <h2>Get More confident</h2>
-                <h2>Get More confident</h2>
+                <h2>Get More confidence</h2>
+                <h2>Get More confidence</h2>
             </div>
         </div>
         <!-- slider Area End-->
@@ -75,7 +75,7 @@
                     <div class="col-xl-8 col-lg-8 col-md-11 col-sm-11">
                         <div class="section-tittle text-center mb-100">
                             <br><br><br>
-                            <h2>Our hair cut experts for you</h2>
+                            <h2>Our hair cut expert for you</h2>
                         </div>
                     </div>
                 </div>
