@@ -1,5 +1,6 @@
 <?php
     ob_start();
+    
     //session_start();
     include "header.php";
 
@@ -12,12 +13,15 @@
         $id = null; // Set to null or handle it based on your application's logic
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
+    
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Reviews </title>
+    <title> Reviews</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -36,177 +40,42 @@
 	<link rel="stylesheet" href="../assets/css/themify-icons.css">
 	<link rel="stylesheet" href="../assets/css/slick.css">
 	<link rel="stylesheet" href="../assets/css/nice-select.css">
-    
+    <link rel="stylesheet" href="../assets/css/review.css">
 	<link rel="stylesheet" href="../assets/css/style.css">
-
-<style>
-    /* Style for the success message container */
-    .success-message 
-    {
-        display: none; /* Initially hidden */
-        max-width: 400px;
-        margin: 20px auto;
-        padding: 10px 20px;
-        background-color: #4CAF50; /* Green background color */
-        color: white;
-        border-radius: 6px;
-        text-align: center;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    
-        .review-form 
-        {
-            max-width: 1000px;
-            margin: 40px auto 20px;
-            padding: 30px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .review-form h2 
-        {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .review-form form 
-        {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .review-form .form-group 
-        {
-            margin-bottom: 15px;
-        }
-        
-        .review-form label 
-        {
-            font-weight: bold;
-        }
-        
-        .review-form input[type="text"],
-        .review-form select,
-        .review-form textarea 
-        {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        
-        .review-form textarea 
-        {
-            height: 100px;
-        }
-    
-        .rating-options  
-        {
-            margin-top: 10px;
-        }
-    
-        .rating-options label 
-        {
-            display: block;
-        }
-    
-        
-        .review-form button[type="submit"] 
-        {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        
-        .review-form button[type="submit"]:hover 
-        {
-            background-color: #45a049;
-        }
-        
-        /*  for the container displaying reviews */
-        .reviews {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto; /* Add scrollbar for overflow */
-            max-height: 300px; /* Set max height for scrollbar */
-        }
-        
-        .reviews h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .review {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        
-        .review p {
-            margin: 0;
-        }
-
-        .modal{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 30px;
-    border: none;
-    width: 60%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
-    text-align: center;
-    color: green; 
-    font-size: 18px;
-}
-
-.modal-content p {
-    color: green; 
-    font-size: 18px;
-}
+	<link rel="stylesheet" href="review.css">
 
 
-.close  {
-    color: #aaa;
-    float: right;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-}
-</style>
 <title>Review Page</title>
+
 </head>
+
+        
+    
     <body>
         <main>
+         <!--? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                <img src="../assets/img/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+
     <header>
+        <?php include "header.php";
+        $nameUser = $_SESSION['name']; 
+        $surnameUser = $_SESSION['surname'];
+    ?>
     </header>
+
+
+
+
 <div class="slider-area2">
             <div class="slider-height2 d-flex align-items-center">
                 <div class="container">
@@ -224,10 +93,10 @@
 <div class="containerr">
     <div class="review-form">
         <h2>Leave a Review</h2>
-        <form action="review_process.php" method="post" enctype="multipart/form-data">
+        <form action="review_process.php" method="post" enctype="multipart/form-data" class="review-form">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" value="<?= $nameUser . " " . $surnameUser?>">
             </div>
             <br>
             <div class="form-group">
@@ -249,137 +118,175 @@
             </div>
             <div class="form-group">
                 <label for="photo">Upload Photo (optional):</label>
-                <input type="file" id="photo" name="photo" accept="image/*">
+                <input type="file" id="photo" name="photo">
                 <span class="file-input-label">(Max size: 5MB)</span>
             </div>
+
+           
             <!-- Success message container -->
            <div class="success-message" style="display: none;">
               Your review has been submitted successfully!
           </div>
 
           <div class="form-group mt-3">
-                <button type="submit">Submit Review</button>
-                
-                    <script>
-                    $(document).ready(function() {
-                    $('.review-form form').on('submit', function(e) {
-                    e.preventDefault(); // Prevent default form submission
-                    var formData = new FormData(this); // Create formData object
+                <button class="btn btn-danger" >Submit Review</button>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>          
+    <script>
+ $(document).ready(function() {
+    $('.review-form form').on('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        var formData = new FormData(this); // Create formData object
 
-                   // AJAX request to submit the form data
-                   $.ajax({
-                   url: $(this).attr('action'), // Form action URL
-                   type: $(this).attr('method'), // Form method (POST)
-                   data: formData,
-                   processData: false, 
-                   contentType: false, 
-                   success: function(response) {
-                   // Append the newly submitted review to the reviews section
-                   $('.reviews').append(response);
-                   // Clear the form fields after submission
-                   $('.review-form form')[0].reset();
-                   // Show success message
-                   $('.success-message').fadeIn().delay(2000).fadeOut();
-                   // Refresh the page after 2 seconds
-                   setTimeout(function() {
+        // AJAX request to submit the form data
+        $.ajax({
+            url: $(this).attr('action'), // Form action URL
+            type: $(this).attr('method'), // Form method (POST)
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Show success message
+                $('.success-message').show().text("Your review has been submitted successfully!");
+                // Optionally, you can do other actions like resetting the form, etc.
+
+                // Reload the page after 2 seconds
+                setTimeout(function() {
                     location.reload();
-                   }, 2000);
-                                },
-                                error: function(xhr, status, error) {
-                                    // Handle errors if any
-                                    console.error("Error: " + xhr.responseText);
-                                }
-                            });
-                        });
-                    });
-                    </script>
+                }, 5000);
+            },
+            error: function(xhr, status, error) {
+                // Show error message if there's an issue with the AJAX request
+                console.error("Error: " + xhr.responseText);
+            }
+        });
+    });
+});
+
+
+</script>
 
 
             </div>
         </form>
     </div>
-   
-    
+
+    <div class="old_reviews">
+    <p>If you want to see old reviews <a href="https://www.google.com/search?sca_esv=d43f5111e59e559f&sca_upv=1&rlz=1C1ONGR_enCY1068CY1069&sxsrf=ACQVn08UShSEYcPaWsN4i30nYeqeTxp3gw:1713367274816&uds=AMwkrPtyB8MsmozA4Lwzqy2G2HCu0qbm4ObTjsN3lnxmT3sR23xVSdi3ir05P-oOoUmZ1xWaRKBL9H5_hhFJZ_agognjMX7c1OQ8XWodMvk04wgEAUJQZbKp2EpXhGEvAo9tYQHhIP06&si=AKbGX_oXOTjHK3vNPxrwAU4tsC2W_rsdJDrrSHpqUAOdbOh1q-a44v6KQxRsgy_VPxwVo9WXjjVWFDd4DBnvjPaYJu0xYkuJQ0GZy7jAc2ZjGttN-T9qdRWDGluih6ovAFvjbWgJh7V9r6SUPFvlNxrxt_e25XJaVw%3D%3D&q=Southside+barbershop+Reviews&hl=en-CY&sa=X&ved=2ahUKEwjM1KO-xsmFAxUuVKQEHZEZA8AQ_4MLegQIFRAL&biw=1536&bih=695&dpr=1.25"> click here</a>.</p>
+</div>
     <div class="reviews">
         <h2>Reviews</h2>
         <?php
-    include "../php/config.php";
 
-    // Check connection
-     if ($conn->connect_error) {
-         die("Connection failed: " . $conn->connect_error);
-        }
-    
-    // Fetch reviews from database
-    $sql = "SELECT reviewID, name, picture, content, numStars, date FROM reviews ORDER BY date DESC";
-    $result = $conn->query($sql);
+include "../php/config.php";
 
-    $logDateTime = date("Y-m-d H:i:s");
-    $logAction = "User: " .$name. " has left a review";
-    $query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
-    $result2 =mysqli_query($conn, $query2);
-   // Display reviews
-    if ($result->num_rows > 0) 
-    {
+// Fetch reviews from database
+$sql = "SELECT reviewID, name, picture, content, numStars, date, isHidden FROM reviews ORDER BY reviewID DESC";
+$result = $conn->query($sql);
+
+$logDateTime = date("Y-m-d H:i:s");
+$logAction = "User: " .$name. " has left a review";
+$query2 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDateTime', '$logAction')";
+$result2 =mysqli_query($conn, $query2);
+
+if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo '<div class="review">';
-        echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
-        echo '<p>Content: ' . htmlspecialchars($row['content']) . '</p>';
-        echo '<div>Stars: ' . htmlspecialchars($row['numStars']) . '</div>';
-        echo '<p>Date: ' . htmlspecialchars($row['date']) . '</p>';
-        if (!empty($row['picture'])) {
-            echo '<img src="uploads/' . htmlspecialchars($row['picture']) . '" alt="Review Photo" style="max-width: 100%; height: auto;">';
+        // For regular users, hide reviews marked as hidden by admin
+        if ($typeOfUser != 1 && $row['isHidden'] == 1) {
+            continue; // Skip this review for regular users if it's hidden
         }
+        // Output review with visibility class and data-is-hidden attribute
+        echo '<div class="review" data-review-id="' . $row['reviewID'] . '" data-is-hidden="' . $row['isHidden'] . '">';
+
+        echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
+        echo '<p class="review-content">' . htmlspecialchars($row['content']) . '</p>';
+        $stars = intval($row['numStars']);
+        $starIcons = str_repeat('&#9733;', $stars) . str_repeat('&#9734;', 5 - $stars);
+        echo '<div class="stars review-content">' . $starIcons . '</div>';
+        echo '<p>Date: ' . htmlspecialchars($row['date']) . '</p>';
+
+        if (!empty($row['picture'])) {
+            echo '<div style="display:flex; justify-content:end;">';
+            echo '<img src="' . htmlspecialchars($row['picture']) . '" alt="Review Photo" style="max-width: 300px; max-height: 400px;">';
+            echo '</div>';
+        }
+
+        // Show hide/show buttons for admins
+        if ($typeOfUser == 1) {
+            echo '<button class="toggleReviewButton btn btn-danger" data-action="hide" data-review-id="' . $row['reviewID'] . '">Hide</button>';
+            echo '<button class="toggleReviewButton btn btn-success" data-action="show" data-review-id="' . $row['reviewID'] . '">Show</button>';
+        }
+
         echo '</div>';
     }
- 
-} 
-else {
+} else {
     echo "No reviews yet.";
 }
 
-// Close connection
 $conn->close();
 ?>
 
 
-    </div>
-    <!-- Success modal -->
-    <?php if (!empty($successMessage)): ?>
-        <div id="successModal" class="modal" style="display: block;">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p><?php echo $successMessage; ?></p>
-            </div>
-        </div>
-    <?php endif; ?>
+
 
 </main>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var modal = document.getElementById("successModal");
-        var closeButton = document.getElementsByClassName("close")[0];
-
-        closeButton.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
-    });
-</script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- JavaScript code for modal close button -->
 <script>
-    $(document).ready(function() {
-        // Show the success modal when the document is ready
-        $('#successModal').show();
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to handle hiding and showing reviews
+    function toggleReview(reviewId, action) {
+        // AJAX request to update the review visibility in the database
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                console.log(xhr.responseText);
+                if (xhr.status === 200) {
+                    // Check if the response indicates success or error
+                    if (xhr.responseText === 'success') {
+                        // Handle success: Update UI and show success message
+                        if (action === 'hide') {
+                            // Hide the review from regular users
+                            const review = document.querySelector('.review[data-review-id="' + reviewId + '"]');
+                            review.classList.add('hidden');
+                        } else if (action === 'show') {
+                            // Show the review to regular users
+                            const review = document.querySelector('.review[data-review-id="' + reviewId + '"]');
+                            review.classList.remove('hidden');
+                        }
+                        // Show success message
+                        const successMessage = document.createElement('p');
+                        successMessage.textContent = action === 'hide' ? 'Review successfully hidden!' : 'Review successfully shown!';
+                        successMessage.classList.add('success-message');
+                        button.parentNode.insertBefore(successMessage, button.nextSibling);
+                        // Remove success message after 5 seconds
+                        setTimeout(function() {
+                            successMessage.remove();
+                        }, 5000);
+                    } else {
+                        // Handle error: Display error message to the user
+                        alert( xhr.responseText);
+                    }
+                } else {
+                    console.error('Error: ' + xhr.responseText);
+                }
+            }
+        };
 
-        // Close the modal when the close button is clicked
-        $('.close').click(function() {
-            $('#successModal').hide();
+        xhr.open('POST', '../html/update_review.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('reviewId=' + reviewId + '&action=' + action);
+    }
+
+    // Event listener for toggleReviewButtons
+    const toggleReviewButtons = document.querySelectorAll('.toggleReviewButton');
+    toggleReviewButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const reviewId = this.getAttribute('data-review-id');
+            const action = this.getAttribute('data-action');
+            toggleReview(reviewId, action);
         });
     });
+});
+
 </script>
 
 
@@ -424,8 +331,6 @@ $conn->close();
     <!-- Jquery Plugins, main Jquery -->	
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/main.js"></script>
-    
-
     
 
 

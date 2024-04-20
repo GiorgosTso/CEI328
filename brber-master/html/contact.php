@@ -90,58 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assets/css/slick.css">
     <link rel="stylesheet" href="../assets/css/nice-select.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-
-    <style>
-        .error {color: #FF0000}
-        .error {font-size: 14px}
-        
-    .modal{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 30px;
-    border: none;
-    width: 60%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
-    text-align: center;
-    color: green; 
-    font-size: 18px;
-}
-
-.modal-content p {
-    color: green; 
-    font-size: 18px;
-}
+    <link rel="stylesheet" href="../assets/css/contact.css">
 
 
-.close  {
-    color: #aaa;
-    float: right;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-}
-
-
-
-    </style>
 </head>
 <body>
 
@@ -323,6 +274,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p><?php echo $successMessage; ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($errorMessage)): ?>
+        <div id="successModal" class="modal" style="display: block;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p><?php echo $errorMessage; ?></p>
             </div>
         </div>
     <?php endif; ?>
