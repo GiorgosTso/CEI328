@@ -34,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertdata'])) {
         }
     
         // Allow certain file formats
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.<br>";
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "webp") {
+            echo "Sorry, only JPG, JPEG, WEBP, PNG & GIF files are allowed.<br>";
             $uploadOk = 0;
         }
     
@@ -75,111 +75,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertdata'])) {
     $stmt->close();
 }
     
-    if(isset($_POST['updatedata'])) {
-        $id = $_POST['update_id'];
-    
-        if(empty(trim($_POST["product_name"]))){
-            $name_err = "Enter the name "; 
+if(isset($_POST['updatedata'])) {
+    $update_id = $_POST['update_id'];
 
-        }
-        else {
-            $pname = trim($_POST["product_name"]); 
-        }
+    // Validate inputs
+    $name_err = empty(trim($_POST["product_name"])) ? "Enter the name" : "";
+    $price_err = empty(trim($_POST["product_price"])) ? "Enter the price" : (floatval($_POST["product_price"]) < 0 ? "Price can't be negative" : "");
+    $quantity_err = empty(trim($_POST["product_qty"])) ? "Enter the Quantity" : (intval($_POST["product_qty"]) < 0 ? "Quantity can't be negative" : "");
+
+    if (empty($name_err) && empty($price_err) && empty($quantity_err)) {
+        $product_name = trim($_POST['product_name']);
+        $product_price = floatval($_POST['product_price']);
+        $product_qty = intval($_POST['product_qty']);
+        $previous_image = 'photo.png'; // Default if no image exists
+
+        // Fetch current image from the database if no new image is uploaded
         
-        if(empty(trim($_POST["product_price"]))){
-            $price_err = "Enter the price "; 
+        if (empty($_FILES['edit_image']['name'])) {
+            $stmt = $conn->prepare("SELECT product_image FROM product WHERE id = ?");
+            $stmt->bind_param("i", $update_id);
+            $stmt->execute();
+            $stmt->bind_result($fetched_image);
+            if ($stmt->fetch() && !empty($fetched_image)) {
+                $previous_image = $fetched_image;
+            }
+            $stmt->close();
+        }
 
-        }
-        else if(trim($_POST["product_price"]) < 0){
-            $pprice_err = "Price can't be negative";
-        }
-        else {
-            $pprice = $_POST["product_price"];
-        }
+        // Handle file upload if a new image is provided
+        if (!empty($_FILES['edit_image']['name'])) {
+            $targetDir = "uploads/";
+            $fileName = basename($_FILES["edit_image"]["name"]);
+            $targetFile = $targetDir . $fileName;
+            $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
         
-        if(empty(trim($_POST["product_qty"]))){
-            $quantity_err = "Enter the Quantity "; 
+            // Validate file type and size
+            if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif','webp'])) {
+                echo "Sorry, only JPG, JPEG, WEBG, PNG & GIF files are allowed.<br>";
+                exit; // Stop execution if the file type is not allowed
+            }
+            if ($_FILES["edit_image"]["size"] > 5000000) {
+                echo "Sorry, file size must be under 5MB.<br>";
+                exit; // Stop execution if the file size is too large
+            }
+        
+            // Attempt to move the uploaded file to the target directory
+            if (move_uploaded_file($_FILES["edit_image"]["tmp_name"], $targetFile)) {
+                echo "The file ". htmlspecialchars($fileName). " has been successfully uploaded.<br>";
+                $previous_image = $targetFile; // Update the image path to the new file
+            } else {
+                echo "Sorry, there was an error uploading your file.<br>";
+                exit; // Stop execution if there was an error uploading the file
+            }
+        }
 
+        // Update the product information
+        $stmt = $conn->prepare("UPDATE product SET product_name = ?, product_price = ?, product_qty = ?, product_image = ? WHERE id = ?");
+        $stmt->bind_param("sdisi", $product_name, $product_price, $product_qty, $previous_image, $update_id);
+        if ($stmt->execute()) {
+            header('Location: indexcode.php?status=success');
+            exit;
+        } else {
+            echo "Error updating record: " . $stmt->error;
+            header('Location: indexcode.php?status=error');
+            exit;
         }
-        else if(trim($_POST["product_qty"]) < 0){
-            $pprice_err = "Quantity can't be negative";
-        }
-        else {
-            $pqty = ($_POST["product_qty"]);
-        }
-        if(empty($name_err) && empty($price_err) && empty($quantity_err)){
-                    $product_name = $_POST['product_name'] ?? '';
-                    $product_price = isset($_POST['product_price']) ? floatval($_POST['product_price']) : 0.00;
-                    $product_qty = $_POST['product_qty'] ?? 0;
-                    $update_id = $_POST['update_id'] ?? 0;
-                    $product_image = 'photo.png';  // Default image if none uploaded or if upload fails
-            
-                    // Handle file upload
-                    if (!empty($_FILES['edit_image']['name'])) {
-                        $targetDir = "uploads/";
-                        $fileName = basename($_FILES["edit_image"]["name"]);
-                        $targetFile = $targetDir . $fileName;
-                        $uploadOk = 1;
-                        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-            
-                        // Check if image file is an actual image
-                        $check = getimagesize($_FILES["edit_image"]["tmp_name"]);
-                        if ($check !== false) {
-                            echo "File is an image - " . $check["mime"] . ".<br>";
-                        } else {
-                            echo "File is not an image.<br>";
-                            $uploadOk = 0;
-                        }
-            
-                        // Check file size - example: 5MB limit
-                        if ($_FILES["edit_image"]["size"] > 5000000) {
-                            echo "Sorry, your file is too large.<br>";
-                            $uploadOk = 0;
-                        }
-            
-                        // Allow certain file formats
-                        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-                            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.<br>";
-                            $uploadOk = 0;
-                        }
-            
-                        // Try to upload file if all checks pass
-                        if ($uploadOk == 1) {
-                            if (move_uploaded_file($_FILES["edit_image"]["tmp_name"], $targetFile)) {
-                                echo "The file ". htmlspecialchars($fileName). " has been uploaded.<br>";
-                                $product_image = $targetFile;  // Use uploaded file
-                            } else {
-                                echo "Sorry, there was an error uploading your file.<br>";
-                            }
-                        }
-                    }
-            
-                    // Prepare SQL statement to update product data
-                    $query = "UPDATE product SET product_name = ?, product_price = ?, product_qty = ?, product_image = ? WHERE id = ?";
-                    $stmt = $conn->prepare($query);
-                    if ($stmt) {
-                        $stmt->bind_param("sdisi", $product_name, $product_price, $product_qty, $product_image, $update_id);
-                        if ($stmt->execute()) {
-                            $previous_name = $product_name;
-                            $previous_price = $product_price;
-                            $previous_qty = $product_qty;
-                            $previous_image = $product_image;
-                            header('Location: indexcode.php?status=success');
-                            exit;
-                        } else {
-                            echo "Error updating record: " . $stmt->error;
-                            header('Location: indexcode.php?status=error');
-                            exit;
-                        }
-                        $stmt->close();
-                    } else {
-                        echo "Error preparing statement: " . $conn->error;
-                    }
-                } else {
-                    echo "Validation errors occurred.";
-                }
-            }	
-
+        $stmt->close();
+    } else {
+        // Handling errors, show validation errors
+        echo "Please correct the following errors: <br>";
+        echo $name_err . "<br>" . $price_err . "<br>" . $quantity_err;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -287,7 +254,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertdata'])) {
                         // Convert to Number and check for negative values
                        
                     
-                        if (price <= 0 || quantity <= 0) {
+                        if (price < 0 || quantity < 0) {
                             messageArea.textContent = "Price and quantity must be greater than zero."; // Set error message
                             messageArea.style.display = 'block';
                             return false; // Prevent form submission if values are non-positive
@@ -296,9 +263,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insertdata'])) {
                             
                         return true; // Allow form submission if all validations pass
                     }
-                    </script>
-                
-                <script>
+                   
 
 var button2 = document.querySelector("button[name='insertdata']"); 
 
@@ -362,8 +327,7 @@ document.getElementById('prQty').addEventListener("input", Handle);
                         
                         <div class="form-group">
                             <label> Product Image </label>
-                            <input type="file" name="edit_image" id="product_image" class="<?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" >
-                            <span class="invalid-feedback"><?php echo $name_err; ?>
+                            <input type="file" name="edit_image" id="product_image">
                         </div>
 
                         
@@ -410,11 +374,13 @@ function stateHandle() {
     // Enable button only if all fields are filled
     button.disabled = !productName || !price || !quantity;
 }
-
 // Attach the stateHandle function to the change event for all required inputs
 document.getElementById('product_name').addEventListener("input", stateHandle);
 document.getElementById('product_price').addEventListener("input", stateHandle);
 document.getElementById('product_qty').addEventListener("input", stateHandle);
+document.getElementById('product_image').addEventListener("change", stateHandle);
+
+
 
 </script>
 
@@ -481,7 +447,7 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
                 <div class="card-body" id= "body_buttons">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentaddmodal">
                         ADD PRODUCTS
-                    </button>
+                    
                     <a href="order.php"><button type="button" class="btn btn-info btn-round " data-toggle="modal" data-target="#loginModal">
                         GO BACK
                     </button></a>
@@ -500,7 +466,7 @@ document.getElementById('product_qty').addEventListener("input", stateHandle);
             
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                DataTable Example
+                Products table
             </div>
             <div class="card-body">
                 <table id="datatablesSimple" class="table table-bordered table">
@@ -633,7 +599,7 @@ $(document).ready(function() {
                     dataType: "html", //expect html to be returned                
                     success: function (response) {
                         $("#responsecontainer").html(response);
-                        //alert(response);
+                        
                     }
                 });
             });

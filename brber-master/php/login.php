@@ -1,110 +1,104 @@
 <?php
-    session_start(); // Start the session at the very beginning
-    
+session_start(); // Start the session at the very beginning
 
-include "config.php"; // Connect with the database
+require "config.php"; // Include the database connection file
 
 // Define variables and initialize with empty values
-$email = $password = "";
+$email = $password = $phone = $city = $area = $surname = $name = "";
 $email_err = $password_err = $login_err = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Check if email is empty
+    // Validate email
     if (empty(trim($_POST["email"]))) {
         $email_err = "Please enter your email.";
     } else {
         $email = trim($_POST["email"]);
     }
     
-    // Check if password is empty
+    // Validate password
     if (empty(trim($_POST["password"]))) {
         $password_err = "Please enter your password.";
     } else {
         $password = trim($_POST["password"]);
     }
     
-    // Validate credentials
+    // If there are no errors, proceed with the login check
     if (empty($email_err) && empty($password_err)) {
-        // Prepare a select statement
         $sql = "SELECT id, username, password, typeOfUser FROM useraccount WHERE username = ?";
-        
         if ($stmt = mysqli_prepare($conn, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_email); 
-            
-            // Set parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
             $param_email = $email;
-            
-            // Attempt to execute the prepared statement
+
             if (mysqli_stmt_execute($stmt)) {
-                // Store result
                 mysqli_stmt_store_result($stmt);
-                
-                // Check if email exists, if yes then verify password
+
                 if (mysqli_stmt_num_rows($stmt) == 1) {
-                    // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $email, $hashed_password, $typeOfUser);
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $typeOfUser);
+
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
-                            // Password is correct, so start a new session
-                            $sql2 = "SELECT useraccount.username, useraccount.password, clients.name, clients.surname, clients.city, clients.email, clients.area, clients.phone FROM useraccount JOIN clients ON useraccount.id = clients.id WHERE useraccount.username = ?";
-                            // Store data in session variables
-                            $stmt = mysqli_prepare($conn, $sql2);
-                        
-                        // Bind the input parameter and execute
-                                mysqli_stmt_bind_param($stmt, "s", $email);
-                                mysqli_stmt_execute($stmt);
-                                
-                                // Bind the result variables
-                                mysqli_stmt_bind_result($stmt, $db_email, $db_password, $name, $surname, $city, $email, $area, $phone);
-                                
-                                // Fetch the results
-                                if(mysqli_stmt_fetch($stmt)) {
-                            // Here, you would typically verify the password before proceeding
-                            if (password_verify($password, $db_password)) {
-                                // Set session variables upon successful login
-                                $_SESSION['username'] = $db_email;
-                                $_SESSION['name'] = $name;
-                                $_SESSION['surname'] = $surname;
-                                $_SESSION['city'] = $city;
-                                $_SESSION['email'] = $email;
-                                $_SESSION['area'] = $area;
-                                $_SESSION['phone'] = $phone;
-                                $_SESSION["loggedin"] = true;
-                                $_SESSION["id"] = $id;
-                            
-                                $_SESSION["typeOfUser"] = $typeOfUser; // Store the user type
-                                $_SESSION['logout_token'] = bin2hex(random_bytes(32));
-                            
-                            
-                            
-                            // Redirect user to welcome page
-                                header("location: ../html/index.php");
-                                exit;
-                            } else {
-                            // Password is not valid, display a generic error message
-                                $login_err = "Invalid email or password.";
+                            // Redirect based on type of user
+                            if ($typeOfUser == '3') { // Client
+                                $detailSql = "SELECT name, surname, city, email, area, phone FROM clients WHERE id = ?";
+                            } elseif ($typeOfUser == '2') { // Employee
+                                $detailSql = "SELECT name, surname, email, phone FROM employee WHERE id = ?";
+                            } elseif ($typeOfUser == '1') { // Admin
+                                $detailSql = "SELECT name, surname, email, phone FROM admin WHERE id = ?";
                             }
+
+                            if ($detailSql && $detailStmt = mysqli_prepare($conn, $detailSql)) {
+                                mysqli_stmt_bind_param($detailStmt, "i", $id);
+                                mysqli_stmt_execute($detailStmt);
+                                if($typeOfUser == '3') {
+                                    mysqli_stmt_bind_result($detailStmt, $name, $surname, $email, $phone, $city, $area);
+                                }
+                                if($typeOfUser == '2' || $typeOfUser == '1') {
+                                    mysqli_stmt_bind_result($detailStmt, $name, $surname, $email, $phone);
+                                }
+                                
+
+                                if (mysqli_stmt_fetch($detailStmt)) {
+                                    // Set session variables
+                                    $_SESSION['loggedin'] = true;
+                                    $_SESSION['id'] = $id;
+                                    $_SESSION['username'] = $username;
+                                    $_SESSION['name'] = $name;
+                                    $_SESSION['surname'] = $surname;
+                                    $_SESSION['email'] = $email;
+                                    $_SESSION['phone'] = $phone;
+                                    $_SESSION['typeOfUser'] = $typeOfUser;
+                                    $_SESSION['logout_token'] = bin2hex(random_bytes(32));
+
+                                    if ($typeOfUser == '3') { // Additional data for clients
+                                        $_SESSION['city'] = $city;
+                                        $_SESSION['area'] = $area;
+                                    }
+
+                                    mysqli_stmt_close($detailStmt);
+                                    header("location: ../html/index.php"); // Redirect to the home page
+                                    exit;
+                                }
+                            }
+                        } else {
+                            $login_err = "Invalid password.";
                         }
                     }
-                    else {
-                    // Email doesn't exist, display a generic error message
-                        $login_err = "Invalid email or password.";
-                    }
-                } 
-                else {
-                    echo "Oops! Something went wrong. Please try again later.";
+                } else {
+                    $login_err = "No account found with that username.";
                 }
-
-            // Close statement
-                mysqli_stmt_close($stmt);
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
             }
-        }
+
+            mysqli_stmt_close($stmt);
         }
     }
-    // Close connection
     mysqli_close($conn);
+}
+
+if (!empty($login_err)) {
+    echo $login_err;
 }
 ?>
 
@@ -161,9 +155,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="row align-items-center">
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
-                                <div class="logo">
-                                    <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
-                                </div>
+                            <div class="logo">
+                                <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -228,7 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
           
           <div class="signup_link">
-               Do you want to create an account ? <a href="../php/register.php">Signup</a>
+               Do you want to create an account ? <a href="../html/register.php">Signup</a>
           </div>
      </form>
         </div>

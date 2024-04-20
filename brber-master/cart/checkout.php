@@ -31,6 +31,7 @@ session_start();
 </head>
 
 <body>
+<div id="error-message" class="alert alert-danger" style="display: none; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 3;"></div>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="order.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Mobile Store</a>
@@ -153,6 +154,27 @@ session_start();
       });
     }
   });
+  
+  document.addEventListener('DOMContentLoaded', function() {
+      const datePicker = document.getElementById('date');
+      const errorMessage = document.getElementById('error-message');
+      
+      datePicker.addEventListener('change', function(e) {
+        const selectedDate = new Date(this.value);
+        const day = selectedDate.getDay();
+        // Sunday = 0, Thursday = 4
+        if (day === 0 || day === 4) {
+          errorMessage.style.display = 'block';
+          errorMessage.textContent = 'Sundays and Thursdays are not available for delivery. Please select another day.';
+          this.value = ''; // Clear the selected date
+          setTimeout(function() {
+        errorMessage.style.display = 'none';
+      }, 3000);
+        } else {
+          errorMessage.style.display = 'none'; // Hide the error message when the date is valid
+        }
+      });
+    });
   </script>
 </body>
 

@@ -26,7 +26,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
 
         $query1 = "insert into useraccount(username, password, typeOfUser)values ('$email', '$hash', '3')";
-
         $result1 = mysqli_query($conn, $query1);
 
         $last_user_id = mysqli_insert_id($conn);
@@ -35,6 +34,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         values ('$last_user_id','$name','$surname','$city','$email','$area','$phone')";
         $result = mysqli_query($conn, $query);
 
+
+        $logDate = date("Y-m-d");
+        $logAction = "New user created: " . $username; 
+
+        $query3 = "INSERT INTO `log` (`id`, `date`, `action`) VALUES ('$id', '$logDate', '$logAction')";
+        $result3 =mysqli_query($conn, $query3);
 
         header("Location: ../php/login.php?Success=Account created successfully");
         die();

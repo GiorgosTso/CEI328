@@ -73,7 +73,15 @@
         
   <!-- Navbar start -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar"> -->
+  
+  
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 10px; margin-right:20px;">
+  Show Orders
+</button>
+  
+<?php include 'showOrders.php'; ?>
+  
   <?php 
   // Check if the user is an admin
   if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true  && $_SESSION['typeOfUser'] == '1'){

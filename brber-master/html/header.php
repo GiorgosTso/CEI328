@@ -1,30 +1,23 @@
 <?php 
-     session_start();
+    ob_start(); 
+    session_start();
      
-     $protected_pages = [
+    $protected_pages = [
         'appointment.php', 
         'order.php', 
         'review.php',
+        'app.php',
         'contact.php'
     ];
     
     $current_page = basename($_SERVER['PHP_SELF']);
-    
+    $typeOfUser = isset($_SESSION['typeOfUser']) ? $_SESSION['typeOfUser'] : null; 
+
     if (in_array($current_page, $protected_pages) && (!isset($_SESSION["loggedin"]))) {
         // Redirect to the login page
         header("location: ../php/login.php");
         exit;
     }
-// Get the current page's path
-    
-    
-//     header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
-// header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-// header("Cache-Control: post-check=0, pre-check=0", false);
-// header("Pragma: no-cache");
-
-// Check if the user is logged in, else redirect to login page
-
 ?>
 
 
@@ -49,10 +42,14 @@
 	<link rel="stylesheet" href="../assets/css/style.css">
 	
 </head>
-<body>
-    
-</body>
-</html>
+    <style>
+        body {
+            overflow-y: hidden;
+            padding-right: 0px;
+        }
+    </style>
+
+
 
 
 <header>
@@ -64,7 +61,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
+                                <a href="../php/index.php"><img src="../assets/img/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">
@@ -73,13 +70,22 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li class=""><a href="../html/index.php">Home</a></li>
-                                            <li><a href="../html/about.php">About</a></li>
-                                            <li><a href="../html/services.php">Services</a></li>
-                                            <li><a href="../cart/order.php">Orders</a></li>
-                                            <li><a href="../html/appointment.php">Appointments</a></li>
-                                            <li><a href="../html/review.php">Review</a></li>
-                                            <li class = ""><a href="../html/contact.php">Contact</a></li>
+                                        <?php
+                                            if ($typeOfUser == 1 || $typeOfUser == 2) 
+                                            {
+                                                echo '<li><a href="../reports/chart_day.php"style="text-decoration: none;">
+                                                    Admin Module
+                                                </a></li>';
+                                            }
+                                            ?>
+
+                                            <li><a href="../html/index.php" style="text-decoration: none;">Home</a></li>
+                                            <li><a href="../html/Gallery.php" style="text-decoration: none;">Gallery</a></li>
+                                            <li><a href="../html/services.php" style="text-decoration: none;">Services</a></li>
+                                            <li><a href="../cart/order.php" style="text-decoration: none;">Orders</a></li>
+                                            <li><a href="../appointments/app.php" style="text-decoration: none;">Appointments</a></li>
+                                            <li><a href="../html/review.php" style="text-decoration: none;">Review</a></li>
+                                            <li class = ""><a href="../html/contact.php" style="text-decoration: none;">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -119,4 +125,7 @@
         </div>
         <!-- Header End -->
     </header>
-    
+
+    <?php
+    ob_end_flush(); 
+    ?>

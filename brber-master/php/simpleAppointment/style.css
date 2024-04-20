@@ -1,0 +1,124 @@
+.calendar-day {
+    height: 100px;
+    border: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text-muted {
+    color: #6c757d; /* Bootstrap muted text color */
+}
+   
+#slotsContainer {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
+ gap: 10px; /* Spacing between grid items */
+}
+
+.time-slot {
+ padding: 10px;
+ margin: 5px 0; /* Adjust margins for grid spacing */
+ background-color: #ccc;
+ cursor: pointer;
+ border-radius: 4px;
+ text-align: center; /* Center the text within each slot */
+}
+.booked {
+    cursor:not-allowed;
+}
+.booked, .selected {
+ background-color: #f88;
+ cursor: not-allowed;
+}
+
+#messageArea {
+ display: none;
+ padding: 10px;
+ margin-top: 20px;
+ border-radius: 5px;
+ color: white;
+ text-align: center;
+}
+
+.success {
+ background-color: #4CAF50; /* Green for success */
+}
+
+.error {
+ background-color: #f44336; /* Red for errors */
+}
+
+#modal {
+ display: none; /* Hidden by default */
+ justify-content: center;
+ align-items: center; /* Center the modal vertically in viewport */
+ position: fixed; /* Stay in place */
+ z-index: 1; /* Sit on top */
+ left: 0;
+ top: 0;
+ width: 100%; /* Full width */
+ height: 100%; /* Full height */
+ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ 
+}
+
+#modalContent {
+ background-color: #fefefe;
+ padding: 20px;
+ border: 1px solid #888;
+ width: 80%; /* Adjusted width to be more responsive */
+ max-width: 600px; /* Maximum width */
+ box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for 3D effect */
+ position: relative; /* To use for positioning close button and potentially other elements */
+ margin: 3% auto; /* Adjust margin to center it vertically better */
+ border-radius: 8px; /* Rounded corners for a smoother look */
+}
+
+.close {
+ position: absolute; /* Position it relative to the modalContent */
+ right: 10px; /* Distance from right edge */
+ top: 10px; /* Distance from top edge */
+ color: #aaa;
+ font-size: 28px;
+ font-weight: bold;
+ cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+ color: black;
+ text-decoration: none;
+}
+
+.time-slot {
+ width: auto; /* Auto width based on content */
+ display: inline-block; /* Allow multiple slots in a row */
+ text-align: center;
+ background-color: #ccc;
+ padding: 10px 15px; /* Slightly more padding */
+ margin: 5px; /* Consistent margin */
+ border-radius: 4px; /* Rounded corners */
+ cursor: pointer;
+ transition: background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+.time-slot:hover:not(.booked) {
+ background-color: #ddd; /* Lighter on hover for available slots */
+}
+
+.booked, .selected {
+ background-color: #f88;
+ /* cursor: not-allowed; */
+}
+
+.submit-btn {
+ display: block; /* Make the button wider */
+ width: 100%; /* Full width of the container */
+ margin-top: 20px;
+ padding: 12px 20px; /* Larger padding for a better touch target */
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+}

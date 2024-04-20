@@ -1,0 +1,298 @@
+.calendar-day {
+    height: 100px;
+    border: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text-muted {
+    color: #6c757d; /* Bootstrap muted text color */
+}
+   
+#slotsContainer {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
+ gap: 5px; /* Spacing between grid items */
+}
+
+.time-slot {
+ padding: 10px;
+ margin: 5px 0; /* Adjust margins for grid spacing */
+ background-color: #ccc;
+ cursor: pointer;
+ border-radius: 4px;
+ text-align: center; /* Center the text within each slot */
+}
+
+.booked, .selected {
+ background-color: #f88;
+ cursor: not-allowed;
+}
+
+#messageArea {
+ display: none;
+ padding: 10px;
+ margin-top: 20px;
+ border-radius: 5px;
+ color: white;
+ text-align: center;
+}
+
+.success {
+ background-color: #4CAF50; /* Green for success */
+}
+
+.error {
+ background-color: #f44336; /* Red for errors */
+}
+
+#modal {
+ display: none; /* Hidden by default */
+ justify-content: center;
+ align-items: center; /* Center the modal vertically in viewport */
+ position: fixed; /* Stay in place */
+ z-index: 1; /* Sit on top */
+ left: 0;
+ top: 0;
+ width: 100%; /* Full width */
+ height: 100%; /* Full height */
+ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ 
+}
+
+#modalContent {
+ background-color: #fefefe;
+ padding: 20px;
+ border: 1px solid #888;
+ width: 80%; /* Adjusted width to be more responsive */
+ max-width: 600px; /* Maximum width */
+ box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for 3D effect */
+ position: relative; /* To use for positioning close button and potentially other elements */
+ margin: 3% auto; /* Adjust margin to center it vertically better */
+ border-radius: 8px; /* Rounded corners for a smoother look */
+}
+
+.close {
+ position: absolute; /* Position it relative to the modalContent */
+ right: 10px; /* Distance from right edge */
+ top: 10px; /* Distance from top edge */
+ color: #aaa;
+ font-size: 28px;
+ font-weight: bold;
+ cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+ color: black;
+ text-decoration: none;
+}
+
+.time-slot {
+ width: auto; /* Auto width based on content */
+ display: inline-block; /* Allow multiple slots in a row */
+ text-align: center;
+ background-color: #ccc;
+ padding: 10px 15px; /* Slightly more padding */
+ margin: 5px; /* Consistent margin */
+ border-radius: 4px; /* Rounded corners */
+ cursor: pointer;
+ transition: background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+.time-slot:hover:not(.booked) {
+ background-color: #ddd; /* Lighter on hover for available slots */
+}
+
+.booked, .selected {
+ background-color: #f88;
+ /* cursor: not-allowed; */
+}
+
+.submit-btn {
+ display: block; /* Make the button wider */
+ width: 100%; /* Full width of the container */
+ margin-top: 20px;
+ padding: 12px 20px; /* Larger padding for a better touch target */
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+}
+.calendar-day {
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 2px;
+}
+.calendar-day:hover {
+    background-color: #eee;
+}
+#modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.4); 
+}
+#modalContent {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+        .selected 
+        {
+          background-color: green;
+          color: white;
+        }
+        .calendar 
+        {
+        text-align: center;
+        margin-top: 50px;
+        /* Hide overflow to remove scroll bar */
+        overflow: hidden;
+        }
+
+        h2, input, select, button 
+        {
+          margin-bottom: 2px;
+          font-size: 16px;
+          padding: 8px;
+        }
+
+        button 
+        {
+         background-color: #007bff;
+          color: white;
+         border: none;
+          cursor: pointer;
+          border-radius: 35px;
+       }
+       .all {
+        position:relative;
+        right: -600px;
+       }
+
+        button:hover 
+        {
+            background-color: #0056b3;
+        }
+        
+        /* ____________________________ */
+      
+        .calendar-day {
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            border: 1px solid #ccc;
+            
+        }
+        .calendar-day:hover {
+            background-color: #eee;
+        }
+        #modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.4);
+        }
+        #modalContent {
+            background-color: #fefefe;
+            margin-top:30px;
+            
+            border: 1px solid #888;
+            
+            
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        body { font-family: Arial, sans-serif; }
+  .calendar-controls {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .calendar-controls button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .calendar-controls button:hover {
+    background-color: #0056b3;
+  }
+  .month-year {
+    font-size: 24px;
+    padding: 10px;
+  }
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    padding: 10px;
+  }
+  .calendar-day-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .calendar-grid button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.calendar-day.unavailable {
+    color: #ccc;
+    background-color: #eee;
+    cursor: not-allowed;
+}
+.calendar-day.selected {
+    background-color: #007bff; /* Change the color to whatever you prefer */
+    color: white;
+}
+#slotsContainer {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr); /* Creates two columns of equal width */
+ gap: 5px; /* Spacing between grid items */
+}

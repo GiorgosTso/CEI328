@@ -63,7 +63,7 @@
                 </td>
               </tr>
               <tr>
-                <th>ID</th>
+                <th></th>
                 <th>Image</th>
                 <th>Product</th>
                 <th>Price</th>
@@ -84,10 +84,12 @@
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $grand_total = 0;
-                while ($row = $result->fetch_assoc()):
+                while ($row = $result->fetch_assoc())://pairnoume ta dedomena kai ta tiponoume
+                $_SESSION['product_id'] = $row['id'];
               ?>
               <tr>
-                <td><?= $row['id'] ?></td>
+                <td></td>
+                    
                     <input type="hidden" class="pid" value="<?= $row['id'] ?>">
                 <td>
                     <img src="<?= $row['product_image'] ?>" width="50"></td>

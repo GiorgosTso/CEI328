@@ -1,147 +1,168 @@
+/* Style for the success message container */
+.stars{
+    color: rgb(225, 225, 142);
+    font-size:24px;
+}
 
-     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f2f2f2;
-    }
 
-     .container1 {
-        max-width: 1100px;
-        margin: 160px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
+.success-message{
+    display: none;
+    color: green;
+    font-size: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999; /* Ensure the message appears above other content */
+}
+
+
+    .review-form 
+    {
+        max-width: 1000px;
+        margin: 40px auto 20px;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .review-form h2 
+    {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .review-form form 
+    {
         display: flex;
-        flex-wrap: wrap;
-    } 
-
-    .container1 .review-form {
-        flex: 0 0 50%;
-        margin-bottom: 50px;
-        padding-right: 20px;
+        flex-direction: column;
     }
-
-    .container1 .review-form h2 {
-        margin-bottom: 20px;
-        color: #333;
+    
+    .review-form .form-group 
+    {
+        margin-bottom: 15px;
     }
-
-    .container1 .form-group {
-        margin-bottom: 20px;
-    }
-
-    .container1 .form-group label {
+    
+    .review-form label 
+    {
         font-weight: bold;
-        display: block;
-        margin-bottom: 10px;
     }
-
-    .container1 .form-group input[type="text"],
-    .container1 .form-group select,
-    .container1 .form-group textarea,
-    .container1 .form-group input[type="file"] {
-        width: calc(100% - 20px);
+    
+    .review-form input[type="text"],
+    .review-form select,
+    .review-form textarea 
+    {
+        width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         box-sizing: border-box;
+    }
+    
+    .review-form textarea 
+    {
+        height: 100px;
+    }
+
+    .rating-options  
+    {
+        margin-top: 10px;
+    }
+
+    .rating-options label 
+    {
+        display: block;
+    }
+
+    
+    .review-form button[type="submit"] 
+    {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        cursor: pointer;
         font-size: 16px;
     }
     
-
-    .container1 .form-group textarea {
-        height: 120px;
+    .review-form button[type="submit"]:hover 
+    {
+        background-color: #45a049;
     }
-
-    .container1 .form-group button {
-        padding: 12px 24px;
-        background-color: #007bff;
-        border: none;
-        border-radius: 5px;
-        color: #fff;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
-    }
-
-    .container1 .form-group button:hover {
-        background-color: #0056b3;
-    }
-
-    .container1 .reviews {
-        flex: 0 0 50%;
-        margin-top: 30px;
-        padding-left: 20px;
-    }
-
-    .container1 .review {
+    
+    /*  for the container displaying reviews */
+    .reviews {
+        max-width: 1000px;
+        margin: 30px auto;
         padding: 20px;
         background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto; /* Add scrollbar for overflow */
+        max-height: 300px; /* Set max height for scrollbar */
+    }
+    
+    .reviews h2 {
+        text-align: center;
         margin-bottom: 20px;
     }
-
-    .container1 .review h3 {
-        margin-top: 10px;
-        color: #333;
+    
+    .review {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .review p {
+        margin: 0;
     }
 
-    .container1 .review p {
-        color: #666;
-        margin-bottom: 5px;
-    }
+    .modal{
+display: none;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,0.4);
+}
 
-    .container1 .stars {
-        color: #ffcc00;
-        font-size: 24px;
-    }
+.modal-content {
+background-color: #fefefe;
+margin: 15% auto;
+padding: 30px;
+border: none;
+width: 60%;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+text-align: center;
+color: green; 
+font-size: 18px;
+}
 
-    .container1 .stars span {
-        cursor: pointer;
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-        position: relative;
-    }
+.modal-content p {
+color: green; 
+font-size: 18px;
+}
 
-    .container1 .stars span:before {
-        content: '\2605';
-        position: absolute;
-        font-size: inherit;
-        transition: color 0.3s;
-    }
 
-    .container1 .stars span:hover:before,
-    .container1 .stars input[type="radio"]:checked ~ label:before {
-        color: #ffcc00;
-    }
+.close  {
+color: #aaa;
+float: right;
+font-size: 20px;
+font-weight: bold;
+cursor: pointer;
+}
 
-    .container1 .stars input[type="radio"] {
-        display: none;
-    }
-
-    .container1 .stars label {
-        display: none;
-    }
-
-    .container1 .stars input[type="radio"]:checked ~ label {
-        display: block;
-    }
-
-    .container1 .stars input[type="radio"]:checked ~ label:before {
-        content: '\2605';
-        color: #ffcc00;
-    }
-
-    .container1 .form-group input[type="file"] {
-        cursor: pointer;
-    }
-
-    .container1 .form-group .file-input-label {
-        display: block;
-        margin-top: 5px;
-    }
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+}

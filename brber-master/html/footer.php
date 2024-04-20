@@ -6,7 +6,7 @@
                             <div class="single-footer-caption mb-50">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
+                                    <a href="../html/index.php" style="text-decoration: none;"><img src="../assets/img/logo.png" alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
@@ -56,13 +56,13 @@
                                             <div class="single-footer-caption mb-50">
                                                 <div class="footer-tittle">
                                                     <ul>
-                                                        <li><a href="#">Monday 9:00 am- 7:00 pm</a></li>
-                                                        <li><a href="#">Tuesday 9:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Wednesday 9:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Thursday Closed</a></li>
-                                                        <li><a href="#">Friday 9:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Suturday 8:00 am - 7:00 pm</a></li>
-                                                        <li><a href="#">Sunday closed</a></li>
+                                                        <li><a href="#" style="text-decoration: none;">Monday 9:00 am- 7:00 pm</a></li>
+                                                        <li><a href="#" style="text-decoration: none;">Tuesday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#" style="text-decoration: none;">Wednesday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#" style="text-decoration: none;">Thursday Closed</a></li>
+                                                        <li><a href="#" style="text-decoration: none;">Friday 9:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#" style="text-decoration: none;">Suturday 8:00 am - 7:00 pm</a></li>
+                                                        <li><a href="#" style="text-decoration: none;">Sunday closed</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -98,10 +98,10 @@
                         <div class="col-xl-3 col-lg-4">
                             <!-- Footer Social -->
                             <div class="footer-social f-right">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fas fa-globe"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#" style="text-decoration: none;"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.facebook.com/sai4ull" style="text-decoration: none;"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" style="text-decoration: none;"><i class="fas fa-globe"></i></a>
+                                <a href="#" style="text-decoration: none;"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
