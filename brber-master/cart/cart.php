@@ -12,7 +12,7 @@
   <meta name="author" content="Sahil Kumar">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Products</title>
+  <title>Cart</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css' />
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css' />
 </head>
@@ -20,7 +20,7 @@
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="index.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Barber Store</a>
+    <a class="navbar-brand" href="order.php">Barber Store</a>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
+          <a class="nav-link active" href="order.php">Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -63,7 +63,7 @@
                 </td>
               </tr>
               <tr>
-                <th>ID</th>
+                <th></th>
                 <th>Image</th>
                 <th>Product</th>
                 <th>Price</th>
@@ -79,16 +79,17 @@
                 require '../php/config.php';
                 
                 $id = $_SESSION["id"]; 
-                echo " tooooo id" . $id;
                 
                 $stmt = $conn->prepare("SELECT * FROM cart where ClientID = '$id'");
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $grand_total = 0;
-                while ($row = $result->fetch_assoc()):
+                while ($row = $result->fetch_assoc())://pairnoume ta dedomena kai ta tiponoume
+                $_SESSION['product_id'] = $row['id'];
               ?>
               <tr>
-                <td><?= $row['id'] ?></td>
+                <td></td>
+                    
                     <input type="hidden" class="pid" value="<?= $row['id'] ?>">
                 <td>
                     <img src="<?= $row['product_image'] ?>" width="50"></td>
@@ -97,9 +98,9 @@
                 <td>
                   <i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2); ?>
                 </td>
-                <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
+                <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>" >
                 <td>
-                  <input type="number" class="form-control itemQty" value="<?= $row['qty'] ?>" style="width:75px;">
+                  <?= $row['qty']?>
                 </td>
                 <td><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['total_price'],2); ?></td>
                 <td>
@@ -110,7 +111,7 @@
               <?php endwhile; ?>
               <tr>
                 <td colspan="3">
-                  <a href="index.php" class="btn btn-success"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Continue
+                  <a href="order.php" class="btn btn-success"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Continue
                     Shopping</a>
                 </td>
                 <td colspan="2"><b>Grand Total</b></td>

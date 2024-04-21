@@ -1,8 +1,50 @@
-<?php 
-	
-	 
-	 include "../php/config.php";
-	 
+<?php
+$name_err = $quantity_err = $price_err = ""; 
+$p = '';
+// Include the database connection
+include "../php/config.php";  
+
+// Fetch cart items that have been in the cart for more than one hour
+$currentTime = time();
+$oneHourAgo = $currentTime - 3600;  // Current time minus one hour (3600 seconds)
+$oneHourAgoDateTime = date('Y-m-d H:i:s', $oneHourAgo);
+
+$stmt = $conn->prepare("SELECT * FROM cart WHERE timer <= ?");
+$stmt->bind_param('s', $oneHourAgoDateTime);
+$stmt->execute();
+$expiredCartItems = $stmt->get_result();
+
+while ($cartItem = $expiredCartItems->fetch_assoc()) {
+    $product_name = $cartItem['product_name'];
+    $pid = $cartItem['id'];
+    $p = $pid;//en polo xreiazetai
+    $qtyInCart = $cartItem['qty'];
+
+    // Retrieve current stock quantity from the product table
+    $stmt = $conn->prepare("SELECT product_qty FROM product WHERE product_name = ?");
+    $stmt->bind_param('s', $product_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($product = $result->fetch_assoc()) {
+        $currentStockQty = $product['product_qty'];
+        $newStockQty = $currentStockQty + $qtyInCart;
+
+        // Update product stock quantity
+        $stmtUpdate = $conn->prepare("UPDATE product SET product_qty = ? WHERE product_name = ?");
+        $stmtUpdate->bind_param('is', $newStockQty, $product_name);
+        $stmtUpdate->execute();
+    }
+
+    // Delete the expired cart item
+    $stmtDelete = $conn->prepare("DELETE FROM cart WHERE id = ?");
+    $stmtDelete->bind_param('i', $cartItem['id']);
+    $stmtDelete->execute();
+}
+
+// Checking if any errors occurred during database operations
+if ($conn->error) {
+    die("Database error: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +55,7 @@
   <meta name="author" content="Sahil Kumar">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Shopping Cart</title>
+  <title>Shopping Cart System</title>
   
 
    <!-- CSS here -->
@@ -73,7 +115,93 @@
         
   <!-- Navbar start -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar"> -->
+  <?php
+  echo "alo " . $p;
+    // $stmt = $conn->prepare("SELECT product_qty FROM product WHERE id = ?");
+		// $stmt->bind_param('i', $pid);
+		// $stmt->execute();
+		// $result = $stmt->get_result();
+		// if ($row = $result->fetch_assoc()) {
+		// 	$current_stock_qty = $row['product_qty'];
+			
+		// 	$currentTime = time();
+		// 	$addedTime = $currentTime + 90;  // Current time plus 90 seconds
+		// 	$addedDateTime = date('Y-m-d H:i:s', $addedTime);
+
+
+    // // Fetch product quantity from 'product' table
+    // $stmt2 = $conn->prepare("SELECT product_qty FROM product WHERE product_name = ?");//thelo na vro to qty 
+    // $stmt2->bind_param('s', $name);
+    // $stmt2->execute();
+    // $result2 = $stmt2->get_result();
+    // $row1 = $result2->fetch_assoc();
+    // $current_stock_qty = $row1['product_qty'] ?? 0;
+
+    // // Fetch cart items that need to be updated or removed
+    // $stmt = $conn->prepare("SELECT * FROM cart WHERE timer <= ?");//filtraro gia na vro poia tha prepei na figoun
+    // $stmt->bind_param('s', $addedDateTime);
+    // $stmt->execute();
+    // $result = $stmt->get_result();
+
+    // if ($result->num_rows > 0) {
+    //     while ($row = $result->fetch_assoc()) {
+    //         $updatedQty = $row['qty'] + $current_stock_qty;
+    //         $stmtUpdate = $conn->prepare("UPDATE product SET product_price = ?, product_qty = ? WHERE product_name = ?");//ta stelno ston product
+    //         $stmtUpdate->bind_param("dis", $row['product_price'], $updatedQty, $row['product_name']);
+    //         $stmtUpdate->execute();
+
+    //         $stmtDelete = $conn->prepare("DELETE FROM cart WHERE id = ?");//ta diagrafo ekei pou einai 
+    //         $stmtDelete->bind_param('i', $row['id']);
+    //         $stmtDelete->execute();
+    //     }
+    // }
+
+    // // Display remaining cart items
+    // $stmt1 = $conn->prepare("SELECT * FROM cart WHERE timer >= ?");
+    // $stmt1->bind_param('s', $addedDateTime);
+    // $stmt1->execute();
+    // $result1 = $stmt1->get_result();
+    // if ($result1->num_rows > 0) {
+    //     echo '<h2 class="mt-5">Products List</h2>
+    //           <table class="table table-bordered">
+    //             <thead>
+    //                 <tr>
+    //                     <th>ID</th>
+    //                     <th>Name</th>
+    //                     <th>Price</th>
+    //                     <th>Quantity</th>
+    //                     <th>Timer</th>
+                        
+    //                 </tr>
+    //             </thead>
+    //             <tbody>';
+    //     while ($row = $result1->fetch_assoc()) {
+    //         echo "<tr>
+    //                 <td>{$row['id']}</td>
+    //                 <td>{$row['product_name']}</td>
+    //                 <td>{$row['product_price']}</td>
+    //                 <td>{$row['qty']}</td>
+    //                 <td>" . ($row['timer'] ? $row['timer'] : 'N/A') . "</td>
+                     
+    //               </tr>";
+    //     }
+    //     echo '</tbody>
+    //           </table>';
+    // } else {
+    //     echo "No products found that are expiring after {$addedDateTime}.";
+    // }
+
+		// }
+  
+  ?>
+  
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 10px; margin-right:20px;">
+  Show Orders
+</button>
+  
+<?php include 'showOrders.php'; ?>
+  
   <?php 
   // Check if the user is an admin
   if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true  && $_SESSION['typeOfUser'] == '1'){
@@ -93,7 +221,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
+          <a class="nav-link" href="order.php">Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -120,39 +248,60 @@
         <div class="card-deck"><!-- kamnei diplay tis times mesa sto index gia ta products -->
           <div class="card p-2 border-secondary mb-2">
             <img src="<?= $row['product_image'] ?>" class="card-img-top" height="250">
+            <form action= <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> class="form-submit" method="post">
             <div class="card-body p-1">
               <h3 class="card-title text-center text-info"><?= $row['product_name'] ?></h3>
-              <h4 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?>/-</h4>
+              <h4 class="card-text text-center text-danger"><i class="fas fa-euro-sign"></i>&nbsp;&nbsp;<?= number_format($row['product_price'],2) ?></h4>
 
               <div class="row p-2">
                   <div class="col-md-6 py-1 pl-4">
                     <b>Quantity : </b>
                   </div>
                   <div class="col-md-6">
-                    <input type="number" class="form-control pqty" value="1">
-                  </div>
+                  <input type="number" name="qty" class="form-control pqty" value="1" min="1" max="<?= $row['product_qty'] ?>" onchange="updateHiddenInput(this.value)">
+                    </div>
                 </div>
             </div>
             <div class="card-footer p-1">
-              <form action="" class="form-submit">
+              
                 <div class="row p-2 ">
                 <span class="invalid-feedback">
                   <div class="col-md-6 py-1 pl-4">
                     
                   </div>
-                  <div class="col-md-6">
-                    <input type="number" class="form-control pqty" value="<?= $row['product_qty'] ?>">
-                  </div>
+                    <div class="col-md-6">
+                      <input type="number" name="qty" class="form-control pqty" value = "1"  min="1" max="<?= $row['product_qty'] ?>" onchange="updateHiddenInput(this.value)">
+                    </div>
                 </div>
                 <!-- pairnei ta dedomena kai ta vazei mesa  -->
                 <input type="hidden" class="pid" value="<?= $row['id'] ?>">
-                <input type="hidden" class="pname" value="<?= $row['product_name'] ?>">
-                <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
-                <input type="hidden" class="pqty" value="<?= $row['product_qty'] ?>">
-                <input type="hidden" class="pimage" value="<?= $row['product_image'] ?>">
-                <input type="hidden" class="ClientID" value="<?php $_SESSION['id']?>">
-                <button class="btn btn-info btn-block addItemBtn"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Add to
-                  cart</button>
+                  <input type="hidden" class="pname" value="<?= $row['product_name'] ?>">
+                  <input type="hidden" class="pprice" value="<?= $row['product_price'] ?>">
+                  <input type="hidden" id="hiddenQuantity" class="pqty" name="hiddenQuantity">
+                  <input type="hidden" class="sqty" value="<?= $row['product_qty'] ?>">
+                  <input type="hidden" class="pimage" value="<?= $row['product_image'] ?>">
+                  <input type="hidden" class="ClientID" value="<?php $_SESSION['id']?>">
+                  <button class="btn btn-info btn-block addItemBtn"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Add to
+                    cart</button>
+                
+                  <script>
+                      function updateHiddenInput(value) {
+                      document.getElementById('hiddenQuantity').value = value;
+                      console.log(value);
+                      }
+                    </script> 
+                    <?php
+                   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    // Assuming your form has an input field for quantity with the name 'product_qty'
+                    $quantity = isset($_POST['qty']) ? intval($_POST['qty']) : 0; // Default to 0 if not set
+                    $_SESSION['quantity'] = $quantity; // Store the quantity in a session variable
+                    
+                
+                    
+                    exit;
+                }
+                  
+                  ?>
               </form>
             </div>
           </div>
@@ -178,6 +327,7 @@
       var pprice = $form.find(".pprice").val();
       var pimage = $form.find(".pimage").val();
 
+      var sqty = $form.find(".sqty").val();
       var pqty = $form.find(".pqty").val();
       
 
@@ -189,7 +339,8 @@
           pname: pname,
           pprice: pprice,
           pqty: pqty,
-          pimage: pimage,          
+          pimage: pimage,   
+          sqty:sqty,
           
           
         },
@@ -263,4 +414,4 @@
     
 </body>
 
-</html>
+</html> 

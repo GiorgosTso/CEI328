@@ -34,7 +34,7 @@ session_start();
 <div id="error-message" class="alert alert-danger" style="display: none; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 3;"></div>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="order.php"><i class="fas fa-mobile-alt"></i>&nbsp;&nbsp;Mobile Store</a>
+    <a class="navbar-brand" href="order.php">Barber Store</a>
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -43,7 +43,7 @@ session_start();
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="order.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
+          <a class="nav-link" href="order.php">Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -167,6 +167,9 @@ session_start();
           errorMessage.style.display = 'block';
           errorMessage.textContent = 'Sundays and Thursdays are not available for delivery. Please select another day.';
           this.value = ''; // Clear the selected date
+          setTimeout(function() {
+        errorMessage.style.display = 'none';
+      }, 3000);
         } else {
           errorMessage.style.display = 'none'; // Hide the error message when the date is valid
         }
