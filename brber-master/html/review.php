@@ -67,7 +67,7 @@
     <!-- Preloader Start -->
 
     <header>
-        <?php include "header.php";
+        <?php 
         $nameUser = $_SESSION['name']; 
         $surnameUser = $_SESSION['surname'];
     ?>
@@ -147,12 +147,12 @@
             success: function(response) {
                 // Show success message
                 $('.success-message').show().text("Your review has been submitted successfully!");
-                // Optionally, you can do other actions like resetting the form, etc.
+                
 
                 // Reload the page after 2 seconds
                 setTimeout(function() {
                     location.reload();
-                }, 5000);
+                }, 4000);
             },
             error: function(xhr, status, error) {
                 // Show error message if there's an issue with the AJAX request
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Remove success message after 5 seconds
                         setTimeout(function() {
                             successMessage.remove();
-                        }, 5000);
+                        }, 4000);
                     } else {
                         // Handle error: Display error message to the user
                         alert( xhr.responseText);

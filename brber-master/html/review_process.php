@@ -1,4 +1,5 @@
 <?php
+// Database configuration for XAMPP (default settings)
 include "../php/config.php";
 // $numStars = 5;
 $successMessage = "";
@@ -11,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $content = $_POST['comment'];
    
     $isHidden = 0;
-
+   
     
     // Upload photo
     if (isset($_FILES['photo']['name']) && $_FILES['photo']['name'] != "") {
@@ -54,13 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+
+    $currentDate = date('Y-m-d');
     // Prepare and bind SQL statement
     $stmt = $conn->prepare("INSERT INTO reviews (name, picture, content, numStars, date, isHidden) VALUES (?, ?, ?, ?, ?, ?)");
         if ($stmt === false) {
             die('MySQL prepare error: ' . $conn->error);
         }
 
-        $stmt->bind_param("sssisi", $name, $picture, $content, $numStars, $date, $isHidden);
+        $stmt->bind_param("sssisi", $name, $picture, $content, $numStars, $currentDate, $isHidden);
         if ($stmt->execute()) {
             header("Location: review.php?success=1"); // Use a GET parameter for success message
             exit();
