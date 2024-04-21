@@ -1,8 +1,50 @@
-<?php 
-	
-  $name_err = $quantity_err = $price_err = "";
-	 include "../php/config.php";
-	 
+<?php
+$name_err = $quantity_err = $price_err = ""; 
+$p = '';
+// Include the database connection
+include "../php/config.php";  
+
+// Fetch cart items that have been in the cart for more than one hour
+$currentTime = time();
+$oneHourAgo = $currentTime - 3600;  // Current time minus one hour (3600 seconds)
+$oneHourAgoDateTime = date('Y-m-d H:i:s', $oneHourAgo);
+
+$stmt = $conn->prepare("SELECT * FROM cart WHERE timer <= ?");
+$stmt->bind_param('s', $oneHourAgoDateTime);
+$stmt->execute();
+$expiredCartItems = $stmt->get_result();
+
+while ($cartItem = $expiredCartItems->fetch_assoc()) {
+    $product_name = $cartItem['product_name'];
+    $pid = $cartItem['id'];
+    $p = $pid;//en polo xreiazetai
+    $qtyInCart = $cartItem['qty'];
+
+    // Retrieve current stock quantity from the product table
+    $stmt = $conn->prepare("SELECT product_qty FROM product WHERE product_name = ?");
+    $stmt->bind_param('s', $product_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($product = $result->fetch_assoc()) {
+        $currentStockQty = $product['product_qty'];
+        $newStockQty = $currentStockQty + $qtyInCart;
+
+        // Update product stock quantity
+        $stmtUpdate = $conn->prepare("UPDATE product SET product_qty = ? WHERE product_name = ?");
+        $stmtUpdate->bind_param('is', $newStockQty, $product_name);
+        $stmtUpdate->execute();
+    }
+
+    // Delete the expired cart item
+    $stmtDelete = $conn->prepare("DELETE FROM cart WHERE id = ?");
+    $stmtDelete->bind_param('i', $cartItem['id']);
+    $stmtDelete->execute();
+}
+
+// Checking if any errors occurred during database operations
+if ($conn->error) {
+    die("Database error: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +116,85 @@
   <!-- Navbar start -->
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <!-- <div class="collapse navbar-collapse" id="collapsibleNavbar"> -->
+  <?php
+  echo "alo " . $p;
+    // $stmt = $conn->prepare("SELECT product_qty FROM product WHERE id = ?");
+		// $stmt->bind_param('i', $pid);
+		// $stmt->execute();
+		// $result = $stmt->get_result();
+		// if ($row = $result->fetch_assoc()) {
+		// 	$current_stock_qty = $row['product_qty'];
+			
+		// 	$currentTime = time();
+		// 	$addedTime = $currentTime + 90;  // Current time plus 90 seconds
+		// 	$addedDateTime = date('Y-m-d H:i:s', $addedTime);
+
+
+    // // Fetch product quantity from 'product' table
+    // $stmt2 = $conn->prepare("SELECT product_qty FROM product WHERE product_name = ?");//thelo na vro to qty 
+    // $stmt2->bind_param('s', $name);
+    // $stmt2->execute();
+    // $result2 = $stmt2->get_result();
+    // $row1 = $result2->fetch_assoc();
+    // $current_stock_qty = $row1['product_qty'] ?? 0;
+
+    // // Fetch cart items that need to be updated or removed
+    // $stmt = $conn->prepare("SELECT * FROM cart WHERE timer <= ?");//filtraro gia na vro poia tha prepei na figoun
+    // $stmt->bind_param('s', $addedDateTime);
+    // $stmt->execute();
+    // $result = $stmt->get_result();
+
+    // if ($result->num_rows > 0) {
+    //     while ($row = $result->fetch_assoc()) {
+    //         $updatedQty = $row['qty'] + $current_stock_qty;
+    //         $stmtUpdate = $conn->prepare("UPDATE product SET product_price = ?, product_qty = ? WHERE product_name = ?");//ta stelno ston product
+    //         $stmtUpdate->bind_param("dis", $row['product_price'], $updatedQty, $row['product_name']);
+    //         $stmtUpdate->execute();
+
+    //         $stmtDelete = $conn->prepare("DELETE FROM cart WHERE id = ?");//ta diagrafo ekei pou einai 
+    //         $stmtDelete->bind_param('i', $row['id']);
+    //         $stmtDelete->execute();
+    //     }
+    // }
+
+    // // Display remaining cart items
+    // $stmt1 = $conn->prepare("SELECT * FROM cart WHERE timer >= ?");
+    // $stmt1->bind_param('s', $addedDateTime);
+    // $stmt1->execute();
+    // $result1 = $stmt1->get_result();
+    // if ($result1->num_rows > 0) {
+    //     echo '<h2 class="mt-5">Products List</h2>
+    //           <table class="table table-bordered">
+    //             <thead>
+    //                 <tr>
+    //                     <th>ID</th>
+    //                     <th>Name</th>
+    //                     <th>Price</th>
+    //                     <th>Quantity</th>
+    //                     <th>Timer</th>
+                        
+    //                 </tr>
+    //             </thead>
+    //             <tbody>';
+    //     while ($row = $result1->fetch_assoc()) {
+    //         echo "<tr>
+    //                 <td>{$row['id']}</td>
+    //                 <td>{$row['product_name']}</td>
+    //                 <td>{$row['product_price']}</td>
+    //                 <td>{$row['qty']}</td>
+    //                 <td>" . ($row['timer'] ? $row['timer'] : 'N/A') . "</td>
+                     
+    //               </tr>";
+    //     }
+    //     echo '</tbody>
+    //           </table>';
+    // } else {
+    //     echo "No products found that are expiring after {$addedDateTime}.";
+    // }
+
+		// }
   
+  ?>
   
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-left: 10px; margin-right:20px;">
   Show Orders
@@ -101,7 +221,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="order.php"><i class="fas fa-mobile-alt mr-2"></i>Products</a>
+          <a class="nav-link" href="order.php">Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="checkout.php"><i class="fas fa-money-check-alt mr-2"></i>Checkout</a>
@@ -294,4 +414,4 @@
     
 </body>
 
-</html>
+</html> 

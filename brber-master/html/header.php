@@ -61,7 +61,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="../php/index.php"><img src="../assets/img/logo.png" alt=""></a>
+                                <a href="../html/index.php"><img src="../assets/img/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">
@@ -71,7 +71,7 @@
                                     <nav>
                                         <ul id="navigation">
                                         <?php
-                                            if ($typeOfUser == 1 || $typeOfUser == 2) 
+                                            if ($typeOfUser == 1 ) 
                                             {
                                                 echo '<li><a href="../reports/chart_day.php"style="text-decoration: none;">
                                                     Admin Module
