@@ -41,8 +41,28 @@
       </div>
     </div>
     <!-- Preloader Start -->
-    <?php include "header.php"; ?>
+    <?php include "header.php";
+    $db = new PDO('sqlite:southside.db'); 
+    echo "Database connected successfully"; // Did this line execute?
+    ?>
+    <div class="gallery">
+        <?php 
+        //Fetch image paths from the database
+        
+        // $stmt = $db->prepare("SELECT image_id, image_path, caption FROM gallery");
+        // echo "Query prepared";  // Did this line execute?
+        // $stmt->execute();
+        // $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach ($images as $image) {
+        echo '<div class="gallery-item">';
+        echo '<img src="uploads/' . htmlspecialchars($image['image_path']) . '" alt="Gallery Image">';
+        if ($image['caption']) {
+            echo '<p class="image-caption">' . htmlspecialchars($image['caption']) . '</p>';
+        }
+        echo '</div>';}
+        ?>
+    </div>
     <main>
       <!--? Hero Start -->
       <div class="slider-area2">
@@ -63,6 +83,9 @@
       <!--? Gallery Area Start -->
       <div class="gallery-area section-padding30">
             <div class="container">
+            <!-- <div class="row justify-content-left">
+                        <input type="submit" class="btn btn-primary" value="Change Pictures" style="margin-top: 40px; width: 280px;">
+                    </div> -->
                 <!-- Section Tittle -->
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-7 col-md-9 col-sm-10">
