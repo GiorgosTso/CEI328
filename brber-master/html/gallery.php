@@ -83,9 +83,6 @@
       <!--? Gallery Area Start -->
       <div class="gallery-area section-padding30">
             <div class="container">
-            <!-- <div class="row justify-content-left">
-                        <input type="submit" class="btn btn-primary" value="Change Pictures" style="margin-top: 40px; width: 280px;">
-                    </div> -->
                 <!-- Section Tittle -->
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-lg-7 col-md-9 col-sm-10">
@@ -95,7 +92,7 @@
                             <?php 
                         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true  && $_SESSION['typeOfUser'] == '1'){
                         // Display the button for admin
-                        echo'<a href="upload_image.php"> <button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal" style="margin-top: 80px;">
+                        echo'<a href="admin_upload.php"> <button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal" style="margin-top: 80px;">
                         Add image
                         </button>
                         </a>';} 
