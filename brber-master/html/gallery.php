@@ -41,8 +41,28 @@
       </div>
     </div>
     <!-- Preloader Start -->
-    <?php include "header.php"; ?>
+    <?php include "header.php";
+        include "../php/config.php";
+    ?>
+    <div class="gallery">
+        <?php 
+        //Fetch image paths from the database
+        
+        // $db = new PDO('sqlite:southside_db');
+        // $stmt = $db->prepare("SELECT image_id, image_path, caption FROM gallery");
+        // $stmt->execute();
+        // $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach ($images as $image) {
+            echo '<div class="gallery-item">';
+            echo '<img src="' . htmlspecialchars($image['image_path']) . '" alt="Gallery Image">';
+            if ($image['caption']) {
+                echo '<p class="image-caption">' . htmlspecialchars($image['caption']) . '</p>';
+            }
+            echo '</div>';
+        }
+        ?>
+    </div>
     <main>
       <!--? Hero Start -->
       <div class="slider-area2">
@@ -69,6 +89,14 @@
                         <div class="section-tittle text-center mb-100">
                             <span>our image gallery</span>
                             <h2>some images from our barber shop</h2>
+                            <?php 
+                        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true  && $_SESSION['typeOfUser'] == '1'){
+                        // Display the button for admin
+                        echo'<a href="admin_upload.php"> <button type="button" class="btn btn-info btn-round" data-toggle="modal" data-target="#loginModal" style="margin-top: 80px;">
+                        Add image
+                        </button>
+                        </a>';} 
+                        ?>
                         </div>
                     </div>
                 </div>
